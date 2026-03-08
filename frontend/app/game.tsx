@@ -795,15 +795,15 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   diagramQuestionContainer: {
+    flex: 1,
     width: '100%',
     alignItems: 'center',
-    marginBottom: 12,
-    paddingBottom: 0,
+    justifyContent: 'center',
   },
   diagramQuestionText: {
     fontSize: 18,
     fontWeight: '700',
-    marginBottom: 8,
+    marginTop: 16,
     textAlign: 'center',
   },
 });
