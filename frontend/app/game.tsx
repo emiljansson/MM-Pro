@@ -690,6 +690,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
+    borderWidth: 2,
+    borderColor: 'blue',
   },
   questionAreaCompact: {
     paddingHorizontal: 12,
@@ -703,6 +705,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'green',
   },
   questionCardCompact: {
     paddingVertical: 12,
