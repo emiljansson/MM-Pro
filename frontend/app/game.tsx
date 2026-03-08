@@ -14,7 +14,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
-import { NumericKeyboard } from '../src/components';
+import { NumericKeyboard, FractionExpression, containsFraction } from '../src/components';
 import * as Haptics from 'expo-haptics';
 
 export default function GameScreen() {
@@ -206,17 +206,46 @@ export default function GameScreen() {
               isVerySmallScreen && styles.questionCardVeryCompact,
               isLargeScreen && { paddingVertical: 32, paddingHorizontal: 28, borderRadius: 24 }
             ]}>
-              <Text style={[
-                styles.questionText, 
-                { color: theme.text, textAlign: 'center' },
-                isSmallScreen && styles.questionTextCompact,
-                isVerySmallScreen && styles.questionTextVeryCompact,
-                isLargeScreen && { fontSize: 52, marginBottom: 24 }
-              ]}>
-                {currentQuestion.display 
-                  ? currentQuestion.display.replace('= ?', '=').replace(' ?', '') 
-                  : '?'}
-            </Text>
+              {/* Check if question contains fractions and render appropriately */}
+              {currentQuestion.display && containsFraction(currentQuestion.display) ? (
+                <View style={styles.fractionQuestionContainer}>
+                  {/* Extract prefix text (like "Simplify:" or "Förenkla:") */}
+                  {currentQuestion.display.includes(':') && (
+                    <Text style={[
+                      styles.fractionPrefixText,
+                      { color: theme.textSecondary },
+                      isSmallScreen && { fontSize: 14 }
+                    ]}>
+                      {currentQuestion.display.split(':')[0]}:
+                    </Text>
+                  )}
+                  <FractionExpression
+                    expression={currentQuestion.display.includes(':') 
+                      ? currentQuestion.display.split(':')[1].replace('= ?', '').replace('?', '').trim()
+                      : currentQuestion.display.replace('= ?', '').replace('?', '').trim()
+                    }
+                    size={isSmallScreen ? 'small' : isLargeScreen ? 'large' : 'medium'}
+                    color={theme.text}
+                  />
+                  <Text style={[
+                    styles.questionText,
+                    { color: theme.text },
+                    isSmallScreen && { fontSize: 28 }
+                  ]}>=</Text>
+                </View>
+              ) : (
+                <Text style={[
+                  styles.questionText, 
+                  { color: theme.text, textAlign: 'center' },
+                  isSmallScreen && styles.questionTextCompact,
+                  isVerySmallScreen && styles.questionTextVeryCompact,
+                  isLargeScreen && { fontSize: 52, marginBottom: 24 }
+                ]}>
+                  {currentQuestion.display 
+                    ? currentQuestion.display.replace('= ?', '=').replace(' ?', '') 
+                    : '?'}
+                </Text>
+              )}
             <View style={[
               styles.answerBox, 
               { borderColor: theme.primary, backgroundColor: theme.surface },
@@ -385,6 +414,21 @@ const styles = StyleSheet.create({
   questionTextVeryCompact: {
     fontSize: 24,
     marginBottom: 8,
+  },
+  fractionQuestionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginBottom: 12,
+    gap: 8,
+  },
+  fractionPrefixText: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8,
+    width: '100%',
+    textAlign: 'center',
   },
   answerBox: {
     width: '70%',
