@@ -374,12 +374,19 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
           </View>
+        </ScrollView>
 
+        {/* Fixed bottom section - Difficulty, Question Count & Start Button */}
+        <View style={[
+          styles.fixedBottomSection,
+          { backgroundColor: theme.background },
+          isTablet && { paddingHorizontal: 24 }
+        ]}>
           {/* Difficulty Section */}
           <View style={[
             styles.section, 
             isCompact && styles.sectionCompact,
-            isTablet && { marginBottom: dynamicSpacing.sectionMargin }
+            isTablet && { marginBottom: 8 }
           ]}>
             <Text style={[
               styles.sectionTitle, 
@@ -401,7 +408,7 @@ export default function HomeScreen() {
           <View style={[
             styles.section, 
             isCompact && styles.sectionCompact,
-            isTablet && { marginBottom: dynamicSpacing.sectionMargin }
+            { marginBottom: 20 }
           ]}>
             <Text style={[
               styles.sectionTitle, 
@@ -418,14 +425,8 @@ export default function HomeScreen() {
               compact={isCompact}
             />
           </View>
-        </ScrollView>
 
-        {/* Start Button - Fixed at bottom like game keyboard */}
-        <View style={[
-          styles.startButtonContainer,
-          { backgroundColor: theme.background },
-          isTablet && { paddingHorizontal: 24, paddingBottom: 16 }
-        ]}>
+          {/* Start Button */}
           <TouchableOpacity
             style={[
               styles.startButton,
@@ -633,9 +634,9 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
   },
-  startButtonContainer: {
+  fixedBottomSection: {
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingTop: 12,
     paddingBottom: 24,
   },
   startButton: {
