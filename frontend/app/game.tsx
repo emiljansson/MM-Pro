@@ -244,7 +244,10 @@ export default function GameScreen() {
                 isSmallScreen && styles.backButtonCompact,
                 isLargeScreen && { width: 48, height: 48, borderRadius: 24 }
               ]}
-              onPress={() => router.replace('/')}
+              onPress={() => {
+                // Just go back without resetting game state
+                router.back();
+              }}
             >
               <Ionicons name="close" size={isLargeScreen ? 28 : (isSmallScreen ? 20 : 24)} color={theme.text} />
             </TouchableOpacity>
