@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+    paddingTop: 20,
   },
   chartArea: {
     flexDirection: 'row',
