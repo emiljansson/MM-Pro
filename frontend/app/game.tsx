@@ -648,7 +648,7 @@ const styles = StyleSheet.create({
   },
   questionCard: {
     width: '100%',
-    paddingVertical: 16,
+    paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 16,
     alignItems: 'center',
