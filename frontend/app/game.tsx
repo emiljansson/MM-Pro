@@ -106,14 +106,29 @@ export default function GameScreen() {
       }
     }
 
+    // Reset and animate with scale effect
     feedbackOpacity.setValue(1);
-    Animated.timing(feedbackOpacity, {
-      toValue: 0,
-      duration: 800,
+    scaleAnim.setValue(0.5);
+    
+    // First animate scale up
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      friction: 4,
+      tension: 100,
       useNativeDriver: true,
-    }).start(() => {
-      setShowFeedback(false);
-    });
+    }).start();
+    
+    // Then fade out after a delay
+    setTimeout(() => {
+      Animated.timing(feedbackOpacity, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }).start(() => {
+        setShowFeedback(false);
+        scaleAnim.setValue(1);
+      });
+    }, 1200); // Show for 1.2 seconds before fading
   };
 
   const handleSubmit = () => {
@@ -410,19 +425,36 @@ export default function GameScreen() {
 
           {/* Feedback Overlay */}
           {showFeedback && (
-            <Animated.View style={[styles.feedbackOverlay, { opacity: feedbackOpacity }]}>
+            <Animated.View style={[
+              styles.feedbackOverlay, 
+              { 
+                opacity: feedbackOpacity,
+                transform: [{ scale: scaleAnim }],
+              }
+            ]}>
               <View style={[
                 styles.feedbackIcon,
-                { backgroundColor: lastAnswerCorrect ? theme.success : theme.error },
-                isSmallScreen && styles.feedbackIconCompact,
-                isLargeScreen && { width: 100, height: 100, borderRadius: 50 }
+                { 
+                  backgroundColor: lastAnswerCorrect ? theme.success : theme.error,
+                  shadowColor: lastAnswerCorrect ? theme.success : theme.error,
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.4,
+                  shadowRadius: 12,
+                  elevation: 8,
+                },
               ]}>
                 <Ionicons
                   name={lastAnswerCorrect ? 'checkmark' : 'close'}
-                  size={isLargeScreen ? 60 : (isSmallScreen ? 36 : 48)}
+                  size={80}
                   color="#FFFFFF"
                 />
               </View>
+              <Text style={[
+                styles.feedbackText,
+                { color: lastAnswerCorrect ? theme.success : theme.error }
+              ]}>
+                {lastAnswerCorrect ? '✓ Rätt!' : '✗ Fel'}
+              </Text>
             </Animated.View>
           )}
         </View>
@@ -628,18 +660,27 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
   feedbackIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
   feedbackIconCompact: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  feedbackText: {
+    fontSize: 28,
+    fontWeight: '800',
+    marginTop: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   fractionInputContainer: {
     alignItems: 'center',
