@@ -23,6 +23,7 @@ interface NumericKeyboardProps {
   showNegative?: boolean;
   showFraction?: boolean;
   showOperators?: boolean;
+  showPi?: boolean;
   mode?: KeyboardMode;
   compact?: boolean;
   large?: boolean;
@@ -39,6 +40,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   showNegative = false,
   showFraction = false,
   showOperators = false,
+  showPi = false,
   mode = 'standard',
   compact = false,
   large = false,
@@ -62,6 +64,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   // Determine special key based on mode or individual props
   // Always show decimal point by default
   const getSpecialKey = (): { value: string; icon?: string } | null => {
+    if (showPi) return { value: 'π' };
     if (mode === 'fraction' || showFraction) return { value: '/' };
     if (mode === 'negative' || showNegative) return { value: '-' };
     if (showDivision) return { value: '÷' };

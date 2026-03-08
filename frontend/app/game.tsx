@@ -173,6 +173,20 @@ export default function GameScreen() {
       
       // Check if values match (with small epsilon for floating point)
       isCorrect = Math.abs(userValue - correctValue) < 0.001;
+    } else if (currentQuestion.input_type === 'text') {
+      // Text input - compare strings directly (for π answers like "25π")
+      userAnswer = userInput.trim();
+      const correctAnswer = String(currentQuestion.correct_answer).trim();
+      
+      // Normalize both answers (handle π variations)
+      const normalizeAnswer = (ans: string): string => {
+        return ans.toLowerCase()
+          .replace(/pi/gi, 'π')
+          .replace(/\s+/g, '')
+          .trim();
+      };
+      
+      isCorrect = normalizeAnswer(userAnswer) === normalizeAnswer(correctAnswer);
     } else {
       const numAnswer = parseFloat(userInput);
       userAnswer = numAnswer;
@@ -557,6 +571,7 @@ export default function GameScreen() {
               showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
               showFraction={currentQuestion.operation === 'fractions'}
               showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
+              showPi={currentQuestion.input_type === 'text' && currentQuestion.operation === 'geometry'}
               compact={isSmallScreen}
               large={isLargeScreen}
             />

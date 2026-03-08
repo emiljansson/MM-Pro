@@ -632,10 +632,23 @@ def generate_equations(min_val: int, max_val: int, lang: str = "sv") -> Dict[str
 
 def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Geometry - area and perimeter:
-    - Rectangle area/perimeter
-    - Triangle area
-    - Square area/perimeter
+    Geometry - area and perimeter with difficulty scaling:
+    
+    Easy (max_val <= 10):
+      - Rectangle area/perimeter (small numbers)
+      - Square area/perimeter
+      - Triangle area
+    
+    Medium (max_val 11-50):
+      - Circle area and circumference
+      - Parallelogram area
+      - Larger numbers for basic shapes
+    
+    Hard (max_val > 50):
+      - Trapezoid area
+      - Rhombus area
+      - Rectangular prism volume
+      - Compound shapes (L-shapes)
     """
     texts = {
         "sv": {
@@ -644,6 +657,13 @@ def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
             "square_area": "Vad är arean på en kvadrat med sidan {s}?",
             "square_perimeter": "Vad är omkretsen på en kvadrat med sidan {s}?",
             "triangle_area": "Vad är arean på en triangel med basen {b} och höjden {h}?",
+            "circle_area": "Vad är arean på en cirkel med radien {r}? (Svara i π, t.ex. 25π)",
+            "circle_circumference": "Vad är omkretsen på en cirkel med radien {r}? (Svara i π, t.ex. 10π)",
+            "parallelogram_area": "Vad är arean på en parallellogram med basen {b} och höjden {h}?",
+            "trapezoid_area": "Vad är arean på en trapets med parallella sidor {a} och {b}, och höjden {h}?",
+            "rhombus_area": "Vad är arean på en romb med diagonalerna {d1} och {d2}?",
+            "prism_volume": "Vad är volymen på ett rätblock med sidorna {l}, {w} och {h}?",
+            "l_shape_area": "En L-formad figur har yttre mått {w}×{h} och ett uthugget hörn på {cw}×{ch}. Vad är arean?",
         },
         "en": {
             "rect_area": "What is the area of a rectangle with sides {w} and {h}?",
@@ -651,69 +671,268 @@ def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
             "square_area": "What is the area of a square with side {s}?",
             "square_perimeter": "What is the perimeter of a square with side {s}?",
             "triangle_area": "What is the area of a triangle with base {b} and height {h}?",
+            "circle_area": "What is the area of a circle with radius {r}? (Answer in π, e.g. 25π)",
+            "circle_circumference": "What is the circumference of a circle with radius {r}? (Answer in π, e.g. 10π)",
+            "parallelogram_area": "What is the area of a parallelogram with base {b} and height {h}?",
+            "trapezoid_area": "What is the area of a trapezoid with parallel sides {a} and {b}, and height {h}?",
+            "rhombus_area": "What is the area of a rhombus with diagonals {d1} and {d2}?",
+            "prism_volume": "What is the volume of a rectangular prism with sides {l}, {w} and {h}?",
+            "l_shape_area": "An L-shaped figure has outer dimensions {w}×{h} and a cut corner of {cw}×{ch}. What is the area?",
         }
     }
     t = texts.get(lang, texts["sv"])
     
-    shape = random.choice(['rect_area', 'rect_perimeter', 'square_area', 'square_perimeter', 'triangle_area'])
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    if shape == 'rect_area':
-        w = random.randint(2, min(15, max_val))
-        h = random.randint(2, min(15, max_val))
-        return {
-            "type": "geometry",
-            "display": t["rect_area"].format(w=w, h=h),
-            "answer": w * h,
-            "input_type": "number",
-            "shape": "rectangle",
-            "dimensions": {"width": w, "height": h}
-        }
+    if is_easy:
+        shape = random.choice(['rect_area', 'rect_perimeter', 'square_area', 'square_perimeter', 'triangle_area'])
+        
+        if shape == 'rect_area':
+            w = random.randint(2, min(10, max_val))
+            h = random.randint(2, min(10, max_val))
+            return {
+                "type": "geometry",
+                "display": t["rect_area"].format(w=w, h=h),
+                "answer": w * h,
+                "input_type": "number",
+                "shape": "rectangle",
+                "dimensions": {"width": w, "height": h}
+            }
+        
+        elif shape == 'rect_perimeter':
+            w = random.randint(2, min(10, max_val))
+            h = random.randint(2, min(10, max_val))
+            return {
+                "type": "geometry",
+                "display": t["rect_perimeter"].format(w=w, h=h),
+                "answer": 2 * (w + h),
+                "input_type": "number",
+                "shape": "rectangle",
+                "dimensions": {"width": w, "height": h}
+            }
+        
+        elif shape == 'square_area':
+            s = random.randint(2, min(10, max_val))
+            return {
+                "type": "geometry",
+                "display": t["square_area"].format(s=s),
+                "answer": s * s,
+                "input_type": "number",
+                "shape": "square",
+                "dimensions": {"side": s}
+            }
+        
+        elif shape == 'square_perimeter':
+            s = random.randint(2, min(10, max_val))
+            return {
+                "type": "geometry",
+                "display": t["square_perimeter"].format(s=s),
+                "answer": 4 * s,
+                "input_type": "number",
+                "shape": "square",
+                "dimensions": {"side": s}
+            }
+        
+        else:  # triangle_area
+            b = random.randint(2, min(10, max_val)) * 2  # Even base for clean division
+            h = random.randint(2, min(10, max_val))
+            return {
+                "type": "geometry",
+                "display": t["triangle_area"].format(b=b, h=h),
+                "answer": (b * h) // 2,
+                "input_type": "number",
+                "shape": "triangle",
+                "dimensions": {"base": b, "height": h}
+            }
     
-    elif shape == 'rect_perimeter':
-        w = random.randint(2, min(15, max_val))
-        h = random.randint(2, min(15, max_val))
-        return {
-            "type": "geometry",
-            "display": t["rect_perimeter"].format(w=w, h=h),
-            "answer": 2 * (w + h),
-            "input_type": "number",
-            "shape": "rectangle",
-            "dimensions": {"width": w, "height": h}
-        }
+    elif is_medium:
+        shape = random.choice(['rect_area', 'rect_perimeter', 'square_area', 'triangle_area', 
+                               'circle_area', 'circle_circumference', 'parallelogram_area'])
+        
+        if shape == 'rect_area':
+            w = random.randint(5, 20)
+            h = random.randint(5, 20)
+            return {
+                "type": "geometry",
+                "display": t["rect_area"].format(w=w, h=h),
+                "answer": w * h,
+                "input_type": "number",
+                "shape": "rectangle",
+                "dimensions": {"width": w, "height": h}
+            }
+        
+        elif shape == 'rect_perimeter':
+            w = random.randint(5, 25)
+            h = random.randint(5, 25)
+            return {
+                "type": "geometry",
+                "display": t["rect_perimeter"].format(w=w, h=h),
+                "answer": 2 * (w + h),
+                "input_type": "number",
+                "shape": "rectangle",
+                "dimensions": {"width": w, "height": h}
+            }
+        
+        elif shape == 'square_area':
+            s = random.randint(5, 15)
+            return {
+                "type": "geometry",
+                "display": t["square_area"].format(s=s),
+                "answer": s * s,
+                "input_type": "number",
+                "shape": "square",
+                "dimensions": {"side": s}
+            }
+        
+        elif shape == 'triangle_area':
+            b = random.randint(4, 20) * 2  # Even base
+            h = random.randint(4, 20)
+            return {
+                "type": "geometry",
+                "display": t["triangle_area"].format(b=b, h=h),
+                "answer": (b * h) // 2,
+                "input_type": "number",
+                "shape": "triangle",
+                "dimensions": {"base": b, "height": h}
+            }
+        
+        elif shape == 'circle_area':
+            # Area = πr², answer in terms of π (e.g., "25π")
+            r = random.randint(2, 10)
+            return {
+                "type": "geometry",
+                "display": t["circle_area"].format(r=r),
+                "answer": f"{r * r}π",
+                "input_type": "text",
+                "shape": "circle",
+                "dimensions": {"radius": r}
+            }
+        
+        elif shape == 'circle_circumference':
+            # Circumference = 2πr, answer in terms of π (e.g., "10π")
+            r = random.randint(2, 10)
+            return {
+                "type": "geometry",
+                "display": t["circle_circumference"].format(r=r),
+                "answer": f"{2 * r}π",
+                "input_type": "text",
+                "shape": "circle",
+                "dimensions": {"radius": r}
+            }
+        
+        else:  # parallelogram_area
+            b = random.randint(5, 15)
+            h = random.randint(3, 12)
+            return {
+                "type": "geometry",
+                "display": t["parallelogram_area"].format(b=b, h=h),
+                "answer": b * h,
+                "input_type": "number",
+                "shape": "parallelogram",
+                "dimensions": {"base": b, "height": h}
+            }
     
-    elif shape == 'square_area':
-        s = random.randint(2, min(12, max_val))
-        return {
-            "type": "geometry",
-            "display": t["square_area"].format(s=s),
-            "answer": s * s,
-            "input_type": "number",
-            "shape": "square",
-            "dimensions": {"side": s}
-        }
-    
-    elif shape == 'square_perimeter':
-        s = random.randint(2, min(12, max_val))
-        return {
-            "type": "geometry",
-            "display": t["square_perimeter"].format(s=s),
-            "answer": 4 * s,
-            "input_type": "number",
-            "shape": "square",
-            "dimensions": {"side": s}
-        }
-    
-    else:  # triangle_area
-        b = random.randint(2, min(12, max_val)) * 2  # Even base for clean division
-        h = random.randint(2, min(12, max_val))
-        return {
-            "type": "geometry",
-            "display": t["triangle_area"].format(b=b, h=h),
-            "answer": (b * h) // 2,
-            "input_type": "number",
-            "shape": "triangle",
-            "dimensions": {"base": b, "height": h}
-        }
+    else:  # is_hard
+        shape = random.choice(['trapezoid_area', 'rhombus_area', 'prism_volume', 'l_shape_area',
+                               'circle_area', 'circle_circumference', 'triangle_area'])
+        
+        if shape == 'trapezoid_area':
+            # Area = (a + b) × h / 2
+            a = random.randint(6, 15)
+            b = random.randint(10, 25)
+            if a > b:
+                a, b = b, a
+            # Ensure (a + b) is even for clean division
+            if (a + b) % 2 != 0:
+                b += 1
+            h = random.randint(4, 12)
+            return {
+                "type": "geometry",
+                "display": t["trapezoid_area"].format(a=a, b=b, h=h),
+                "answer": ((a + b) * h) // 2,
+                "input_type": "number",
+                "shape": "trapezoid",
+                "dimensions": {"side_a": a, "side_b": b, "height": h}
+            }
+        
+        elif shape == 'rhombus_area':
+            # Area = (d1 × d2) / 2
+            d1 = random.randint(4, 16) * 2  # Even for clean division
+            d2 = random.randint(4, 16)
+            return {
+                "type": "geometry",
+                "display": t["rhombus_area"].format(d1=d1, d2=d2),
+                "answer": (d1 * d2) // 2,
+                "input_type": "number",
+                "shape": "rhombus",
+                "dimensions": {"diagonal1": d1, "diagonal2": d2}
+            }
+        
+        elif shape == 'prism_volume':
+            # Volume = l × w × h
+            l = random.randint(3, 12)
+            w = random.randint(3, 12)
+            h = random.randint(3, 12)
+            return {
+                "type": "geometry",
+                "display": t["prism_volume"].format(l=l, w=w, h=h),
+                "answer": l * w * h,
+                "input_type": "number",
+                "shape": "rectangular_prism",
+                "dimensions": {"length": l, "width": w, "height": h}
+            }
+        
+        elif shape == 'l_shape_area':
+            # L-shape: large rectangle minus a corner rectangle
+            w = random.randint(8, 15)
+            h = random.randint(8, 15)
+            cw = random.randint(2, w - 3)  # Corner width
+            ch = random.randint(2, h - 3)  # Corner height
+            total_area = w * h - cw * ch
+            return {
+                "type": "geometry",
+                "display": t["l_shape_area"].format(w=w, h=h, cw=cw, ch=ch),
+                "answer": total_area,
+                "input_type": "number",
+                "shape": "l_shape",
+                "dimensions": {"width": w, "height": h, "corner_width": cw, "corner_height": ch}
+            }
+        
+        elif shape == 'circle_area':
+            r = random.randint(5, 15)
+            return {
+                "type": "geometry",
+                "display": t["circle_area"].format(r=r),
+                "answer": f"{r * r}π",
+                "input_type": "text",
+                "shape": "circle",
+                "dimensions": {"radius": r}
+            }
+        
+        elif shape == 'circle_circumference':
+            r = random.randint(5, 15)
+            return {
+                "type": "geometry",
+                "display": t["circle_circumference"].format(r=r),
+                "answer": f"{2 * r}π",
+                "input_type": "text",
+                "shape": "circle",
+                "dimensions": {"radius": r}
+            }
+        
+        else:  # triangle_area with larger numbers
+            b = random.randint(10, 30) * 2
+            h = random.randint(10, 30)
+            return {
+                "type": "geometry",
+                "display": t["triangle_area"].format(b=b, h=h),
+                "answer": (b * h) // 2,
+                "input_type": "number",
+                "shape": "triangle",
+                "dimensions": {"base": b, "height": h}
+            }
 
 
 def generate_percentage(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
