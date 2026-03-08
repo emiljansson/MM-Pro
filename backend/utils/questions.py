@@ -438,7 +438,6 @@ def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, An
         }
 
 
-import math
 
 def math_round(value: float, decimals: int = 0) -> float:
     """
