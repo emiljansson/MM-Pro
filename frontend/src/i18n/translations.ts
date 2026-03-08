@@ -834,6 +834,243 @@ export const FALLBACK_TRANSLATIONS: Record<string, Record<string, string>> = {
     fi: "Valitse kategoria",
     es: "Selecciona categoría",
     so: "Dooro qaybta"
+  },
+  // Profile & Account
+  statistics: {
+    sv: "Statistik",
+    en: "Statistics",
+    ar: "الإحصائيات",
+    fi: "Tilastot",
+    es: "Estadísticas",
+    so: "Tirakoobka"
+  },
+  games_played: {
+    sv: "Spelade spel",
+    en: "Games Played",
+    ar: "الألعاب الملعوبة",
+    fi: "Pelatut pelit",
+    es: "Juegos jugados",
+    so: "Ciyaaraha la ciyaaray"
+  },
+  correct_answers: {
+    sv: "Rätt svar",
+    en: "Correct Answers",
+    ar: "الإجابات الصحيحة",
+    fi: "Oikeat vastaukset",
+    es: "Respuestas correctas",
+    so: "Jawaabaha saxda ah"
+  },
+  accuracy: {
+    sv: "Träffsäkerhet",
+    en: "Accuracy",
+    ar: "الدقة",
+    fi: "Tarkkuus",
+    es: "Precisión",
+    so: "Saxnaan"
+  },
+  best_streak: {
+    sv: "Bästa svit",
+    en: "Best Streak",
+    ar: "أفضل سلسلة",
+    fi: "Paras putki",
+    es: "Mejor racha",
+    so: "Ugu fiican isku xigta"
+  },
+  logout_confirm: {
+    sv: "Är du säker på att du vill logga ut?",
+    en: "Are you sure you want to logout?",
+    ar: "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    fi: "Haluatko varmasti kirjautua ulos?",
+    es: "¿Estás seguro de que quieres cerrar sesión?",
+    so: "Ma hubtaa inaad rabto inaad ka baxdo?"
+  },
+  // History
+  total_games: {
+    sv: "Totalt antal spel",
+    en: "Total Games",
+    ar: "إجمالي الألعاب",
+    fi: "Pelejä yhteensä",
+    es: "Total de juegos",
+    so: "Wadarta ciyaaraha"
+  },
+  no_history: {
+    sv: "Ingen historik",
+    en: "No history",
+    ar: "لا يوجد سجل",
+    fi: "Ei historiaa",
+    es: "Sin historial",
+    so: "Taariikhda ma jirto"
+  },
+  play_to_see_history: {
+    sv: "Spela för att se din historik här!",
+    en: "Play to see your history here!",
+    ar: "العب لرؤية سجلك هنا!",
+    fi: "Pelaa nähdäksesi historiasi täällä!",
+    es: "¡Juega para ver tu historial aquí!",
+    so: "Ciyaar si aad u aragto taariikhda halkan!"
+  },
+  correct: {
+    sv: "Rätt",
+    en: "Correct",
+    ar: "صحيح",
+    fi: "Oikein",
+    es: "Correcto",
+    so: "Sax"
+  },
+  score: {
+    sv: "Poäng",
+    en: "Score",
+    ar: "النتيجة",
+    fi: "Pisteet",
+    es: "Puntuación",
+    so: "Dhibcaha"
+  },
+  time: {
+    sv: "Tid",
+    en: "Time",
+    ar: "الوقت",
+    fi: "Aika",
+    es: "Tiempo",
+    so: "Waqtiga"
+  },
+  all: {
+    sv: "Alla",
+    en: "All",
+    ar: "الكل",
+    fi: "Kaikki",
+    es: "Todos",
+    so: "Dhammaan"
+  },
+  // Leaderboard
+  overall: {
+    sv: "Totalt",
+    en: "Overall",
+    ar: "الإجمالي",
+    fi: "Kokonais",
+    es: "General",
+    so: "Guud"
+  },
+  no_scores: {
+    sv: "Inga poäng ännu",
+    en: "No scores yet",
+    ar: "لا توجد نقاط بعد",
+    fi: "Ei pisteitä vielä",
+    es: "Sin puntuaciones todavía",
+    so: "Weli ma jiraan dhibco"
+  },
+  be_first: {
+    sv: "Bli den första att spela och komma på topplistan!",
+    en: "Be the first to play and get on the leaderboard!",
+    ar: "كن أول من يلعب ويصل إلى لوحة المتصدرين!",
+    fi: "Ole ensimmäinen pelaaja tulostaulukossa!",
+    es: "¡Sé el primero en jugar y aparecer en la clasificación!",
+    so: "Noqo kan ugu horreeya oo ciyaara oo ku jira jadwalka!"
+  },
+  // Groups
+  create_group: {
+    sv: "Skapa grupp",
+    en: "Create Group",
+    ar: "إنشاء مجموعة",
+    fi: "Luo ryhmä",
+    es: "Crear grupo",
+    so: "Samee koox"
+  },
+  join_group: {
+    sv: "Gå med i grupp",
+    en: "Join Group",
+    ar: "انضم إلى مجموعة",
+    fi: "Liity ryhmään",
+    es: "Unirse a grupo",
+    so: "Ku biir koox"
+  },
+  no_groups: {
+    sv: "Inga grupper ännu",
+    en: "No groups yet",
+    ar: "لا توجد مجموعات بعد",
+    fi: "Ei ryhmiä vielä",
+    es: "Sin grupos todavía",
+    so: "Weli ma jiraan kooxo"
+  },
+  no_groups_desc: {
+    sv: "Skapa eller gå med i en grupp för att tävla med vänner!",
+    en: "Create or join a group to compete with friends!",
+    ar: "أنشئ أو انضم إلى مجموعة للتنافس مع الأصدقاء!",
+    fi: "Luo tai liity ryhmään kilpaillaksesi ystävien kanssa!",
+    es: "¡Crea o únete a un grupo para competir con amigos!",
+    so: "Samee ama ku biir koox si aad ula tartanto asxaabta!"
+  },
+  members: {
+    sv: "medlemmar",
+    en: "members",
+    ar: "أعضاء",
+    fi: "jäsentä",
+    es: "miembros",
+    so: "xubnood"
+  },
+  group_name: {
+    sv: "Gruppnamn",
+    en: "Group name",
+    ar: "اسم المجموعة",
+    fi: "Ryhmän nimi",
+    es: "Nombre del grupo",
+    so: "Magaca kooxda"
+  },
+  create: {
+    sv: "Skapa",
+    en: "Create",
+    ar: "إنشاء",
+    fi: "Luo",
+    es: "Crear",
+    so: "Samee"
+  },
+  join: {
+    sv: "Gå med",
+    en: "Join",
+    ar: "انضم",
+    fi: "Liity",
+    es: "Unirse",
+    so: "Ku biir"
+  },
+  // Settings
+  appearance: {
+    sv: "Utseende",
+    en: "Appearance",
+    ar: "المظهر",
+    fi: "Ulkoasu",
+    es: "Apariencia",
+    so: "Muuqaalka"
+  },
+  theme: {
+    sv: "Tema",
+    en: "Theme",
+    ar: "السمة",
+    fi: "Teema",
+    es: "Tema",
+    so: "Mawduuca"
+  },
+  dark: {
+    sv: "Mörkt",
+    en: "Dark",
+    ar: "داكن",
+    fi: "Tumma",
+    es: "Oscuro",
+    so: "Madow"
+  },
+  light: {
+    sv: "Ljust",
+    en: "Light",
+    ar: "فاتح",
+    fi: "Vaalea",
+    es: "Claro",
+    so: "Iftiinka"
+  },
+  account: {
+    sv: "Konto",
+    en: "Account",
+    ar: "الحساب",
+    fi: "Tili",
+    es: "Cuenta",
+    so: "Akoonka"
   }
 };
 
