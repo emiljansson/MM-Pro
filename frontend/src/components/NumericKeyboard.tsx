@@ -57,7 +57,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const bottomPadding = mini ? 4 : Math.max(12, insets.bottom);
   
   // Dynamic sizes based on screen size
-  const keyHeight = graph ? 43 : (mini ? 36 : (large ? 60 : (compact ? 40 : 52)));
+  const keyHeight = graph ? 45 : (mini ? 36 : (large ? 60 : (compact ? 40 : 52)));
   const keyFontSize = graph ? 22 : (mini ? 18 : (large ? 32 : (compact ? 20 : 24)));
   const submitHeight = graph ? 45 : (mini ? 38 : (large ? 64 : (compact ? 42 : 54)));
   const submitFontSize = graph ? 16 : (mini ? 14 : (large ? 22 : (compact ? 16 : 19)));
