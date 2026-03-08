@@ -877,6 +877,8 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 0,
     paddingHorizontal: 8,
+    alignSelf: 'flex-start',
+    width: '100%',
     borderWidth: 2,
     borderColor: 'blue',
   },
