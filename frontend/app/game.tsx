@@ -691,8 +691,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 10,
     paddingBottom: 8,
-    borderWidth: 2,
-    borderColor: 'blue',
   },
   questionAreaCompact: {
     paddingHorizontal: 12,
@@ -706,8 +704,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: 'green',
   },
   questionCardCompact: {
     paddingVertical: 12,
@@ -866,8 +862,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 5,
     paddingBottom: 0,
-    borderWidth: 2,
-    borderColor: 'red',
   },
   graphQuestionText: {
     fontSize: 18,
