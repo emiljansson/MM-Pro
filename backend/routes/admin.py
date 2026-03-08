@@ -265,3 +265,102 @@ async def get_recent_activity(
     activity.sort(key=lambda x: x.get("timestamp") or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
     
     return activity[:limit]
+
+
+# ===== EMAIL SETTINGS =====
+
+@router.get("/email-settings")
+async def get_email_settings(request: Request):
+    """Get email configuration (superadmin only)"""
+    await require_superadmin(request)
+    db = request.app.state.db
+    
+    settings = await db.settings.find_one({"key": "email_settings"}, {"_id": 0})
+    
+    if not settings:
+        return {
+            "configured": False,
+            "api_key": "",
+            "sender_email": "onboarding@resend.dev",
+            "sender_name": "MathMaster Pro",
+            "app_url": "https://mathematicsmaster.app"
+        }
+    
+    # Mask API key for security
+    api_key = settings.get("api_key", "")
+    masked_key = f"{api_key[:6]}...{api_key[-4:]}" if len(api_key) > 10 else ""
+    
+    return {
+        "configured": bool(api_key),
+        "api_key_masked": masked_key,
+        "sender_email": settings.get("sender_email", "onboarding@resend.dev"),
+        "sender_name": settings.get("sender_name", "MathMaster Pro"),
+        "app_url": settings.get("app_url", "https://mathematicsmaster.app")
+    }
+
+
+@router.put("/email-settings")
+async def update_email_settings(request: Request):
+    """Update email configuration (superadmin only)"""
+    await require_superadmin(request)
+    db = request.app.state.db
+    
+    body = await request.json()
+    
+    # Get existing settings
+    existing = await db.settings.find_one({"key": "email_settings"})
+    
+    update_data = {
+        "key": "email_settings",
+        "sender_email": body.get("sender_email", "onboarding@resend.dev"),
+        "sender_name": body.get("sender_name", "MathMaster Pro"),
+        "app_url": body.get("app_url", "https://mathematicsmaster.app"),
+        "updated_at": datetime.now(timezone.utc)
+    }
+    
+    # Only update API key if provided (not empty)
+    if body.get("api_key"):
+        update_data["api_key"] = body["api_key"]
+    elif existing:
+        update_data["api_key"] = existing.get("api_key", "")
+    
+    # Upsert settings
+    await db.settings.update_one(
+        {"key": "email_settings"},
+        {"$set": update_data},
+        upsert=True
+    )
+    
+    # Reload email service settings
+    from services.email_service import get_email_service
+    email_svc = get_email_service()
+    email_svc.db = db
+    await email_svc.reload_settings()
+    
+    return {"message": "Email settings updated successfully"}
+
+
+@router.post("/email-settings/test")
+async def test_email(request: Request):
+    """Send a test email (superadmin only)"""
+    await require_superadmin(request)
+    db = request.app.state.db
+    user = await require_admin(request)
+    
+    body = await request.json()
+    to_email = body.get("to_email", user.email)
+    
+    from services.email_service import get_email_service
+    email_svc = get_email_service()
+    email_svc.db = db
+    await email_svc.initialize()
+    
+    if not email_svc.is_configured():
+        raise HTTPException(status_code=400, detail="Email service not configured. Please add API key first.")
+    
+    result = await email_svc.send_test_email(to_email)
+    
+    if result["status"] == "error":
+        raise HTTPException(status_code=500, detail=result["message"])
+    
+    return result

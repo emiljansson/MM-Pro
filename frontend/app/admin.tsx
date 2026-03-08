@@ -67,19 +67,41 @@ export default function AdminScreen() {
   const [editingTrans, setEditingTrans] = useState<any>(null);
   const [newTransKey, setNewTransKey] = useState('');
   const [newTransText, setNewTransText] = useState('');
+  
+  // Email settings state
+  const [emailSettings, setEmailSettings] = useState({
+    configured: false,
+    api_key: '',
+    api_key_masked: '',
+    sender_email: 'onboarding@resend.dev',
+    sender_name: 'MathMaster Pro',
+    app_url: 'https://mathematicsmaster.app'
+  });
+  const [testEmail, setTestEmail] = useState('');
+  const [sendingTest, setSendingTest] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.replace('/login');
-      return;
+    // Wait for auth to initialize before redirecting
+    if (!isAuthenticated && user === null) {
+      // Give auth time to initialize
+      const timer = setTimeout(() => {
+        if (!isAuthenticated) {
+          router.replace('/login');
+        }
+      }, 200);
+      return () => clearTimeout(timer);
     }
-    if (user?.role !== 'superadmin' && user?.role !== 'admin') {
+    
+    if (isAuthenticated && user?.role !== 'superadmin' && user?.role !== 'admin') {
       Alert.alert('Åtkomst nekad', 'Adminbehörighet krävs');
       router.replace('/');
       return;
     }
-    loadData();
-  }, [isAuthenticated, activeTab, selectedLanguage]);
+    
+    if (isAuthenticated) {
+      loadData();
+    }
+  }, [isAuthenticated, user, activeTab, selectedLanguage]);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -90,6 +112,8 @@ export default function AdminScreen() {
         await loadUsers();
       } else if (activeTab === 'translations') {
         await loadTranslations();
+      } else if (activeTab === 'email') {
+        await loadEmailSettings();
       }
     } catch (error) {
       console.error('Error loading data:', error);
@@ -145,6 +169,82 @@ export default function AdminScreen() {
     } catch (error) {
       console.error('Error loading translations:', error);
     }
+  };
+
+  const loadEmailSettings = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin/email-settings`, {
+        headers: { 'Authorization': `Bearer ${sessionToken}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setEmailSettings({
+          configured: data.configured,
+          api_key: '',
+          api_key_masked: data.api_key_masked || '',
+          sender_email: data.sender_email || 'onboarding@resend.dev',
+          sender_name: data.sender_name || 'MathMaster Pro',
+          app_url: data.app_url || 'https://mathematicsmaster.app'
+        });
+      }
+    } catch (error) {
+      console.error('Error loading email settings:', error);
+    }
+  };
+
+  const saveEmailSettings = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin/email-settings`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({
+          api_key: emailSettings.api_key || undefined,
+          sender_email: emailSettings.sender_email,
+          sender_name: emailSettings.sender_name,
+          app_url: emailSettings.app_url,
+        }),
+      });
+      if (response.ok) {
+        Alert.alert('Sparat', 'E-postinställningar uppdaterade');
+        loadEmailSettings();
+      } else {
+        const data = await response.json();
+        Alert.alert('Fel', data.detail || 'Kunde inte spara inställningar');
+      }
+    } catch (error) {
+      Alert.alert('Fel', 'Nätverksfel');
+    }
+  };
+
+  const sendTestEmail = async () => {
+    if (!testEmail) {
+      Alert.alert('Fel', 'Ange en e-postadress');
+      return;
+    }
+    setSendingTest(true);
+    try {
+      const response = await fetch(`${API_URL}/api/admin/email-settings/test`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({ to_email: testEmail }),
+      });
+      if (response.ok) {
+        Alert.alert('Skickat', `Testmail skickat till ${testEmail}`);
+        setTestEmail('');
+      } else {
+        const data = await response.json();
+        Alert.alert('Fel', data.detail || 'Kunde inte skicka testmail');
+      }
+    } catch (error) {
+      Alert.alert('Fel', 'Nätverksfel');
+    }
+    setSendingTest(false);
   };
 
   const updateUserRole = async (userId: string, newRole: string) => {
@@ -233,6 +333,7 @@ export default function AdminScreen() {
     { key: 'dashboard', icon: 'stats-chart', label: 'Dashboard' },
     { key: 'users', icon: 'people', label: 'Användare' },
     { key: 'translations', icon: 'language', label: 'Översättningar' },
+    { key: 'email', icon: 'mail', label: 'E-post' },
   ];
 
   const renderDashboard = () => (
@@ -465,6 +566,143 @@ export default function AdminScreen() {
     </View>
   );
 
+  const renderEmail = () => (
+    <View style={styles.emailContainer}>
+      {/* Status Card */}
+      <View style={[styles.emailCard, { backgroundColor: theme.card }]}>
+        <View style={styles.emailCardHeader}>
+          <Ionicons 
+            name={emailSettings.configured ? 'checkmark-circle' : 'alert-circle'} 
+            size={24} 
+            color={emailSettings.configured ? theme.success : theme.warning} 
+          />
+          <Text style={[styles.emailCardTitle, { color: theme.text }]}>
+            Resend E-posttjänst
+          </Text>
+        </View>
+        <Text style={[styles.emailStatus, { color: emailSettings.configured ? theme.success : theme.warning }]}>
+          {emailSettings.configured ? 'Konfigurerad' : 'Ej konfigurerad'}
+        </Text>
+        {emailSettings.api_key_masked && (
+          <Text style={[styles.emailApiKey, { color: theme.textMuted }]}>
+            API-nyckel: {emailSettings.api_key_masked}
+          </Text>
+        )}
+      </View>
+
+      {/* Settings Form */}
+      <View style={[styles.emailCard, { backgroundColor: theme.card }]}>
+        <Text style={[styles.emailSectionTitle, { color: theme.text }]}>Inställningar</Text>
+        
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Resend API-nyckel</Text>
+        <TextInput
+          style={[styles.input, { backgroundColor: theme.surface, color: theme.text, borderColor: theme.border }]}
+          value={emailSettings.api_key}
+          onChangeText={(text) => setEmailSettings({ ...emailSettings, api_key: text })}
+          placeholder={emailSettings.api_key_masked || 'Ange API-nyckel från resend.com'}
+          placeholderTextColor={theme.textMuted}
+          secureTextEntry
+          autoCapitalize="none"
+        />
+        
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Avsändarmail</Text>
+        <TextInput
+          style={[styles.input, { backgroundColor: theme.surface, color: theme.text, borderColor: theme.border }]}
+          value={emailSettings.sender_email}
+          onChangeText={(text) => setEmailSettings({ ...emailSettings, sender_email: text })}
+          placeholder="noreply@din-doman.se"
+          placeholderTextColor={theme.textMuted}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Avsändarnamn</Text>
+        <TextInput
+          style={[styles.input, { backgroundColor: theme.surface, color: theme.text, borderColor: theme.border }]}
+          value={emailSettings.sender_name}
+          onChangeText={(text) => setEmailSettings({ ...emailSettings, sender_name: text })}
+          placeholder="MathMaster Pro"
+          placeholderTextColor={theme.textMuted}
+        />
+        
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>App-URL (för länkar i mail)</Text>
+        <TextInput
+          style={[styles.input, { backgroundColor: theme.surface, color: theme.text, borderColor: theme.border }]}
+          value={emailSettings.app_url}
+          onChangeText={(text) => setEmailSettings({ ...emailSettings, app_url: text })}
+          placeholder="https://mathematicsmaster.app"
+          placeholderTextColor={theme.textMuted}
+          keyboardType="url"
+          autoCapitalize="none"
+        />
+        
+        <TouchableOpacity
+          style={[styles.saveButton, { backgroundColor: theme.primary }]}
+          onPress={saveEmailSettings}
+        >
+          <Ionicons name="save" size={20} color="#FFFFFF" />
+          <Text style={styles.saveButtonText}>Spara inställningar</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Test Email */}
+      <View style={[styles.emailCard, { backgroundColor: theme.card }]}>
+        <Text style={[styles.emailSectionTitle, { color: theme.text }]}>Skicka testmail</Text>
+        
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Mottagare</Text>
+        <TextInput
+          style={[styles.input, { backgroundColor: theme.surface, color: theme.text, borderColor: theme.border }]}
+          value={testEmail}
+          onChangeText={setTestEmail}
+          placeholder="din@email.se"
+          placeholderTextColor={theme.textMuted}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        
+        <TouchableOpacity
+          style={[
+            styles.testButton, 
+            { backgroundColor: emailSettings.configured ? theme.success : theme.textMuted }
+          ]}
+          onPress={sendTestEmail}
+          disabled={!emailSettings.configured || sendingTest}
+        >
+          {sendingTest ? (
+            <ActivityIndicator size="small" color="#FFFFFF" />
+          ) : (
+            <>
+              <Ionicons name="paper-plane" size={20} color="#FFFFFF" />
+              <Text style={styles.testButtonText}>Skicka testmail</Text>
+            </>
+          )}
+        </TouchableOpacity>
+        
+        {!emailSettings.configured && (
+          <Text style={[styles.testWarning, { color: theme.warning }]}>
+            Konfigurera API-nyckel först för att kunna skicka mail
+          </Text>
+        )}
+      </View>
+
+      {/* Info */}
+      <View style={[styles.emailCard, { backgroundColor: theme.card }]}>
+        <Text style={[styles.emailSectionTitle, { color: theme.text }]}>Information</Text>
+        <Text style={[styles.infoText, { color: theme.textSecondary }]}>
+          E-posttjänsten används för:
+        </Text>
+        <View style={styles.infoList}>
+          <Text style={[styles.infoItem, { color: theme.text }]}>• Lösenordsåterställning</Text>
+          <Text style={[styles.infoItem, { color: theme.text }]}>• Välkomstmail till nya användare</Text>
+          <Text style={[styles.infoItem, { color: theme.text }]}>• Systemnotifikationer</Text>
+        </View>
+        <Text style={[styles.infoLink, { color: theme.primary }]}>
+          Skapa konto på resend.com för att få en API-nyckel
+        </Text>
+      </View>
+    </View>
+  );
+
   if (isLoading && !stats && !users.length && !translations.length) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: theme.background }]}>
@@ -524,6 +762,7 @@ export default function AdminScreen() {
         {activeTab === 'dashboard' && renderDashboard()}
         {activeTab === 'users' && renderUsers()}
         {activeTab === 'translations' && renderTranslations()}
+        {activeTab === 'email' && renderEmail()}
       </ScrollView>
 
       {/* User Detail Modal */}
@@ -791,4 +1030,97 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   deleteButtonText: { color: '#FFF', fontWeight: '700' },
+  // Email settings styles
+  emailContainer: {
+    gap: 16,
+    paddingBottom: 20,
+  },
+  emailCard: {
+    borderRadius: 12,
+    padding: 16,
+  },
+  emailCardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 8,
+  },
+  emailCardTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  emailStatus: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  emailApiKey: {
+    fontSize: 12,
+  },
+  emailSectionTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    marginBottom: 16,
+  },
+  inputLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 6,
+    textTransform: 'uppercase',
+  },
+  input: {
+    height: 48,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    fontSize: 15,
+    borderWidth: 1,
+    marginBottom: 16,
+  },
+  saveButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+    borderRadius: 10,
+    gap: 8,
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  testButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+    borderRadius: 10,
+    gap: 8,
+  },
+  testButtonText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  testWarning: {
+    fontSize: 12,
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  infoText: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  infoList: {
+    marginBottom: 16,
+  },
+  infoItem: {
+    fontSize: 14,
+    marginBottom: 4,
+    paddingLeft: 4,
+  },
+  infoLink: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
 });

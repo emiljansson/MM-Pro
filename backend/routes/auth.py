@@ -352,9 +352,27 @@ async def request_password_reset(request: Request, data: PasswordReset):
             "created_at": datetime.now(timezone.utc)
         })
         
-        # In production, send email here
-        # For now, log the token (in development)
-        print(f"Password reset token for {data.email}: {token}")
+        # Send password reset email
+        from services.email_service import get_email_service
+        email_svc = get_email_service()
+        email_svc.db = db
+        
+        # Get app URL from settings
+        settings = await db.settings.find_one({"key": "email_settings"})
+        app_url = settings.get("app_url", "https://mathematicsmaster.app") if settings else "https://mathematicsmaster.app"
+        
+        result = await email_svc.send_password_reset_email(
+            to_email=data.email,
+            reset_token=token,
+            user_name=user.get("display_name", "Användare"),
+            app_url=app_url
+        )
+        
+        if result["status"] == "error":
+            # Log error but don't expose to user
+            print(f"Failed to send password reset email: {result['message']}")
+            # Still log token for development fallback
+            print(f"Password reset token for {data.email}: {token}")
     
     return {"message": "If the email exists, a reset link has been sent"}
 
