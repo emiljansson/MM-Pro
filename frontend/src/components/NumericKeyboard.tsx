@@ -1,9 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
 import * as Haptics from 'expo-haptics';
+
+type KeyboardMode = 
+  | 'standard'       // Just numbers
+  | 'decimal'        // Numbers + decimal point
+  | 'fraction'       // Numbers + fraction separator (/)
+  | 'negative'       // Numbers + negative sign
+  | 'equation'       // Numbers + operators (+, -, ×, ÷)
+  | 'mixed';         // Numbers + decimal + negative
 
 interface NumericKeyboardProps {
   onKeyPress: (key: string) => void;
@@ -12,8 +20,12 @@ interface NumericKeyboardProps {
   submitLabel: string;
   showDecimal?: boolean;
   showDivision?: boolean;
+  showNegative?: boolean;
+  showFraction?: boolean;
+  mode?: KeyboardMode;
   compact?: boolean;
   large?: boolean;
+  disabled?: boolean;
 }
 
 export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
@@ -23,8 +35,12 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   submitLabel,
   showDecimal = false,
   showDivision = false,
+  showNegative = false,
+  showFraction = false,
+  mode = 'standard',
   compact = false,
   large = false,
+  disabled = false,
 }) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -33,7 +49,6 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const bottomPadding = Math.max(12, insets.bottom) + 8;
   
   // Dynamic sizes based on screen size
-  // iPhone normal: 52px keys, iPad large: 60px, small phones compact: 40px
   const keyHeight = large ? 60 : (compact ? 40 : 52);
   const keyFontSize = large ? 32 : (compact ? 20 : 24);
   const submitHeight = large ? 64 : (compact ? 42 : 54);
@@ -42,7 +57,20 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const rowMargin = large ? 10 : (compact ? 4 : 8);
   const containerPadding = large ? 24 : 16;
 
+  // Determine special key based on mode or individual props
+  const getSpecialKey = (): { value: string; icon?: string } | null => {
+    if (mode === 'decimal' || showDecimal) return { value: '.' };
+    if (mode === 'fraction' || showFraction) return { value: '/' };
+    if (mode === 'negative' || showNegative) return { value: '-' };
+    if (mode === 'mixed') return { value: '.' };
+    if (showDivision) return { value: '÷' };
+    return null;
+  };
+
+  const specialKey = getSpecialKey();
+
   const handleKeyPress = (key: string) => {
+    if (disabled) return;
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
@@ -50,6 +78,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   };
 
   const handleDelete = () => {
+    if (disabled) return;
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
@@ -57,13 +86,14 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   };
 
   const handleSubmit = () => {
+    if (disabled) return;
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     }
     onSubmit();
   };
 
-  const renderKey = (value: string, isSpecial?: boolean) => (
+  const renderKey = (value: string, isSpecial?: boolean, customIcon?: string) => (
     <TouchableOpacity
       key={value}
       style={[
@@ -71,21 +101,37 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
         { 
           backgroundColor: isSpecial ? theme.primary : theme.keyboard,
           height: keyHeight,
+          opacity: disabled ? 0.5 : 1,
         },
       ]}
       onPress={() => handleKeyPress(value)}
       activeOpacity={0.7}
+      disabled={disabled}
     >
-      <Text style={[
-        styles.keyText,
-        { 
-          color: isSpecial ? '#FFFFFF' : theme.keyboardText,
-          fontSize: keyFontSize,
-        },
-      ]}>
-        {value}
-      </Text>
+      {customIcon ? (
+        <MaterialCommunityIcons name={customIcon as any} size={keyFontSize} color={isSpecial ? '#FFFFFF' : theme.keyboardText} />
+      ) : (
+        <Text style={[
+          styles.keyText,
+          { 
+            color: isSpecial ? '#FFFFFF' : theme.keyboardText,
+            fontSize: keyFontSize,
+          },
+        ]}>
+          {value}
+        </Text>
+      )}
     </TouchableOpacity>
+  );
+
+  // For equation mode, render additional operator row
+  const renderOperatorRow = () => (
+    <View style={[styles.row, { marginBottom: rowMargin }]}>
+      {renderKey('+', true)}
+      {renderKey('-', true)}
+      {renderKey('×', true)}
+      {renderKey('÷', true)}
+    </View>
   );
 
   return (
@@ -98,6 +144,8 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
         paddingHorizontal: containerPadding,
       },
     ]}>
+      {mode === 'equation' && renderOperatorRow()}
+      
       <View style={[styles.row, { marginBottom: rowMargin }]}>
         {renderKey('1')}
         {renderKey('2')}
@@ -114,21 +162,34 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
         {renderKey('9')}
       </View>
       <View style={[styles.row, { marginBottom: rowMargin }]}>
-        {showDecimal ? (
-          renderKey('.')
-        ) : showDivision ? (
-          renderKey('÷')
+        {specialKey ? (
+          renderKey(specialKey.value, false, specialKey.icon)
         ) : (
-          <View style={[styles.key, { height: keyHeight }]} />
+          mode === 'mixed' ? (
+            <TouchableOpacity
+              style={[
+                styles.key,
+                { backgroundColor: theme.card, height: keyHeight, opacity: disabled ? 0.5 : 1 },
+              ]}
+              onPress={() => handleKeyPress('-')}
+              activeOpacity={0.7}
+              disabled={disabled}
+            >
+              <Text style={[styles.keyText, { color: theme.primary, fontSize: keyFontSize, fontWeight: '700' }]}>±</Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={[styles.key, { height: keyHeight, backgroundColor: 'transparent' }]} />
+          )
         )}
         {renderKey('0')}
         <TouchableOpacity
           style={[
             styles.key,
-            { backgroundColor: theme.error, height: keyHeight },
+            { backgroundColor: theme.error, height: keyHeight, opacity: disabled ? 0.5 : 1 },
           ]}
           onPress={handleDelete}
           activeOpacity={0.7}
+          disabled={disabled}
         >
           <Ionicons name="backspace" size={iconSize} color="#FFFFFF" />
         </TouchableOpacity>
@@ -136,10 +197,11 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
       <TouchableOpacity
         style={[
           styles.submitButton,
-          { backgroundColor: theme.success, height: submitHeight },
+          { backgroundColor: theme.success, height: submitHeight, opacity: disabled ? 0.5 : 1 },
         ]}
         onPress={handleSubmit}
         activeOpacity={0.8}
+        disabled={disabled}
       >
         <Text style={[styles.submitText, { fontSize: submitFontSize }]}>{submitLabel}</Text>
         <Ionicons name="arrow-forward" size={compact ? 18 : 20} color="#FFFFFF" />
@@ -150,29 +212,24 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    // paddingHorizontal, paddingTop and paddingBottom are now dynamically set
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // marginBottom is now dynamically set
   },
   key: {
     width: '31%',
-    // height is now dynamically set
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   keyText: {
-    // fontSize is now dynamically set
     fontWeight: '600',
   },
   submitButton: {
     flexDirection: 'row',
-    // height is now dynamically set
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -180,7 +237,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   submitText: {
-    // fontSize is now dynamically set
     fontWeight: '700',
     color: '#FFFFFF',
   },

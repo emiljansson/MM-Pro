@@ -259,7 +259,15 @@ export default function GameScreen() {
           onDelete={handleDelete}
           onSubmit={handleSubmit}
           submitLabel={t('submit')}
-          showDecimal={currentQuestion.operation === 'division'}
+          mode={
+            currentQuestion.operation === 'division' ? 'decimal' :
+            currentQuestion.operation === 'fractions' ? 'fraction' :
+            currentQuestion.operation === 'equations' ? 'equation' :
+            'standard'
+          }
+          showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
+          showFraction={currentQuestion.operation === 'fractions'}
+          showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
           compact={isSmallScreen}
           large={isLargeScreen}
         />
