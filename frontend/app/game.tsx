@@ -580,7 +580,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
   keyboardContainer: {
-    paddingBottom: 24,
+    paddingBottom: 12,
     borderWidth: 2,
     borderColor: 'green',
   },
