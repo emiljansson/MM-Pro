@@ -44,7 +44,7 @@ const ALL_CATEGORIES = [
 
 const QUESTION_COUNTS = [15, 30, 60, 120];
 const ITEMS_PER_PAGE_PHONE = 4;
-const ITEMS_PER_PAGE_TABLET = 12;
+const ITEMS_PER_PAGE_TABLET = 10;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -151,8 +151,8 @@ export default function HomeScreen() {
     // Calculate card width: (page width - 2*padding - gap) / 2
     const cardGap = isTablet ? 6 : 10;
     const cardWidth = (width - 32 - cardGap) / 2;
-    // Use fixed height for tablets - smaller for 6 rows
-    const cardHeight = isTablet ? 80 : undefined;
+    // Use fixed height for tablets - for 5 rows
+    const cardHeight = isTablet ? 85 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
@@ -210,7 +210,7 @@ export default function HomeScreen() {
     );
   };
 
-  // Render a page of categories (12 items in 2x6 grid for tablet, 4 items in 2x2 grid for phone)
+  // Render a page of categories (10 items in 2x5 grid for tablet, 4 items in 2x2 grid for phone)
   const renderPage = (pageIndex: number) => {
     const startIndex = pageIndex * itemsPerPage;
     const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + itemsPerPage);
