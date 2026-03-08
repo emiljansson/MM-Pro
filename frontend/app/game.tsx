@@ -14,7 +14,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
-import { NumericKeyboard, FractionExpression, containsFraction, FractionKeyboard, Fraction } from '../src/components';
+import { NumericKeyboard, FractionExpression, containsFraction, FractionKeyboard, Fraction, BarChart, isDiagramQuestion, extractChartData } from '../src/components';
 import * as Haptics from 'expo-haptics';
 
 export default function GameScreen() {
@@ -276,8 +276,37 @@ export default function GameScreen() {
               isVerySmallScreen && styles.questionCardVeryCompact,
               isLargeScreen && { paddingVertical: 32, paddingHorizontal: 28, borderRadius: 24 }
             ]}>
-              {/* Check if question contains fractions and render appropriately */}
-              {currentQuestion.display && containsFraction(currentQuestion.display) ? (
+              {/* Check if question is a diagram question */}
+              {isDiagramQuestion(currentQuestion) ? (
+                <View style={styles.diagramQuestionContainer}>
+                  {/* Render the bar chart */}
+                  {(() => {
+                    const chartData = extractChartData(currentQuestion);
+                    if (chartData) {
+                      return (
+                        <BarChart
+                          labels={chartData.labels}
+                          values={chartData.values}
+                          size={isSmallScreen ? 'small' : isLargeScreen ? 'large' : 'medium'}
+                          showValues={true}
+                        />
+                      );
+                    }
+                    return null;
+                  })()}
+                  {/* Extract the question text (after the emoji and chart data) */}
+                  {currentQuestion.display && currentQuestion.display.includes('\n') && (
+                    <Text style={[
+                      styles.diagramQuestionText,
+                      { color: theme.primary },
+                      isSmallScreen && { fontSize: 16 },
+                      isLargeScreen && { fontSize: 20 }
+                    ]}>
+                      {currentQuestion.display.split('\n').pop()}
+                    </Text>
+                  )}
+                </View>
+              ) : currentQuestion.display && containsFraction(currentQuestion.display) ? (
                 <View style={styles.fractionQuestionContainer}>
                   {/* Extract prefix text (like "Simplify:" or "Förenkla:") */}
                   {currentQuestion.display.includes(':') && (
@@ -628,5 +657,16 @@ const styles = StyleSheet.create({
     height: 3,
     marginVertical: 4,
     borderRadius: 2,
+  },
+  diagramQuestionContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  diagramQuestionText: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 8,
+    textAlign: 'center',
   },
 });
