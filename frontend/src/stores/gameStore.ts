@@ -104,7 +104,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
   
   startGame: async () => {
-    const { settings } = get();
+    const { settings, language } = get();
     set({ isLoading: true });
     
     try {
@@ -112,11 +112,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept-Language': language,
         },
         body: JSON.stringify({
           operations: settings.operations,
           difficulty: settings.difficulty,
           count: settings.questionCount,
+          language: language,
         }),
       });
       

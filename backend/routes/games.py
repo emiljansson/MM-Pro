@@ -287,12 +287,24 @@ async def update_category(request: Request, key: str, update_data: GameCategoryU
 @router.post("/generate")
 async def generate_game_questions(request: Request, req: GenerateQuestionsRequest):
     """Generate questions for a game - all categories are free"""
-    # Generate questions - no pro check needed, all categories are free
+    # Get user's language preference
+    user = await get_current_user(request)
+    language = user.language if user else "sv"
+    
+    # Also check for language in request headers
+    accept_language = request.headers.get("Accept-Language", "sv")
+    if accept_language and not user:
+        lang_code = accept_language.split(",")[0].split("-")[0].lower()
+        if lang_code in ["sv", "en", "ar", "fi", "es", "so"]:
+            language = lang_code
+    
+    # Generate questions with language
     questions = generate_questions(
         category=req.category,
         difficulty=req.difficulty,
         count=req.count,
-        operations=req.operations
+        operations=req.operations,
+        language=language
     )
     
     return {"questions": questions}

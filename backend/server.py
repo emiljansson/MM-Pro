@@ -502,16 +502,26 @@ class LegacyGenerateRequest(BaseModel):
     operations: List[str]
     difficulty: str = "easy"
     count: int = 15
+    language: str = "sv"
 
 
 @legacy_router.post("/generate-questions")
-async def legacy_generate_questions(request: LegacyGenerateRequest):
+async def legacy_generate_questions(request: Request, body: LegacyGenerateRequest):
     """Generate questions (legacy endpoint)"""
+    # Get language from body or Accept-Language header
+    language = body.language
+    if language == "sv":
+        accept_lang = request.headers.get("Accept-Language", "sv")
+        lang_code = accept_lang.split(",")[0].split("-")[0].lower()
+        if lang_code in ["sv", "en", "ar", "fi", "es", "so"]:
+            language = lang_code
+    
     questions = generate_questions(
-        category=request.operations[0] if request.operations else "addition",
-        difficulty=request.difficulty,
-        count=request.count,
-        operations=request.operations
+        category=body.operations[0] if body.operations else "addition",
+        difficulty=body.difficulty,
+        count=body.count,
+        operations=body.operations,
+        language=language
     )
     return {"questions": questions}
 
