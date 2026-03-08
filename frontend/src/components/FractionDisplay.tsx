@@ -76,25 +76,35 @@ export const FractionExpression: React.FC<FractionExpressionProps> = ({
   const parseExpression = (expr: string): Array<{ type: 'fraction' | 'operator' | 'number' | 'text', value: string, num?: string, denom?: string }> => {
     const tokens: Array<{ type: 'fraction' | 'operator' | 'number' | 'text', value: string, num?: string, denom?: string }> = [];
     
-    // Split by spaces and operators while keeping operators
-    const parts = expr.split(/(\s+|[+\-×·÷=?<>])/g).filter(p => p.trim());
+    // Define operators to match (including Unicode variants)
+    const operators = ['+', '-', '−', '×', '·', '÷', '*', '/', '=', '?', '<', '>'];
+    
+    // Split by spaces first
+    const parts = expr.split(/\s+/).filter(p => p.trim());
     
     for (const part of parts) {
       const trimmed = part.trim();
       if (!trimmed) continue;
       
-      // Check if it's a fraction (contains /)
-      if (trimmed.includes('/') && !trimmed.startsWith('/') && !trimmed.endsWith('/')) {
-        const [num, denom] = trimmed.split('/');
-        if (num && denom && !isNaN(Number(num)) && !isNaN(Number(denom))) {
-          tokens.push({ type: 'fraction', value: trimmed, num, denom });
-          continue;
-        }
+      // Check if it's a fraction (contains / and has numbers on both sides)
+      const fractionMatch = trimmed.match(/^(\d+)\/(\d+)$/);
+      if (fractionMatch) {
+        tokens.push({ 
+          type: 'fraction', 
+          value: trimmed, 
+          num: fractionMatch[1], 
+          denom: fractionMatch[2] 
+        });
+        continue;
       }
       
-      // Check if it's an operator
-      if (['+', '-', '−', '×', '·', '÷', '=', '?', '<', '>'].includes(trimmed)) {
-        tokens.push({ type: 'operator', value: trimmed });
+      // Check if it's a single operator
+      if (operators.includes(trimmed) || trimmed.length === 1 && /[+\-−×·÷*=?<>]/.test(trimmed)) {
+        // Normalize operator display
+        let displayOp = trimmed;
+        if (trimmed === '-') displayOp = '−'; // Use proper minus sign
+        if (trimmed === '*') displayOp = '×'; // Use proper multiplication sign
+        tokens.push({ type: 'operator', value: displayOp });
         continue;
       }
       
