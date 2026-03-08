@@ -66,129 +66,355 @@ def generate_division(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
 
 def generate_fractions(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Fractions - multiple types:
-    1. Addition: 1/4 + 2/4 = ?
-    2. Subtraction: 3/4 - 1/4 = ?
-    3. Simplify: 4/8 = ?
-    4. Compare: 1/2 ? 2/3
-    5. Mixed to improper: 1 1/2 = ?/2
+    Fractions - difficulty based:
+    
+    Easy (max_val <= 10):
+      - Same denominator: 1/4 + 2/4 = ?
+      - Simple simplify: 4/8 = ?
+      - Compare simple fractions
+    
+    Medium (max_val 11-50):
+      - Different denominators: 1/3 + 1/4 = ?
+      - Larger numbers, simplify required
+      - More complex comparisons
+    
+    Hard (max_val > 50):
+      - Mixed numbers: 1½ + 2¼ = ?
+      - Multiplication: 2/3 × 3/4 = ?
+      - Division: 5/6 ÷ 2/3 = ?
     """
-    q_type = random.choice(['add', 'subtract', 'simplify', 'compare', 'multiply'])
     
-    if q_type == 'add':
-        # Same denominator addition
-        denom = random.choice([2, 3, 4, 5, 6, 8, 10])
-        n1 = random.randint(1, denom - 1)
-        n2 = random.randint(1, denom - n1)
-        result_num = n1 + n2
-        # Simplify result
-        gcd = math.gcd(result_num, denom)
-        if result_num == denom:
-            answer = "1"
-        else:
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
+    
+    if is_easy:
+        q_type = random.choice(['add_same', 'subtract_same', 'simplify', 'compare'])
+        
+        if q_type == 'add_same':
+            # Same denominator addition
+            denom = random.choice([2, 3, 4, 5, 6, 8])
+            n1 = random.randint(1, denom - 1)
+            n2 = random.randint(1, denom - n1)
+            result_num = n1 + n2
+            gcd = math.gcd(result_num, denom)
+            if result_num == denom:
+                answer = "1"
+            else:
+                answer = f"{result_num // gcd}/{denom // gcd}"
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{denom} + {n2}/{denom} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
+        
+        elif q_type == 'subtract_same':
+            denom = random.choice([2, 3, 4, 5, 6, 8])
+            n1 = random.randint(2, denom)
+            n2 = random.randint(1, n1 - 1)
+            result_num = n1 - n2
+            gcd = math.gcd(result_num, denom)
             answer = f"{result_num // gcd}/{denom // gcd}"
-        return {
-            "type": "fractions",
-            "display": f"{n1}/{denom} + {n2}/{denom} = ?",
-            "answer": answer,
-            "input_type": "fraction"
-        }
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{denom} − {n2}/{denom} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
+        
+        elif q_type == 'simplify':
+            simple_num = random.randint(1, 4)
+            simple_denom = random.randint(simple_num + 1, 6)
+            gcd_orig = math.gcd(simple_num, simple_denom)
+            simple_num //= gcd_orig
+            simple_denom //= gcd_orig
+            
+            multiplier = random.randint(2, 3)
+            big_num = simple_num * multiplier
+            big_denom = simple_denom * multiplier
+            
+            texts = {"sv": "Förenkla:", "en": "Simplify:", "ar": "بسّط:", "fi": "Sievennä:", "es": "Simplifica:", "so": "Fududee:"}
+            text = texts.get(lang, texts["sv"])
+            
+            return {
+                "type": "fractions",
+                "display": f"{text} {big_num}/{big_denom} = ?",
+                "answer": f"{simple_num}/{simple_denom}",
+                "input_type": "fraction"
+            }
+        
+        else:  # compare
+            fracs = [(1, 2), (1, 3), (2, 3), (1, 4), (3, 4), (1, 5), (2, 5)]
+            f1, f2 = random.sample(fracs, 2)
+            val1 = f1[0] / f1[1]
+            val2 = f2[0] / f2[1]
+            
+            if val1 > val2:
+                answer = ">"
+            elif val1 < val2:
+                answer = "<"
+            else:
+                answer = "="
+            
+            texts = {"sv": "Vilket är störst?", "en": "Which is greater?", "ar": "أيهما أكبر؟", "fi": "Kumpi on suurempi?", "es": "¿Cuál es mayor?", "so": "Kee ka weyn?"}
+            text = texts.get(lang, texts["sv"])
+            
+            return {
+                "type": "fractions",
+                "display": f"{f1[0]}/{f1[1]} ? {f2[0]}/{f2[1]}",
+                "answer": answer,
+                "input_type": "choice",
+                "options": ["<", "=", ">"],
+                "hint": text
+            }
     
-    elif q_type == 'subtract':
-        denom = random.choice([2, 3, 4, 5, 6, 8, 10])
-        n1 = random.randint(2, denom)
-        n2 = random.randint(1, n1 - 1)
-        result_num = n1 - n2
-        gcd = math.gcd(result_num, denom)
-        answer = f"{result_num // gcd}/{denom // gcd}"
-        return {
-            "type": "fractions",
-            "display": f"{n1}/{denom} − {n2}/{denom} = ?",
-            "answer": answer,
-            "input_type": "fraction"
-        }
+    elif is_medium:
+        q_type = random.choice(['add_diff', 'subtract_diff', 'simplify', 'compare', 'multiply'])
+        
+        if q_type == 'add_diff':
+            # Different denominators: 1/3 + 1/4 = 7/12
+            denoms = [(2, 3), (2, 4), (3, 4), (2, 6), (3, 6), (4, 6), (2, 8), (4, 8), (3, 9)]
+            d1, d2 = random.choice(denoms)
+            n1 = random.randint(1, d1 - 1)
+            n2 = random.randint(1, d2 - 1)
+            
+            # Calculate common denominator
+            lcd = (d1 * d2) // math.gcd(d1, d2)
+            result_num = n1 * (lcd // d1) + n2 * (lcd // d2)
+            gcd = math.gcd(result_num, lcd)
+            
+            if result_num >= lcd:
+                whole = result_num // lcd
+                remainder = result_num % lcd
+                if remainder == 0:
+                    answer = str(whole)
+                else:
+                    gcd2 = math.gcd(remainder, lcd)
+                    answer = f"{whole} {remainder // gcd2}/{lcd // gcd2}"
+            else:
+                answer = f"{result_num // gcd}/{lcd // gcd}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{d1} + {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
+        
+        elif q_type == 'subtract_diff':
+            # Different denominators subtraction
+            denoms = [(3, 2), (4, 2), (4, 3), (6, 2), (6, 3), (6, 4), (8, 2), (8, 4)]
+            d1, d2 = random.choice(denoms)
+            n1 = random.randint(2, d1 - 1)
+            n2 = random.randint(1, min(d2 - 1, n1 - 1))
+            
+            lcd = (d1 * d2) // math.gcd(d1, d2)
+            result_num = n1 * (lcd // d1) - n2 * (lcd // d2)
+            
+            if result_num <= 0:
+                n1, n2 = d1 - 1, 1
+                result_num = n1 * (lcd // d1) - n2 * (lcd // d2)
+            
+            gcd = math.gcd(result_num, lcd)
+            answer = f"{result_num // gcd}/{lcd // gcd}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{d1} − {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
+        
+        elif q_type == 'simplify':
+            simple_num = random.randint(1, 6)
+            simple_denom = random.randint(simple_num + 1, 10)
+            gcd_orig = math.gcd(simple_num, simple_denom)
+            simple_num //= gcd_orig
+            simple_denom //= gcd_orig
+            
+            multiplier = random.randint(3, 5)
+            big_num = simple_num * multiplier
+            big_denom = simple_denom * multiplier
+            
+            texts = {"sv": "Förenkla:", "en": "Simplify:", "ar": "بسّط:", "fi": "Sievennä:", "es": "Simplifica:", "so": "Fududee:"}
+            text = texts.get(lang, texts["sv"])
+            
+            return {
+                "type": "fractions",
+                "display": f"{text} {big_num}/{big_denom} = ?",
+                "answer": f"{simple_num}/{simple_denom}",
+                "input_type": "fraction"
+            }
+        
+        elif q_type == 'compare':
+            fracs = [(1, 2), (1, 3), (2, 3), (1, 4), (3, 4), (2, 5), (3, 5), (4, 5), (1, 6), (5, 6), (3, 8), (5, 8), (7, 8)]
+            f1, f2 = random.sample(fracs, 2)
+            val1 = f1[0] / f1[1]
+            val2 = f2[0] / f2[1]
+            
+            if val1 > val2:
+                answer = ">"
+            elif val1 < val2:
+                answer = "<"
+            else:
+                answer = "="
+            
+            texts = {"sv": "Vilket är störst?", "en": "Which is greater?", "ar": "أيهما أكبر؟", "fi": "Kumpi on suurempi?", "es": "¿Cuál es mayor?", "so": "Kee ka weyn?"}
+            text = texts.get(lang, texts["sv"])
+            
+            return {
+                "type": "fractions",
+                "display": f"{f1[0]}/{f1[1]} ? {f2[0]}/{f2[1]}",
+                "answer": answer,
+                "input_type": "choice",
+                "options": ["<", "=", ">"],
+                "hint": text
+            }
+        
+        else:  # multiply
+            n1, d1 = random.randint(1, 4), random.randint(2, 6)
+            n2, d2 = random.randint(1, 4), random.randint(2, 6)
+            result_n = n1 * n2
+            result_d = d1 * d2
+            gcd = math.gcd(result_n, result_d)
+            answer = f"{result_n // gcd}/{result_d // gcd}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{d1} × {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
     
-    elif q_type == 'simplify':
-        # Create a fraction that can be simplified
-        simple_num = random.randint(1, 5)
-        simple_denom = random.randint(simple_num + 1, 8)
-        gcd_orig = math.gcd(simple_num, simple_denom)
-        simple_num //= gcd_orig
-        simple_denom //= gcd_orig
+    else:  # is_hard
+        q_type = random.choice(['mixed_add', 'mixed_subtract', 'multiply', 'divide'])
         
-        multiplier = random.randint(2, 4)
-        big_num = simple_num * multiplier
-        big_denom = simple_denom * multiplier
+        if q_type == 'mixed_add':
+            # Mixed numbers: 1½ + 2¼ = 3¾
+            w1 = random.randint(1, 3)
+            n1, d1 = random.randint(1, 3), random.choice([2, 4])
+            w2 = random.randint(1, 3)
+            n2, d2 = random.randint(1, 3), random.choice([2, 4])
+            
+            # Convert to improper fractions
+            imp1 = w1 * d1 + n1
+            imp2 = w2 * d2 + n2
+            
+            lcd = (d1 * d2) // math.gcd(d1, d2)
+            result_num = imp1 * (lcd // d1) + imp2 * (lcd // d2)
+            
+            whole = result_num // lcd
+            remainder = result_num % lcd
+            
+            if remainder == 0:
+                answer = str(whole)
+            else:
+                gcd = math.gcd(remainder, lcd)
+                answer = f"{whole} {remainder // gcd}/{lcd // gcd}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{w1} {n1}/{d1} + {w2} {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
         
-        texts = {
-            "sv": "Förenkla:",
-            "en": "Simplify:",
-            "ar": "بسّط:",
-            "fi": "Sievennä:",
-            "es": "Simplifica:",
-            "so": "Fududee:"
-        }
-        text = texts.get(lang, texts["sv"])
+        elif q_type == 'mixed_subtract':
+            # Mixed subtraction: 3½ - 1¼ = 2¼
+            w1 = random.randint(2, 4)
+            n1, d1 = random.randint(1, 3), random.choice([2, 4])
+            w2 = random.randint(1, w1 - 1)
+            n2, d2 = random.randint(1, 3), random.choice([2, 4])
+            
+            imp1 = w1 * d1 + n1
+            imp2 = w2 * d2 + n2
+            
+            lcd = (d1 * d2) // math.gcd(d1, d2)
+            result_num = imp1 * (lcd // d1) - imp2 * (lcd // d2)
+            
+            if result_num <= 0:
+                w1, n1, w2, n2 = 3, 3, 1, 1
+                imp1 = w1 * d1 + n1
+                imp2 = w2 * d2 + n2
+                result_num = imp1 * (lcd // d1) - imp2 * (lcd // d2)
+            
+            whole = result_num // lcd
+            remainder = result_num % lcd
+            
+            if remainder == 0:
+                answer = str(whole)
+            elif whole == 0:
+                gcd = math.gcd(remainder, lcd)
+                answer = f"{remainder // gcd}/{lcd // gcd}"
+            else:
+                gcd = math.gcd(remainder, lcd)
+                answer = f"{whole} {remainder // gcd}/{lcd // gcd}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{w1} {n1}/{d1} − {w2} {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
         
-        return {
-            "type": "fractions",
-            "display": f"{text} {big_num}/{big_denom} = ?",
-            "answer": f"{simple_num}/{simple_denom}",
-            "input_type": "fraction"
-        }
-    
-    elif q_type == 'compare':
-        # Compare two fractions
-        fracs = [
-            (1, 2), (1, 3), (2, 3), (1, 4), (3, 4),
-            (1, 5), (2, 5), (3, 5), (4, 5),
-            (1, 6), (5, 6), (1, 8), (3, 8), (5, 8), (7, 8)
-        ]
-        f1, f2 = random.sample(fracs, 2)
-        val1 = f1[0] / f1[1]
-        val2 = f2[0] / f2[1]
+        elif q_type == 'multiply':
+            # Fraction multiplication: 2/3 × 3/4 = 1/2
+            n1, d1 = random.randint(2, 5), random.randint(3, 6)
+            n2, d2 = random.randint(2, 5), random.randint(3, 6)
+            result_n = n1 * n2
+            result_d = d1 * d2
+            gcd = math.gcd(result_n, result_d)
+            
+            simplified_n = result_n // gcd
+            simplified_d = result_d // gcd
+            
+            if simplified_n >= simplified_d:
+                whole = simplified_n // simplified_d
+                remainder = simplified_n % simplified_d
+                if remainder == 0:
+                    answer = str(whole)
+                else:
+                    answer = f"{whole} {remainder}/{simplified_d}"
+            else:
+                answer = f"{simplified_n}/{simplified_d}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{d1} × {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
         
-        if val1 > val2:
-            answer = ">"
-        elif val1 < val2:
-            answer = "<"
-        else:
-            answer = "="
-        
-        texts = {
-            "sv": "Vilket är störst?",
-            "en": "Which is greater?",
-            "ar": "أيهما أكبر؟",
-            "fi": "Kumpi on suurempi?",
-            "es": "¿Cuál es mayor?",
-            "so": "Kee ka weyn?"
-        }
-        text = texts.get(lang, texts["sv"])
-        
-        return {
-            "type": "fractions",
-            "display": f"{f1[0]}/{f1[1]} ? {f2[0]}/{f2[1]}",
-            "answer": answer,
-            "input_type": "choice",
-            "options": ["<", "=", ">"],
-            "hint": text
-        }
-    
-    else:  # multiply
-        # Simple fraction multiplication
-        n1, d1 = random.randint(1, 3), random.randint(2, 5)
-        n2, d2 = random.randint(1, 3), random.randint(2, 5)
-        result_n = n1 * n2
-        result_d = d1 * d2
-        gcd = math.gcd(result_n, result_d)
-        answer = f"{result_n // gcd}/{result_d // gcd}"
-        
-        return {
-            "type": "fractions",
-            "display": f"{n1}/{d1} × {n2}/{d2} = ?",
-            "answer": answer,
-            "input_type": "fraction"
-        }
+        else:  # divide
+            # Fraction division: 3/4 ÷ 1/2 = 3/2 = 1½
+            n1, d1 = random.randint(2, 5), random.randint(3, 6)
+            n2, d2 = random.randint(1, 3), random.randint(2, 4)
+            
+            # Invert and multiply
+            result_n = n1 * d2
+            result_d = d1 * n2
+            gcd = math.gcd(result_n, result_d)
+            
+            simplified_n = result_n // gcd
+            simplified_d = result_d // gcd
+            
+            if simplified_n >= simplified_d:
+                whole = simplified_n // simplified_d
+                remainder = simplified_n % simplified_d
+                if remainder == 0:
+                    answer = str(whole)
+                else:
+                    answer = f"{whole} {remainder}/{simplified_d}"
+            else:
+                answer = f"{simplified_n}/{simplified_d}"
+            
+            return {
+                "type": "fractions",
+                "display": f"{n1}/{d1} ÷ {n2}/{d2} = ?",
+                "answer": answer,
+                "input_type": "fraction"
+            }
 
 
 def generate_equations(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
