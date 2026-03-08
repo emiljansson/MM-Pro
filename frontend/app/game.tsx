@@ -638,7 +638,8 @@ const styles = StyleSheet.create({
   questionArea: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingTop: 8,
+    paddingBottom: 28,
   },
   questionAreaCompact: {
     paddingHorizontal: 12,
