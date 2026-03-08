@@ -27,6 +27,7 @@ interface NumericKeyboardProps {
   mode?: KeyboardMode;
   compact?: boolean;
   large?: boolean;
+  mini?: boolean;
   disabled?: boolean;
 }
 
@@ -44,22 +45,23 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   mode = 'standard',
   compact = false,
   large = false,
+  mini = false,
   disabled = false,
 }) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   
   // Calculate bottom padding: safe area inset for navigation bar
-  const bottomPadding = Math.max(12, insets.bottom);
+  const bottomPadding = mini ? 4 : Math.max(12, insets.bottom);
   
   // Dynamic sizes based on screen size
-  const keyHeight = large ? 60 : (compact ? 40 : 52);
-  const keyFontSize = large ? 32 : (compact ? 20 : 24);
-  const submitHeight = large ? 64 : (compact ? 42 : 54);
-  const submitFontSize = large ? 22 : (compact ? 16 : 19);
-  const iconSize = large ? 32 : (compact ? 20 : 26);
-  const rowMargin = large ? 10 : (compact ? 4 : 8);
-  const containerPadding = large ? 24 : 16;
+  const keyHeight = mini ? 36 : (large ? 60 : (compact ? 40 : 52));
+  const keyFontSize = mini ? 18 : (large ? 32 : (compact ? 20 : 24));
+  const submitHeight = mini ? 38 : (large ? 64 : (compact ? 42 : 54));
+  const submitFontSize = mini ? 14 : (large ? 22 : (compact ? 16 : 19));
+  const iconSize = mini ? 18 : (large ? 32 : (compact ? 20 : 26));
+  const rowMargin = mini ? 2 : (large ? 10 : (compact ? 4 : 8));
+  const containerPadding = mini ? 8 : (large ? 24 : 16);
 
   // Determine special key based on mode or individual props
   // Always show decimal point by default
