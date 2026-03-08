@@ -12,56 +12,393 @@ import math
 
 
 def generate_addition(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Addition: 5 + 3 = ?"""
-    a = random.randint(min_val, max_val)
-    b = random.randint(min_val, max_val)
-    return {
-        "type": "addition",
-        "display": f"{a} + {b} = ?",
-        "answer": a + b,
-        "input_type": "number"
-    }
+    """
+    Addition with difficulty scaling:
+    Easy: Small numbers (1-10)
+    Medium: Larger numbers (10-100), some decimals
+    Hard: Very large numbers, decimals, negatives
+    """
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
+    
+    if is_easy:
+        a = random.randint(1, 10)
+        b = random.randint(1, 10)
+        return {
+            "type": "addition",
+            "display": f"{a} + {b} = ?",
+            "answer": a + b,
+            "input_type": "number"
+        }
+    
+    elif is_medium:
+        q_type = random.choice(['large', 'decimal', 'three_numbers'])
+        
+        if q_type == 'large':
+            a = random.randint(10, 100)
+            b = random.randint(10, 100)
+            return {
+                "type": "addition",
+                "display": f"{a} + {b} = ?",
+                "answer": a + b,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decimal':
+            a = round(random.uniform(1, 20), 1)
+            b = round(random.uniform(1, 20), 1)
+            answer = round(a + b, 1)
+            return {
+                "type": "addition",
+                "display": f"{a} + {b} = ?",
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        else:  # three_numbers
+            a = random.randint(5, 30)
+            b = random.randint(5, 30)
+            c = random.randint(5, 30)
+            return {
+                "type": "addition",
+                "display": f"{a} + {b} + {c} = ?",
+                "answer": a + b + c,
+                "input_type": "number"
+            }
+    
+    else:  # is_hard
+        q_type = random.choice(['very_large', 'decimals', 'negative', 'four_numbers'])
+        
+        if q_type == 'very_large':
+            a = random.randint(100, 500)
+            b = random.randint(100, 500)
+            return {
+                "type": "addition",
+                "display": f"{a} + {b} = ?",
+                "answer": a + b,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decimals':
+            a = round(random.uniform(10, 100), 1)
+            b = round(random.uniform(10, 100), 1)
+            answer = round(a + b, 1)
+            return {
+                "type": "addition",
+                "display": f"{a} + {b} = ?",
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        elif q_type == 'negative':
+            a = random.randint(10, 50)
+            b = -random.randint(1, a - 1)  # Negative but result is positive
+            return {
+                "type": "addition",
+                "display": f"{a} + ({b}) = ?",
+                "answer": a + b,
+                "input_type": "number"
+            }
+        
+        else:  # four_numbers
+            a = random.randint(10, 50)
+            b = random.randint(10, 50)
+            c = random.randint(10, 50)
+            d = random.randint(10, 50)
+            return {
+                "type": "addition",
+                "display": f"{a} + {b} + {c} + {d} = ?",
+                "answer": a + b + c + d,
+                "input_type": "number"
+            }
 
 
 def generate_subtraction(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Subtraction: 8 - 3 = ? (always positive result)"""
-    a = random.randint(min_val, max_val)
-    b = random.randint(min_val, max_val)
-    if a < b:
-        a, b = b, a
-    return {
-        "type": "subtraction",
-        "display": f"{a} − {b} = ?",
-        "answer": a - b,
-        "input_type": "number"
-    }
+    """
+    Subtraction with difficulty scaling:
+    Easy: Small numbers, always positive result
+    Medium: Larger numbers, some negative results
+    Hard: Very large numbers, decimals, multiple subtractions
+    """
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
+    
+    if is_easy:
+        a = random.randint(2, 10)
+        b = random.randint(1, a - 1)  # Always positive result
+        return {
+            "type": "subtraction",
+            "display": f"{a} − {b} = ?",
+            "answer": a - b,
+            "input_type": "number"
+        }
+    
+    elif is_medium:
+        q_type = random.choice(['large', 'decimal', 'chain'])
+        
+        if q_type == 'large':
+            a = random.randint(50, 100)
+            b = random.randint(10, a - 1)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} = ?",
+                "answer": a - b,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decimal':
+            a = round(random.uniform(10, 30), 1)
+            b = round(random.uniform(1, float(a) - 0.1), 1)
+            answer = round(a - b, 1)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} = ?",
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        else:  # chain (a - b - c)
+            a = random.randint(30, 60)
+            b = random.randint(5, 15)
+            c = random.randint(5, 15)
+            while a - b - c < 0:
+                b = random.randint(5, 10)
+                c = random.randint(5, 10)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} − {c} = ?",
+                "answer": a - b - c,
+                "input_type": "number"
+            }
+    
+    else:  # is_hard
+        q_type = random.choice(['very_large', 'decimals', 'negative_result', 'complex'])
+        
+        if q_type == 'very_large':
+            a = random.randint(200, 500)
+            b = random.randint(50, 200)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} = ?",
+                "answer": a - b,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decimals':
+            a = round(random.uniform(50, 150), 1)
+            b = round(random.uniform(10, 100), 1)
+            while b >= a:
+                b = round(random.uniform(10, float(a) - 0.1), 1)
+            answer = round(a - b, 1)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} = ?",
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        elif q_type == 'negative_result':
+            a = random.randint(10, 30)
+            b = random.randint(a + 1, a + 20)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} = ?",
+                "answer": a - b,
+                "input_type": "number"
+            }
+        
+        else:  # complex (multiple operations)
+            a = random.randint(100, 200)
+            b = random.randint(20, 50)
+            c = random.randint(20, 50)
+            d = random.randint(10, 30)
+            return {
+                "type": "subtraction",
+                "display": f"{a} − {b} − {c} − {d} = ?",
+                "answer": a - b - c - d,
+                "input_type": "number"
+            }
 
 
 def generate_multiplication(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Multiplication: 6 × 7 = ?"""
-    # Keep multiplication tables reasonable
-    max_factor = min(12, max_val) if max_val > 10 else max_val
-    a = random.randint(1, max(2, max_factor))
-    b = random.randint(1, max(2, max_factor))
-    return {
-        "type": "multiplication",
-        "display": f"{a} × {b} = ?",
-        "answer": a * b,
-        "input_type": "number"
-    }
+    """
+    Multiplication with difficulty scaling:
+    Easy: Basic times tables (1-10)
+    Medium: Extended tables, two-digit × one-digit
+    Hard: Two-digit × two-digit, decimals
+    """
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
+    
+    if is_easy:
+        a = random.randint(1, 10)
+        b = random.randint(1, 10)
+        return {
+            "type": "multiplication",
+            "display": f"{a} × {b} = ?",
+            "answer": a * b,
+            "input_type": "number"
+        }
+    
+    elif is_medium:
+        q_type = random.choice(['extended', 'two_by_one', 'squares'])
+        
+        if q_type == 'extended':
+            a = random.randint(2, 12)
+            b = random.randint(11, 15)
+            return {
+                "type": "multiplication",
+                "display": f"{a} × {b} = ?",
+                "answer": a * b,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'two_by_one':
+            a = random.randint(10, 30)
+            b = random.randint(2, 9)
+            return {
+                "type": "multiplication",
+                "display": f"{a} × {b} = ?",
+                "answer": a * b,
+                "input_type": "number"
+            }
+        
+        else:  # squares
+            a = random.randint(5, 15)
+            return {
+                "type": "multiplication",
+                "display": f"{a} × {a} = ?",
+                "answer": a * a,
+                "input_type": "number"
+            }
+    
+    else:  # is_hard
+        q_type = random.choice(['two_by_two', 'large', 'decimals'])
+        
+        if q_type == 'two_by_two':
+            a = random.randint(11, 25)
+            b = random.randint(11, 25)
+            return {
+                "type": "multiplication",
+                "display": f"{a} × {b} = ?",
+                "answer": a * b,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'large':
+            a = random.randint(20, 50)
+            b = random.randint(5, 12)
+            return {
+                "type": "multiplication",
+                "display": f"{a} × {b} = ?",
+                "answer": a * b,
+                "input_type": "number"
+            }
+        
+        else:  # decimals
+            a = round(random.uniform(1, 10), 1)
+            b = random.randint(2, 10)
+            answer = round(a * b, 1)
+            return {
+                "type": "multiplication",
+                "display": f"{a} × {b} = ?",
+                "answer": answer,
+                "input_type": "decimal"
+            }
 
 
 def generate_division(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Division: 24 ÷ 6 = ? (clean division)"""
-    divisor = random.randint(2, min(12, max_val))
-    quotient = random.randint(1, min(12, max_val))
-    dividend = divisor * quotient
-    return {
-        "type": "division",
-        "display": f"{dividend} ÷ {divisor} = ?",
-        "answer": quotient,
-        "input_type": "number"
-    }
+    """
+    Division with difficulty scaling:
+    Easy: Basic division (clean results 1-10)
+    Medium: Larger dividends, some remainders
+    Hard: Large numbers, decimal results
+    """
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
+    
+    if is_easy:
+        divisor = random.randint(2, 10)
+        quotient = random.randint(1, 10)
+        dividend = divisor * quotient
+        return {
+            "type": "division",
+            "display": f"{dividend} ÷ {divisor} = ?",
+            "answer": quotient,
+            "input_type": "number"
+        }
+    
+    elif is_medium:
+        q_type = random.choice(['clean', 'larger'])
+        
+        if q_type == 'clean':
+            divisor = random.randint(3, 12)
+            quotient = random.randint(5, 15)
+            dividend = divisor * quotient
+            return {
+                "type": "division",
+                "display": f"{dividend} ÷ {divisor} = ?",
+                "answer": quotient,
+                "input_type": "number"
+            }
+        
+        else:  # larger
+            divisor = random.randint(5, 15)
+            quotient = random.randint(10, 25)
+            dividend = divisor * quotient
+            return {
+                "type": "division",
+                "display": f"{dividend} ÷ {divisor} = ?",
+                "answer": quotient,
+                "input_type": "number"
+            }
+    
+    else:  # is_hard
+        q_type = random.choice(['large', 'decimal_result', 'chain'])
+        
+        if q_type == 'large':
+            divisor = random.randint(10, 25)
+            quotient = random.randint(15, 40)
+            dividend = divisor * quotient
+            return {
+                "type": "division",
+                "display": f"{dividend} ÷ {divisor} = ?",
+                "answer": quotient,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decimal_result':
+            # Division that gives .5 result
+            divisor = random.randint(2, 10)
+            quotient_base = random.randint(5, 15)
+            # Make dividend such that result is X.5
+            dividend = divisor * quotient_base + divisor // 2
+            answer = dividend / divisor
+            return {
+                "type": "division",
+                "display": f"{dividend} ÷ {divisor} = ?",
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        else:  # chain division
+            a = random.randint(100, 200)
+            b = random.randint(2, 5)
+            c = random.randint(2, 5)
+            # Ensure clean division
+            a = a - (a % (b * c))
+            if a == 0:
+                a = b * c * random.randint(5, 15)
+            return {
+                "type": "division",
+                "display": f"{a} ÷ {b} ÷ {c} = ?",
+                "answer": a // b // c,
+                "input_type": "number"
+            }
 
 
 def generate_fractions(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
@@ -937,104 +1274,385 @@ def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
 
 def generate_percentage(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Percentage:
-    - What is 25% of 80?
-    - 15 is what % of 60?
+    Percentage with difficulty scaling:
+    
+    Easy (max_val <= 10):
+      - Simple: 10%, 25%, 50% of round numbers
+      - Find: X is what % of Y (easy percentages)
+    
+    Medium (max_val 11-50):
+      - More percentages: 15%, 30%, 35%, etc.
+      - Percentage increase/decrease
+      - Larger numbers
+    
+    Hard (max_val > 50):
+      - Find original value (before % increase/decrease)
+      - Complex percentages
+      - Multi-step problems
     """
     texts = {
         "sv": {
             "of": "Hur mycket är {p}% av {n}?",
             "find": "Hur många procent är {part} av {whole}?",
+            "increase": "Ett pris ökar med {p}%. Vad blir det nya priset om ursprungspriset är {n} kr?",
+            "decrease": "Ett pris minskar med {p}%. Vad blir det nya priset om ursprungspriset är {n} kr?",
+            "original_increase": "Efter en ökning på {p}% är priset {final} kr. Vad var ursprungspriset?",
+            "original_decrease": "Efter en rabatt på {p}% är priset {final} kr. Vad var ursprungspriset?",
         },
         "en": {
             "of": "How much is {p}% of {n}?",
             "find": "What percentage is {part} of {whole}?",
+            "increase": "A price increases by {p}%. What is the new price if the original was {n}?",
+            "decrease": "A price decreases by {p}%. What is the new price if the original was {n}?",
+            "original_increase": "After a {p}% increase, the price is {final}. What was the original price?",
+            "original_decrease": "After a {p}% discount, the price is {final}. What was the original price?",
         }
     }
     t = texts.get(lang, texts["sv"])
     
-    q_type = random.choice(['of', 'find'])
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    if q_type == 'of':
-        percent = random.choice([10, 20, 25, 50, 75, 100, 5, 15, 30])
-        # Make base divisible by factors for clean answers
-        if percent in [25, 75]:
-            base = random.choice([4, 8, 12, 16, 20, 40, 80, 100, 200]) * random.randint(1, 3)
-        elif percent in [10, 20, 30, 50]:
-            base = random.randint(2, 20) * 10
-        else:
-            base = random.randint(10, 100) * 10
+    if is_easy:
+        q_type = random.choice(['of', 'find'])
         
-        answer = int((percent / 100) * base)
-        return {
-            "type": "percentage",
-            "display": t["of"].format(p=percent, n=base),
-            "answer": answer,
-            "input_type": "number"
-        }
+        if q_type == 'of':
+            percent = random.choice([10, 20, 25, 50])
+            # Simple round numbers
+            if percent == 25:
+                base = random.choice([4, 8, 12, 16, 20, 40, 80, 100])
+            else:
+                base = random.choice([10, 20, 30, 40, 50, 100])
+            
+            answer = int((percent / 100) * base)
+            return {
+                "type": "percentage",
+                "display": t["of"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # find
+            whole = random.choice([10, 20, 50, 100])
+            percent = random.choice([10, 25, 50])
+            part = int((percent / 100) * whole)
+            return {
+                "type": "percentage",
+                "display": t["find"].format(part=part, whole=whole),
+                "answer": percent,
+                "input_type": "number"
+            }
     
-    else:  # find percentage
-        whole = random.choice([20, 25, 40, 50, 80, 100, 200])
-        percent = random.choice([10, 20, 25, 50, 75])
-        part = int((percent / 100) * whole)
-        return {
-            "type": "percentage",
-            "display": t["find"].format(part=part, whole=whole),
-            "answer": percent,
-            "input_type": "number"
-        }
+    elif is_medium:
+        q_type = random.choice(['of', 'find', 'increase', 'decrease'])
+        
+        if q_type == 'of':
+            percent = random.choice([10, 15, 20, 25, 30, 35, 50, 75])
+            if percent in [25, 75]:
+                base = random.choice([40, 80, 120, 200, 400])
+            elif percent in [15, 35]:
+                base = random.choice([20, 40, 60, 100, 200])
+            else:
+                base = random.choice([50, 100, 150, 200, 250, 300])
+            
+            answer = int((percent / 100) * base)
+            return {
+                "type": "percentage",
+                "display": t["of"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'find':
+            whole = random.choice([40, 50, 80, 100, 200, 250])
+            percent = random.choice([10, 20, 25, 40, 50, 75])
+            part = int((percent / 100) * whole)
+            return {
+                "type": "percentage",
+                "display": t["find"].format(part=part, whole=whole),
+                "answer": percent,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'increase':
+            percent = random.choice([10, 20, 25, 50])
+            base = random.choice([100, 200, 400, 500])
+            answer = int(base * (1 + percent / 100))
+            return {
+                "type": "percentage",
+                "display": t["increase"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # decrease
+            percent = random.choice([10, 20, 25, 50])
+            base = random.choice([100, 200, 400, 500])
+            answer = int(base * (1 - percent / 100))
+            return {
+                "type": "percentage",
+                "display": t["decrease"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+    
+    else:  # is_hard
+        q_type = random.choice(['of', 'increase', 'decrease', 'original_increase', 'original_decrease'])
+        
+        if q_type == 'of':
+            percent = random.choice([12, 15, 18, 22, 35, 45, 65, 85])
+            # Ensure clean answer
+            base = random.choice([100, 200, 500, 1000])
+            answer = int((percent / 100) * base)
+            return {
+                "type": "percentage",
+                "display": t["of"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'increase':
+            percent = random.choice([15, 25, 30, 40])
+            base = random.choice([200, 400, 500, 800, 1000])
+            answer = int(base * (1 + percent / 100))
+            return {
+                "type": "percentage",
+                "display": t["increase"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decrease':
+            percent = random.choice([15, 25, 30, 40])
+            base = random.choice([200, 400, 500, 800, 1000])
+            answer = int(base * (1 - percent / 100))
+            return {
+                "type": "percentage",
+                "display": t["decrease"].format(p=percent, n=base),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'original_increase':
+            # After X% increase, price is Y. What was original?
+            percent = random.choice([10, 20, 25, 50])
+            original = random.choice([100, 200, 400, 500, 800])
+            final = int(original * (1 + percent / 100))
+            return {
+                "type": "percentage",
+                "display": t["original_increase"].format(p=percent, final=final),
+                "answer": original,
+                "input_type": "number"
+            }
+        
+        else:  # original_decrease
+            # After X% discount, price is Y. What was original?
+            percent = random.choice([10, 20, 25, 50])
+            original = random.choice([100, 200, 400, 500, 800])
+            final = int(original * (1 - percent / 100))
+            return {
+                "type": "percentage",
+                "display": t["original_decrease"].format(p=percent, final=final),
+                "answer": original,
+                "input_type": "number"
+            }
 
 
 def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Unit conversion with natural language questions
+    Unit conversion with difficulty scaling:
+    
+    Easy (max_val <= 10):
+      - Simple conversions: m→cm, kg→g, l→dl
+      - Small numbers (1-5)
+    
+    Medium (max_val 11-50):
+      - More unit types: km→m, l→ml, h→min
+      - Larger numbers
+      - Decimal values
+    
+    Hard (max_val > 50):
+      - Multi-step: km→cm, h→sek
+      - Decimal conversions
+      - Area/volume units: m²→cm², m³→l
     """
     texts = {
         "sv": {
             "to_small": "Hur många {small} är {value} {big}?",
             "to_big": "Hur många {big} är {value} {small}?",
+            "decimal_to_small": "Hur många {small} är {value} {big}?",
+            "multi_step": "Hur många {small} är {value} {big}?",
+            "area": "Hur många {small} är {value} {big}?",
         },
         "en": {
             "to_small": "How many {small} is {value} {big}?",
             "to_big": "How many {big} is {value} {small}?",
+            "decimal_to_small": "How many {small} is {value} {big}?",
+            "multi_step": "How many {small} is {value} {big}?",
+            "area": "How many {small} is {value} {big}?",
         }
     }
     t = texts.get(lang, texts["sv"])
     
-    conversions = [
-        ("m", "cm", 100, "meter", "centimeter"),
-        ("km", "m", 1000, "kilometer", "meter"),
-        ("kg", "g", 1000, "kilogram", "gram"),
-        ("l", "ml", 1000, "liter", "milliliter"),
-        ("l", "dl", 10, "liter", "deciliter"),
-        ("m", "mm", 1000, "meter", "millimeter"),
-        ("h", "min", 60, "timmar", "minuter"),
-        ("min", "sek", 60, "minuter", "sekunder"),
-    ]
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    conv = random.choice(conversions)
-    big_unit, small_unit, factor, big_name, small_name = conv
+    if is_easy:
+        # Simple conversions with small numbers
+        conversions = [
+            ("m", "cm", 100, "meter", "centimeter"),
+            ("kg", "g", 1000, "kilogram", "gram"),
+            ("l", "dl", 10, "liter", "deciliter"),
+            ("h", "min", 60, "timmar", "minuter"),
+        ]
+        
+        conv = random.choice(conversions)
+        big_unit, small_unit, factor, big_name, small_name = conv
+        
+        direction = random.choice(['to_small', 'to_big'])
+        
+        if direction == 'to_small':
+            value = random.randint(1, 5)
+            answer = value * factor
+            return {
+                "type": "units",
+                "display": t["to_small"].format(small=small_name, value=value, big=big_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        else:
+            value = random.randint(1, 5) * factor
+            answer = value // factor
+            return {
+                "type": "units",
+                "display": t["to_big"].format(big=big_name, value=value, small=small_name),
+                "answer": answer,
+                "input_type": "number"
+            }
     
-    direction = random.choice(['to_small', 'to_big'])
+    elif is_medium:
+        # More unit types and larger numbers
+        conversions = [
+            ("m", "cm", 100, "meter", "centimeter"),
+            ("km", "m", 1000, "kilometer", "meter"),
+            ("kg", "g", 1000, "kilogram", "gram"),
+            ("l", "ml", 1000, "liter", "milliliter"),
+            ("l", "dl", 10, "liter", "deciliter"),
+            ("m", "mm", 1000, "meter", "millimeter"),
+            ("h", "min", 60, "timmar", "minuter"),
+            ("min", "sek", 60, "minuter", "sekunder"),
+        ]
+        
+        conv = random.choice(conversions)
+        big_unit, small_unit, factor, big_name, small_name = conv
+        
+        q_type = random.choice(['to_small', 'to_big', 'decimal'])
+        
+        if q_type == 'to_small':
+            value = random.randint(2, 15)
+            answer = value * factor
+            return {
+                "type": "units",
+                "display": t["to_small"].format(small=small_name, value=value, big=big_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'to_big':
+            value = random.randint(2, 10) * factor
+            answer = value // factor
+            return {
+                "type": "units",
+                "display": t["to_big"].format(big=big_name, value=value, small=small_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # decimal
+            # e.g., 2.5 m = 250 cm
+            decimal_vals = [0.5, 1.5, 2.5, 3.5]
+            value = random.choice(decimal_vals)
+            answer = int(value * factor)
+            return {
+                "type": "units",
+                "display": t["decimal_to_small"].format(small=small_name, value=value, big=big_name),
+                "answer": answer,
+                "input_type": "number"
+            }
     
-    if direction == 'to_small':
-        value = random.randint(1, min(10, max_val))
-        answer = value * factor
-        return {
-            "type": "units",
-            "display": t["to_small"].format(small=small_name, value=value, big=big_name),
-            "answer": answer,
-            "input_type": "number"
-        }
-    else:
-        value = random.randint(1, min(10, max_val)) * factor
-        answer = value // factor
-        return {
-            "type": "units",
-            "display": t["to_big"].format(big=big_name, value=value, small=small_name),
-            "answer": answer,
-            "input_type": "number"
-        }
+    else:  # is_hard
+        q_type = random.choice(['multi_step', 'decimal_large', 'area', 'time'])
+        
+        if q_type == 'multi_step':
+            # km → cm (1 km = 100,000 cm)
+            multi_conversions = [
+                ("km", "cm", 100000, "kilometer", "centimeter"),
+                ("km", "mm", 1000000, "kilometer", "millimeter"),
+                ("h", "sek", 3600, "timmar", "sekunder"),
+            ]
+            conv = random.choice(multi_conversions)
+            big_unit, small_unit, factor, big_name, small_name = conv
+            
+            value = random.randint(1, 3)
+            answer = value * factor
+            return {
+                "type": "units",
+                "display": t["multi_step"].format(small=small_name, value=value, big=big_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'decimal_large':
+            conversions = [
+                ("km", "m", 1000, "kilometer", "meter"),
+                ("kg", "g", 1000, "kilogram", "gram"),
+                ("l", "ml", 1000, "liter", "milliliter"),
+            ]
+            conv = random.choice(conversions)
+            big_unit, small_unit, factor, big_name, small_name = conv
+            
+            # e.g., 3.75 km = 3750 m
+            whole = random.randint(1, 5)
+            decimal = random.choice([0.25, 0.5, 0.75])
+            value = whole + decimal
+            answer = int(value * factor)
+            return {
+                "type": "units",
+                "display": t["decimal_to_small"].format(small=small_name, value=value, big=big_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif q_type == 'area':
+            # m² → cm² (1 m² = 10,000 cm²)
+            value = random.randint(1, 3)
+            answer = value * 10000
+            return {
+                "type": "units",
+                "display": t["area"].format(small="cm²", value=value, big="m²"),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # time
+            # Complex time: 2 h 30 min = ? min
+            hours = random.randint(1, 3)
+            mins = random.choice([15, 30, 45])
+            total_mins = hours * 60 + mins
+            
+            texts_time = {
+                "sv": f"Hur många minuter är {hours} timmar och {mins} minuter?",
+                "en": f"How many minutes is {hours} hours and {mins} minutes?",
+            }
+            
+            return {
+                "type": "units",
+                "display": texts_time.get(lang, texts_time["sv"]),
+                "answer": total_mins,
+                "input_type": "number"
+            }
 
 
 
@@ -1049,166 +1667,529 @@ def math_round(value: float, decimals: int = 0) -> float:
 
 def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Rounding with natural language questions
-    Uses standard mathematical rounding (5 and above rounds up)
+    Rounding with difficulty scaling:
+    
+    Easy (max_val <= 10):
+      - Round to whole number (1 decimal)
+      - Round to nearest ten (small numbers)
+    
+    Medium (max_val 11-50):
+      - Round to one decimal (2 decimals)
+      - Round to nearest hundred
+      - Larger numbers
+    
+    Hard (max_val > 50):
+      - Round to two decimals (3 decimals)
+      - Round to nearest thousand
+      - Very large numbers
     """
     texts = {
         "sv": {
             "whole": "Vad blir {n} avrundat till heltal?",
             "tens": "Vad blir {n} avrundat till närmaste tiotal?",
             "decimal": "Vad blir {n} avrundat till en decimal?",
-            "hundreds": "Vad blir {n} avrundat till närmaste hundratal?"
+            "hundreds": "Vad blir {n} avrundat till närmaste hundratal?",
+            "two_decimals": "Vad blir {n} avrundat till två decimaler?",
+            "thousands": "Vad blir {n} avrundat till närmaste tusental?",
         },
         "en": {
             "whole": "What is {n} rounded to a whole number?",
             "tens": "What is {n} rounded to the nearest ten?",
             "decimal": "What is {n} rounded to one decimal?",
-            "hundreds": "What is {n} rounded to the nearest hundred?"
+            "hundreds": "What is {n} rounded to the nearest hundred?",
+            "two_decimals": "What is {n} rounded to two decimals?",
+            "thousands": "What is {n} rounded to the nearest thousand?",
         }
     }
     t = texts.get(lang, texts["sv"])
     
-    round_type = random.choice(['whole', 'tens', 'decimal'])
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    if round_type == 'whole':
-        # Generate number with one decimal
-        num = round(random.uniform(0.1, max_val) + random.random(), 1)
-        answer = int(math_round(num, 0))
-        return {
-            "type": "rounding",
-            "display": t["whole"].format(n=num),
-            "answer": answer,
-            "input_type": "number"
-        }
+    if is_easy:
+        round_type = random.choice(['whole', 'tens'])
+        
+        if round_type == 'whole':
+            # Small number with one decimal
+            whole = random.randint(1, 20)
+            decimal = random.randint(1, 9)
+            num = whole + decimal / 10
+            answer = int(math_round(num, 0))
+            return {
+                "type": "rounding",
+                "display": t["whole"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # tens
+            num = random.randint(11, 99)
+            answer = int(math_round(num / 10, 0) * 10)
+            return {
+                "type": "rounding",
+                "display": t["tens"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
     
-    elif round_type == 'tens':
-        num = random.randint(min_val, max_val * 10)
-        # Round to nearest 10: divide by 10, round, multiply by 10
-        answer = int(math_round(num / 10, 0) * 10)
-        return {
-            "type": "rounding",
-            "display": t["tens"].format(n=num),
-            "answer": answer,
-            "input_type": "number"
-        }
+    elif is_medium:
+        round_type = random.choice(['whole', 'decimal', 'tens', 'hundreds'])
+        
+        if round_type == 'whole':
+            whole = random.randint(10, 100)
+            decimal = random.randint(1, 9)
+            num = whole + decimal / 10
+            answer = int(math_round(num, 0))
+            return {
+                "type": "rounding",
+                "display": t["whole"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif round_type == 'decimal':
+            # Two decimals → one decimal
+            whole = random.randint(0, 50)
+            first_dec = random.randint(0, 9)
+            second_dec = random.randint(1, 9)
+            num = whole + first_dec / 10 + second_dec / 100
+            num = round(num, 2)
+            answer = math_round(num, 1)
+            return {
+                "type": "rounding",
+                "display": t["decimal"].format(n=num),
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        elif round_type == 'tens':
+            num = random.randint(100, 500)
+            answer = int(math_round(num / 10, 0) * 10)
+            return {
+                "type": "rounding",
+                "display": t["tens"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # hundreds
+            num = random.randint(100, 999)
+            answer = int(math_round(num / 100, 0) * 100)
+            return {
+                "type": "rounding",
+                "display": t["hundreds"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
     
-    else:  # decimal
-        # Generate number with exactly two decimals (second decimal never 0)
-        whole_part = random.randint(0, max_val)
-        first_decimal = random.randint(0, 9)
-        second_decimal = random.randint(1, 9)  # Never 0 to ensure 2 decimals
-        num = whole_part + first_decimal / 10 + second_decimal / 100
-        num = round(num, 2)
-        answer = math_round(num, 1)
-        return {
-            "type": "rounding",
-            "display": t["decimal"].format(n=num),
-            "answer": answer,
-            "input_type": "decimal"
-        }
+    else:  # is_hard
+        round_type = random.choice(['decimal', 'two_decimals', 'hundreds', 'thousands'])
+        
+        if round_type == 'decimal':
+            # Two decimals → one decimal (larger numbers)
+            whole = random.randint(50, 200)
+            first_dec = random.randint(0, 9)
+            second_dec = random.randint(1, 9)
+            num = whole + first_dec / 10 + second_dec / 100
+            num = round(num, 2)
+            answer = math_round(num, 1)
+            return {
+                "type": "rounding",
+                "display": t["decimal"].format(n=num),
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        elif round_type == 'two_decimals':
+            # Three decimals → two decimals
+            whole = random.randint(0, 50)
+            first_dec = random.randint(0, 9)
+            second_dec = random.randint(0, 9)
+            third_dec = random.randint(1, 9)
+            num = whole + first_dec / 10 + second_dec / 100 + third_dec / 1000
+            num = round(num, 3)
+            answer = math_round(num, 2)
+            return {
+                "type": "rounding",
+                "display": t["two_decimals"].format(n=num),
+                "answer": answer,
+                "input_type": "decimal"
+            }
+        
+        elif round_type == 'hundreds':
+            num = random.randint(1000, 9999)
+            answer = int(math_round(num / 100, 0) * 100)
+            return {
+                "type": "rounding",
+                "display": t["hundreds"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # thousands
+            num = random.randint(1000, 9999)
+            answer = int(math_round(num / 1000, 0) * 1000)
+            return {
+                "type": "rounding",
+                "display": t["thousands"].format(n=num),
+                "answer": answer,
+                "input_type": "number"
+            }
 
 
 def generate_angles(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Angles:
-    - Complement (90°): What + 30° = 90°?
-    - Supplement (180°): What + 45° = 180°?
-    - Triangle: 60° + 70° + ? = 180°
+    Angles with difficulty scaling:
+    
+    Easy (max_val <= 10):
+      - Complement (90°)
+      - Triangle angles (simple)
+    
+    Medium (max_val 11-50):
+      - Supplement (180°)
+      - Quadrilateral (360°)
+      - Isosceles triangle
+    
+    Hard (max_val > 50):
+      - Polygon angles
+      - Exterior angles
+      - Multiple angle relationships
     """
     texts = {
         "sv": {
             "complement": "Vad är komplementvinkeln till {a}°?",
             "supplement": "Vad är supplementvinkeln till {a}°?",
-            "triangle": "En triangel har två vinklar på {a}° och {b}°. Hur stor är den tredje vinkeln?"
+            "triangle": "En triangel har två vinklar på {a}° och {b}°. Hur stor är den tredje vinkeln?",
+            "quadrilateral": "En fyrhörning har tre vinklar på {a}°, {b}° och {c}°. Hur stor är den fjärde vinkeln?",
+            "isosceles": "En likbent triangel har en topp-vinkel på {a}°. Hur stora är basvinklarna?",
+            "polygon": "Hur stor är vinkelsumman i en {n}-hörning?",
+            "exterior": "Vad är yttervinkeln till en inre vinkel på {a}°?",
+            "regular_polygon": "Hur stor är varje inre vinkel i en regelbunden {n}-hörning?",
         },
         "en": {
             "complement": "What is the complement of {a}°?",
             "supplement": "What is the supplement of {a}°?",
-            "triangle": "A triangle has two angles of {a}° and {b}°. What is the third angle?"
+            "triangle": "A triangle has two angles of {a}° and {b}°. What is the third angle?",
+            "quadrilateral": "A quadrilateral has three angles of {a}°, {b}° and {c}°. What is the fourth angle?",
+            "isosceles": "An isosceles triangle has a vertex angle of {a}°. What are the base angles?",
+            "polygon": "What is the sum of angles in a {n}-gon?",
+            "exterior": "What is the exterior angle to an interior angle of {a}°?",
+            "regular_polygon": "What is each interior angle of a regular {n}-gon?",
         }
     }
     t = texts.get(lang, texts["sv"])
     
-    angle_type = random.choice(['complement', 'supplement', 'triangle'])
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    if angle_type == 'complement':
-        angle = random.randint(10, 80)
-        return {
-            "type": "angles",
-            "display": t["complement"].format(a=angle),
-            "answer": 90 - angle,
-            "input_type": "number"
-        }
+    if is_easy:
+        angle_type = random.choice(['complement', 'triangle'])
+        
+        if angle_type == 'complement':
+            angle = random.choice([30, 40, 45, 50, 60])
+            return {
+                "type": "angles",
+                "display": t["complement"].format(a=angle),
+                "answer": 90 - angle,
+                "input_type": "number"
+            }
+        
+        else:  # triangle
+            a = random.choice([30, 40, 50, 60, 70])
+            b = random.choice([30, 40, 50, 60, 70])
+            while a + b >= 170:
+                b = random.choice([30, 40, 50, 60])
+            c = 180 - a - b
+            return {
+                "type": "angles",
+                "display": t["triangle"].format(a=a, b=b),
+                "answer": c,
+                "input_type": "number"
+            }
     
-    elif angle_type == 'supplement':
-        angle = random.randint(10, 170)
-        return {
-            "type": "angles",
-            "display": t["supplement"].format(a=angle),
-            "answer": 180 - angle,
-            "input_type": "number"
-        }
+    elif is_medium:
+        angle_type = random.choice(['supplement', 'triangle', 'quadrilateral', 'isosceles'])
+        
+        if angle_type == 'supplement':
+            angle = random.randint(20, 160)
+            return {
+                "type": "angles",
+                "display": t["supplement"].format(a=angle),
+                "answer": 180 - angle,
+                "input_type": "number"
+            }
+        
+        elif angle_type == 'triangle':
+            a = random.randint(25, 85)
+            b = random.randint(25, 145 - a)
+            c = 180 - a - b
+            return {
+                "type": "angles",
+                "display": t["triangle"].format(a=a, b=b),
+                "answer": c,
+                "input_type": "number"
+            }
+        
+        elif angle_type == 'quadrilateral':
+            a = random.randint(60, 100)
+            b = random.randint(60, 100)
+            c = random.randint(60, 100)
+            d = 360 - a - b - c
+            # Ensure d is positive and reasonable
+            while d <= 0 or d > 180:
+                a = random.randint(70, 100)
+                b = random.randint(70, 100)
+                c = random.randint(70, 100)
+                d = 360 - a - b - c
+            return {
+                "type": "angles",
+                "display": t["quadrilateral"].format(a=a, b=b, c=c),
+                "answer": d,
+                "input_type": "number"
+            }
+        
+        else:  # isosceles
+            # Vertex angle, base angles are (180 - vertex) / 2
+            vertex = random.choice([20, 40, 60, 80, 100])
+            base = (180 - vertex) // 2
+            return {
+                "type": "angles",
+                "display": t["isosceles"].format(a=vertex),
+                "answer": base,
+                "input_type": "number"
+            }
     
-    else:  # triangle
-        a = random.randint(30, 80)
-        b = random.randint(30, 140 - a)
-        c = 180 - a - b
-        return {
-            "type": "angles",
-            "display": t["triangle"].format(a=a, b=b),
-            "answer": c,
-            "input_type": "number"
-        }
+    else:  # is_hard
+        angle_type = random.choice(['polygon', 'exterior', 'regular_polygon', 'quadrilateral'])
+        
+        if angle_type == 'polygon':
+            # Sum = (n - 2) × 180
+            n = random.choice([5, 6, 7, 8])
+            names = {5: "femhörning", 6: "sexhörning", 7: "sjuhörning", 8: "åttahörning"}
+            names_en = {5: "pentagon", 6: "hexagon", 7: "heptagon", 8: "octagon"}
+            polygon_name = names.get(n, f"{n}-hörning") if lang == "sv" else names_en.get(n, f"{n}-gon")
+            answer = (n - 2) * 180
+            return {
+                "type": "angles",
+                "display": t["polygon"].format(n=polygon_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        elif angle_type == 'exterior':
+            # Exterior angle = 180 - interior
+            interior = random.randint(60, 150)
+            return {
+                "type": "angles",
+                "display": t["exterior"].format(a=interior),
+                "answer": 180 - interior,
+                "input_type": "number"
+            }
+        
+        elif angle_type == 'regular_polygon':
+            # Each interior angle = (n - 2) × 180 / n
+            n = random.choice([4, 5, 6, 8])  # Choose n where result is a whole number
+            names = {4: "fyrhörning", 5: "femhörning", 6: "sexhörning", 8: "åttahörning"}
+            names_en = {4: "quadrilateral", 5: "pentagon", 6: "hexagon", 8: "octagon"}
+            polygon_name = names.get(n, f"{n}-hörning") if lang == "sv" else names_en.get(n, f"{n}-gon")
+            answer = ((n - 2) * 180) // n
+            return {
+                "type": "angles",
+                "display": t["regular_polygon"].format(n=polygon_name),
+                "answer": answer,
+                "input_type": "number"
+            }
+        
+        else:  # quadrilateral with harder numbers
+            a = random.randint(50, 120)
+            b = random.randint(50, 120)
+            c = random.randint(50, 120)
+            d = 360 - a - b - c
+            while d <= 0 or d > 180:
+                a = random.randint(70, 110)
+                b = random.randint(70, 110)
+                c = random.randint(70, 110)
+                d = 360 - a - b - c
+            return {
+                "type": "angles",
+                "display": t["quadrilateral"].format(a=a, b=b, c=c),
+                "answer": d,
+                "input_type": "number"
+            }
 
 
 def generate_probability(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Probability with natural language questions
+    Probability with difficulty scaling:
+    
+    Easy (max_val <= 10):
+      - Simple dice, coin
+      - Basic marble problems
+    
+    Medium (max_val 11-50):
+      - Combined events (dice OR)
+      - More complex marble problems
+      - Multiple draws
+    
+    Hard (max_val > 50):
+      - Combined events (AND)
+      - Conditional probability (simple)
+      - Cards
     """
     texts = {
         "sv": {
             "dice": "Hur stor är sannolikheten att slå en {n}:a med en tärning? Svara som bråk.",
             "coin": "Hur stor är sannolikheten att få krona när man singlar slant? Svara som bråk.",
-            "marble": "I en påse finns {r} röda och {b} blå kulor. Hur stor är sannolikheten att dra en röd? Svara som bråk."
+            "marble": "I en påse finns {r} röda och {b} blå kulor. Hur stor är sannolikheten att dra en röd? Svara som bråk.",
+            "dice_or": "Hur stor är sannolikheten att slå en {a}:a eller en {b}:a med en tärning? Svara som bråk.",
+            "dice_less": "Hur stor är sannolikheten att slå mindre än {n} med en tärning? Svara som bråk.",
+            "dice_greater": "Hur stor är sannolikheten att slå mer än {n} med en tärning? Svara som bråk.",
+            "two_coins": "Du singlar två mynt. Vad är sannolikheten att få två kronor? Svara som bråk.",
+            "two_dice": "Du kastar två tärningar. Vad är sannolikheten att båda visar {n}? Svara som bråk.",
+            "card_color": "Vad är sannolikheten att dra ett rött kort (hjärter eller ruter) från en kortlek? Svara som bråk.",
+            "card_face": "Vad är sannolikheten att dra en kung från en kortlek med 52 kort? Svara som bråk.",
         },
         "en": {
             "dice": "What is the probability of rolling a {n} with a dice? Answer as a fraction.",
             "coin": "What is the probability of getting heads when flipping a coin? Answer as a fraction.",
-            "marble": "A bag contains {r} red and {b} blue marbles. What is the probability of drawing red? Answer as a fraction."
+            "marble": "A bag contains {r} red and {b} blue marbles. What is the probability of drawing red? Answer as a fraction.",
+            "dice_or": "What is the probability of rolling a {a} or a {b} with a dice? Answer as a fraction.",
+            "dice_less": "What is the probability of rolling less than {n} with a dice? Answer as a fraction.",
+            "dice_greater": "What is the probability of rolling more than {n} with a dice? Answer as a fraction.",
+            "two_coins": "You flip two coins. What is the probability of getting two heads? Answer as a fraction.",
+            "two_dice": "You roll two dice. What is the probability that both show {n}? Answer as a fraction.",
+            "card_color": "What is the probability of drawing a red card (hearts or diamonds) from a deck? Answer as a fraction.",
+            "card_face": "What is the probability of drawing a king from a 52-card deck? Answer as a fraction.",
         }
     }
     t = texts.get(lang, texts["sv"])
     
-    prob_type = random.choice(['dice', 'coin', 'marble'])
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    if prob_type == 'dice':
-        n = random.randint(1, 6)
-        return {
-            "type": "probability",
-            "display": t["dice"].format(n=n),
-            "answer": "1/6",
-            "input_type": "fraction"
-        }
+    if is_easy:
+        prob_type = random.choice(['dice', 'coin', 'marble'])
+        
+        if prob_type == 'dice':
+            n = random.randint(1, 6)
+            return {
+                "type": "probability",
+                "display": t["dice"].format(n=n),
+                "answer": "1/6",
+                "input_type": "fraction"
+            }
+        
+        elif prob_type == 'coin':
+            return {
+                "type": "probability",
+                "display": t["coin"],
+                "answer": "1/2",
+                "input_type": "fraction"
+            }
+        
+        else:  # marble
+            red = random.randint(1, 5)
+            blue = random.randint(1, 5)
+            total = red + blue
+            gcd = math.gcd(red, total)
+            return {
+                "type": "probability",
+                "display": t["marble"].format(r=red, b=blue),
+                "answer": f"{red // gcd}/{total // gcd}",
+                "input_type": "fraction"
+            }
     
-    elif prob_type == 'coin':
-        return {
-            "type": "probability",
-            "display": t["coin"],
-            "answer": "1/2",
-            "input_type": "fraction"
-        }
+    elif is_medium:
+        prob_type = random.choice(['dice_or', 'dice_less', 'dice_greater', 'marble'])
+        
+        if prob_type == 'dice_or':
+            a, b = random.sample(range(1, 7), 2)
+            if a > b:
+                a, b = b, a
+            # P(a or b) = 2/6 = 1/3
+            return {
+                "type": "probability",
+                "display": t["dice_or"].format(a=a, b=b),
+                "answer": "1/3",
+                "input_type": "fraction"
+            }
+        
+        elif prob_type == 'dice_less':
+            n = random.choice([3, 4, 5])  # Less than n: 2, 3, or 4 outcomes
+            outcomes = n - 1
+            gcd = math.gcd(outcomes, 6)
+            return {
+                "type": "probability",
+                "display": t["dice_less"].format(n=n),
+                "answer": f"{outcomes // gcd}/{6 // gcd}",
+                "input_type": "fraction"
+            }
+        
+        elif prob_type == 'dice_greater':
+            n = random.choice([2, 3, 4])  # Greater than n: 4, 3, or 2 outcomes
+            outcomes = 6 - n
+            gcd = math.gcd(outcomes, 6)
+            return {
+                "type": "probability",
+                "display": t["dice_greater"].format(n=n),
+                "answer": f"{outcomes // gcd}/{6 // gcd}",
+                "input_type": "fraction"
+            }
+        
+        else:  # marble with more balls
+            red = random.randint(2, 8)
+            blue = random.randint(2, 8)
+            total = red + blue
+            gcd = math.gcd(red, total)
+            return {
+                "type": "probability",
+                "display": t["marble"].format(r=red, b=blue),
+                "answer": f"{red // gcd}/{total // gcd}",
+                "input_type": "fraction"
+            }
     
-    else:  # marble
-        red = random.randint(1, 8)
-        blue = random.randint(1, 8)
-        total = red + blue
-        gcd = math.gcd(red, total)
-        return {
-            "type": "probability",
-            "display": t["marble"].format(r=red, b=blue),
-            "answer": f"{red // gcd}/{total // gcd}",
-            "input_type": "fraction"
-        }
+    else:  # is_hard
+        prob_type = random.choice(['two_coins', 'two_dice', 'card_color', 'card_face'])
+        
+        if prob_type == 'two_coins':
+            # P(HH) = 1/2 × 1/2 = 1/4
+            return {
+                "type": "probability",
+                "display": t["two_coins"],
+                "answer": "1/4",
+                "input_type": "fraction"
+            }
+        
+        elif prob_type == 'two_dice':
+            n = random.randint(1, 6)
+            # P(both show n) = 1/6 × 1/6 = 1/36
+            return {
+                "type": "probability",
+                "display": t["two_dice"].format(n=n),
+                "answer": "1/36",
+                "input_type": "fraction"
+            }
+        
+        elif prob_type == 'card_color':
+            # 26 red cards out of 52 = 1/2
+            return {
+                "type": "probability",
+                "display": t["card_color"],
+                "answer": "1/2",
+                "input_type": "fraction"
+            }
+        
+        else:  # card_face
+            # 4 kings out of 52 = 1/13
+            return {
+                "type": "probability",
+                "display": t["card_face"],
+                "answer": "1/13",
+                "input_type": "fraction"
+            }
 
 
 def generate_diagrams(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:

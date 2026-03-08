@@ -100,7 +100,7 @@ export default function HomeScreen() {
   }, []);
 
   // Categories that don't support difficulty levels (mix only)
-  const MIXED_DIFFICULTY_CATEGORIES = ['diagrams', 'probability', 'angles', 'units'];
+  const MIXED_DIFFICULTY_CATEGORIES = ['diagrams'];
   
   // Check if difficulty selector should be disabled
   const isDifficultyDisabled = settings.operations.length > 0 && 
