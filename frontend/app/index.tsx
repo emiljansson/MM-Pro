@@ -152,7 +152,7 @@ export default function HomeScreen() {
     const cardGap = isTablet ? 6 : 10;
     const cardWidth = (width - 32 - cardGap) / 2;
     // Use fixed height for tablets - smaller for 6 rows
-    const cardHeight = isTablet ? 70 : undefined;
+    const cardHeight = isTablet ? 80 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
