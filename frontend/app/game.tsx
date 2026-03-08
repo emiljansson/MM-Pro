@@ -687,7 +687,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   questionArea: {
-    flex: 1,
+    flex: 0,
     paddingHorizontal: 16,
     paddingTop: 10,
     paddingBottom: 8,
