@@ -647,6 +647,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   questionCard: {
+    flex: 1,
     width: '100%',
     paddingVertical: 8,
     paddingHorizontal: 16,
