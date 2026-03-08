@@ -191,7 +191,6 @@ export const LineGraph: React.FC<LineGraphProps> = ({
                 height: 3,
                 backgroundColor: theme.primary,
                 transform: [{ rotate: `${angle}deg` }],
-                transformOrigin: 'left center',
                 borderRadius: 2,
               }}
             />
