@@ -259,18 +259,18 @@ def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
     """
     texts = {
         "sv": {
-            "rect_area": "Rektangel: {w} × {h}\nArea = ?",
-            "rect_perimeter": "Rektangel: {w} × {h}\nOmkrets = ?",
-            "square_area": "Kvadrat: sida = {s}\nArea = ?",
-            "square_perimeter": "Kvadrat: sida = {s}\nOmkrets = ?",
-            "triangle_area": "Triangel: bas = {b}, höjd = {h}\nArea = ?",
+            "rect_area": "Vad är arean på en rektangel med sidorna {w} och {h}?",
+            "rect_perimeter": "Vad är omkretsen på en rektangel med sidorna {w} och {h}?",
+            "square_area": "Vad är arean på en kvadrat med sidan {s}?",
+            "square_perimeter": "Vad är omkretsen på en kvadrat med sidan {s}?",
+            "triangle_area": "Vad är arean på en triangel med basen {b} och höjden {h}?",
         },
         "en": {
-            "rect_area": "Rectangle: {w} × {h}\nArea = ?",
-            "rect_perimeter": "Rectangle: {w} × {h}\nPerimeter = ?",
-            "square_area": "Square: side = {s}\nArea = ?",
-            "square_perimeter": "Square: side = {s}\nPerimeter = ?",
-            "triangle_area": "Triangle: base = {b}, height = {h}\nArea = ?",
+            "rect_area": "What is the area of a rectangle with sides {w} and {h}?",
+            "rect_perimeter": "What is the perimeter of a rectangle with sides {w} and {h}?",
+            "square_area": "What is the area of a square with side {s}?",
+            "square_perimeter": "What is the perimeter of a square with side {s}?",
+            "triangle_area": "What is the area of a triangle with base {b} and height {h}?",
         }
     }
     t = texts.get(lang, texts["sv"])
