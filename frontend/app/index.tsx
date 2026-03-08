@@ -562,11 +562,12 @@ const styles = StyleSheet.create({
   },
   page: {
     paddingHorizontal: 16,
+    alignItems: 'center',
   },
   categoryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     gap: 10,
   },
   categoryCard: {
