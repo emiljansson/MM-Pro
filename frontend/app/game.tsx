@@ -323,29 +323,51 @@ export default function GameScreen() {
                 </View>
               ) : currentQuestion.display && containsFraction(currentQuestion.display) ? (
                 <View style={styles.fractionQuestionContainer}>
-                  {/* Extract prefix text (like "Simplify:" or "Förenkla:") */}
-                  {currentQuestion.display.includes(':') && (
-                    <Text style={[
-                      styles.fractionPrefixText,
-                      { color: theme.textSecondary },
-                      isSmallScreen && { fontSize: 14 }
-                    ]}>
-                      {currentQuestion.display.split(':')[0]}:
-                    </Text>
+                  {/* Check if this is a comparison question (has ? between fractions) */}
+                  {currentQuestion.input_type === 'choice' && currentQuestion.display.includes('?') ? (
+                    <>
+                      {currentQuestion.hint && (
+                        <Text style={[
+                          styles.fractionPrefixText,
+                          { color: theme.textSecondary, marginBottom: 8 },
+                          isSmallScreen && { fontSize: 14 }
+                        ]}>
+                          {currentQuestion.hint}
+                        </Text>
+                      )}
+                      <FractionExpression
+                        expression={currentQuestion.display}
+                        size={isSmallScreen ? 'small' : isLargeScreen ? 'large' : 'medium'}
+                        color={theme.text}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      {/* Extract prefix text (like "Simplify:" or "Förenkla:") */}
+                      {currentQuestion.display.includes(':') && (
+                        <Text style={[
+                          styles.fractionPrefixText,
+                          { color: theme.textSecondary },
+                          isSmallScreen && { fontSize: 14 }
+                        ]}>
+                          {currentQuestion.display.split(':')[0]}:
+                        </Text>
+                      )}
+                      <FractionExpression
+                        expression={currentQuestion.display.includes(':') 
+                          ? currentQuestion.display.split(':')[1].replace('= ?', '').replace('?', '').trim()
+                          : currentQuestion.display.replace('= ?', '').replace('?', '').trim()
+                        }
+                        size={isSmallScreen ? 'small' : isLargeScreen ? 'large' : 'medium'}
+                        color={theme.text}
+                      />
+                      <Text style={[
+                        styles.questionText,
+                        { color: theme.text },
+                        isSmallScreen && { fontSize: 28 }
+                      ]}>=</Text>
+                    </>
                   )}
-                  <FractionExpression
-                    expression={currentQuestion.display.includes(':') 
-                      ? currentQuestion.display.split(':')[1].replace('= ?', '').replace('?', '').trim()
-                      : currentQuestion.display.replace('= ?', '').replace('?', '').trim()
-                    }
-                    size={isSmallScreen ? 'small' : isLargeScreen ? 'large' : 'medium'}
-                    color={theme.text}
-                  />
-                  <Text style={[
-                    styles.questionText,
-                    { color: theme.text },
-                    isSmallScreen && { fontSize: 28 }
-                  ]}>=</Text>
                 </View>
               ) : (
                 <Text style={[
@@ -361,7 +383,34 @@ export default function GameScreen() {
                 </Text>
               )}
             {/* Answer input area */}
-            {currentQuestion.input_type === 'fraction' ? (
+            {currentQuestion.input_type === 'choice' ? (
+              <View style={styles.choiceButtonsContainer}>
+                {['<', '=', '>'].map((choice) => (
+                  <TouchableOpacity
+                    key={choice}
+                    style={[
+                      styles.choiceButton,
+                      { 
+                        backgroundColor: answer === choice ? theme.primary : theme.surface,
+                        borderColor: theme.primary,
+                      },
+                      isSmallScreen && { paddingVertical: 12, paddingHorizontal: 24 },
+                      isLargeScreen && { paddingVertical: 20, paddingHorizontal: 40 }
+                    ]}
+                    onPress={() => setAnswer(choice)}
+                  >
+                    <Text style={[
+                      styles.choiceButtonText,
+                      { color: answer === choice ? '#FFFFFF' : theme.text },
+                      isSmallScreen && { fontSize: 28 },
+                      isLargeScreen && { fontSize: 48 }
+                    ]}>
+                      {choice}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            ) : currentQuestion.input_type === 'fraction' ? (
               <View style={[
                 styles.answerBox, 
                 { borderColor: theme.primary, backgroundColor: theme.surface },
@@ -618,6 +667,26 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     width: '100%',
     textAlign: 'center',
+  },
+  choiceButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
+    marginVertical: 12,
+  },
+  choiceButton: {
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    borderWidth: 2,
+    minWidth: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  choiceButtonText: {
+    fontSize: 36,
+    fontWeight: '700',
   },
   answerBox: {
     width: '70%',
