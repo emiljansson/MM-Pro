@@ -871,11 +871,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   questionAreaGraph: {
+    flex: 0,
     paddingTop: 5,
     paddingBottom: 0,
     paddingHorizontal: 8,
   },
   questionCardGraph: {
+    flex: 0,
     paddingTop: 5,
     paddingBottom: 4,
     paddingHorizontal: 8,
