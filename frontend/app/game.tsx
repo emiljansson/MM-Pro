@@ -639,8 +639,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderWidth: 2,
-    borderColor: 'blue',
   },
   questionAreaCompact: {
     paddingHorizontal: 12,
