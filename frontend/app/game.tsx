@@ -689,7 +689,8 @@ const styles = StyleSheet.create({
   questionArea: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingTop: 10,
+    paddingBottom: 8,
     borderWidth: 2,
     borderColor: 'blue',
   },
@@ -698,7 +699,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   questionCard: {
-    flex: 1,
+    flex: 0,
     width: '100%',
     paddingVertical: 8,
     paddingHorizontal: 16,
