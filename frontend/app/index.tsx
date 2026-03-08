@@ -327,9 +327,9 @@ export default function HomeScreen() {
             </Text>
             <DifficultySelector
               options={difficultyOptions}
-              selected={settings.difficulty}
+              difficulty={settings.difficulty}
               onSelect={(difficulty) => updateSettings({ difficulty })}
-              isCompact={isCompact}
+              compact={isCompact}
             />
           </View>
 

@@ -19,8 +19,8 @@ db = client[os.environ.get('DB_NAME', 'mathmaster')]
 
 # Create the main app
 app = FastAPI(
-    title="Matematikmästaren API",
-    description="API för matematikträning",
+    title="MathMaster Pro API",
+    description="API for math training app",
     version="2.0.0"
 )
 
@@ -44,16 +44,16 @@ legacy_router = APIRouter(prefix="/api")
 
 TRANSLATIONS = {
     "app_title_part1": {
-        "sv": "Matematik", "en": "Math", "ar": "بطل",
-        "fi": "Matikka", "es": "Maestro de", "so": "Xirfadlaha"
+        "sv": "Math", "en": "Math", "ar": "Math",
+        "fi": "Math", "es": "Math", "so": "Math"
     },
     "app_title_part2": {
-        "sv": "Mästaren", "en": "Master", "ar": "الرياضيات",
-        "fi": "mestari", "es": "Matemáticas", "so": "Xisaabta"
+        "sv": "Master Pro", "en": "Master Pro", "ar": "Master Pro",
+        "fi": "Master Pro", "es": "Master Pro", "so": "Master Pro"
     },
     "app_title": {
-        "sv": "MatematikMästaren", "en": "MathMaster", "ar": "بطل الرياضيات",
-        "fi": "Matikkamestari", "es": "Maestro de Matemáticas", "so": "Xirfadlaha Xisaabta"
+        "sv": "MathMaster Pro", "en": "MathMaster Pro", "ar": "MathMaster Pro",
+        "fi": "MathMaster Pro", "es": "MathMaster Pro", "so": "MathMaster Pro"
     },
     "tagline": {
         "sv": "Bli trygg i matematik.", "en": "Become confident in math.",
@@ -366,12 +366,81 @@ TRANSLATIONS = {
         "sv": "Lås upp alla matematikkategorier", "en": "Unlock all math categories", "ar": "افتح جميع فئات الرياضيات",
         "fi": "Avaa kaikki matematiikkakategoriat", "es": "Desbloquea todas las categorías", "so": "Fur dhammaan qaybaha xisaabta"
     },
+    # Achievement translations
+    "ach_first_game": {
+        "sv": "Första spelet", "en": "First Game", "ar": "اللعبة الأولى",
+        "fi": "Ensimmäinen peli", "es": "Primer juego", "so": "Ciyaarta koowaad"
+    },
+    "ach_first_game_desc": {
+        "sv": "Spela ditt första spel", "en": "Play your first game", "ar": "العب لعبتك الأولى",
+        "fi": "Pelaa ensimmäinen pelisi", "es": "Juega tu primer juego", "so": "Ciyaar ciyaartaada koowaad"
+    },
+    "ach_ten_games": {
+        "sv": "Tio spel", "en": "Ten Games", "ar": "عشر ألعاب",
+        "fi": "Kymmenen peliä", "es": "Diez juegos", "so": "Toban ciyaarood"
+    },
+    "ach_ten_games_desc": {
+        "sv": "Spela 10 spel", "en": "Play 10 games", "ar": "العب 10 ألعاب",
+        "fi": "Pelaa 10 peliä", "es": "Juega 10 juegos", "so": "Ciyaar 10 ciyaarood"
+    },
+    "ach_hundred_games": {
+        "sv": "Hundra spel", "en": "Hundred Games", "ar": "مئة لعبة",
+        "fi": "Sata peliä", "es": "Cien juegos", "so": "Boqol ciyaarood"
+    },
+    "ach_hundred_games_desc": {
+        "sv": "Spela 100 spel", "en": "Play 100 games", "ar": "العب 100 لعبة",
+        "fi": "Pelaa 100 peliä", "es": "Juega 100 juegos", "so": "Ciyaar 100 ciyaarood"
+    },
+    "ach_perfect_game": {
+        "sv": "Perfekt spel", "en": "Perfect Game", "ar": "لعبة مثالية",
+        "fi": "Täydellinen peli", "es": "Juego perfecto", "so": "Ciyaar qumman"
+    },
+    "ach_perfect_game_desc": {
+        "sv": "Få 100% rätt i ett spel", "en": "Get 100% correct in a game", "ar": "احصل على 100% صحيح في لعبة",
+        "fi": "Saa 100% oikein pelissä", "es": "Obtén 100% correcto en un juego", "so": "Hel 100% sax ciyaarta"
+    },
+    "ach_streak_5": {
+        "sv": "5 i rad", "en": "5 in a Row", "ar": "5 على التوالي",
+        "fi": "5 peräkkäin", "es": "5 seguidos", "so": "5 isku xiga"
+    },
+    "ach_streak_5_desc": {
+        "sv": "Svara rätt på 5 frågor i rad", "en": "Answer 5 questions correctly in a row", "ar": "أجب على 5 أسئلة صحيحة على التوالي",
+        "fi": "Vastaa 5 kysymykseen oikein peräkkäin", "es": "Responde 5 preguntas correctamente seguidas", "so": "Ka jawaab 5 su'aalood si sax ah isku xigta"
+    },
+    "ach_streak_10": {
+        "sv": "10 i rad", "en": "10 in a Row", "ar": "10 على التوالي",
+        "fi": "10 peräkkäin", "es": "10 seguidos", "so": "10 isku xiga"
+    },
+    "ach_streak_10_desc": {
+        "sv": "Svara rätt på 10 frågor i rad", "en": "Answer 10 questions correctly in a row", "ar": "أجب على 10 أسئلة صحيحة على التوالي",
+        "fi": "Vastaa 10 kysymykseen oikein peräkkäin", "es": "Responde 10 preguntas correctamente seguidas", "so": "Ka jawaab 10 su'aalood si sax ah isku xigta"
+    },
+    "ach_math_master": {
+        "sv": "Matematikmästare", "en": "Math Master", "ar": "سيد الرياضيات",
+        "fi": "Matematiikan mestari", "es": "Maestro de matemáticas", "so": "Sayidka xisaabta"
+    },
+    "ach_math_master_desc": {
+        "sv": "Spela alla 13 kategorier", "en": "Play all 13 categories", "ar": "العب جميع الفئات الـ 13",
+        "fi": "Pelaa kaikki 13 kategoriaa", "es": "Juega todas las 13 categorías", "so": "Ciyaar dhammaan 13 qaybood"
+    },
+    "earned": {
+        "sv": "Uppnått", "en": "Earned", "ar": "تم الحصول عليها",
+        "fi": "Ansaittu", "es": "Obtenido", "so": "La helay"
+    },
+    "not_earned": {
+        "sv": "Inte uppnått", "en": "Not earned", "ar": "لم يتم الحصول عليها",
+        "fi": "Ei ansaittu", "es": "No obtenido", "so": "Lama helin"
+    },
+    "points": {
+        "sv": "poäng", "en": "points", "ar": "نقاط",
+        "fi": "pistettä", "es": "puntos", "so": "dhibco"
+    },
 }
 
 
 @legacy_router.get("/")
 async def root():
-    return {"message": "Matematikmästaren API", "version": "2.0.0"}
+    return {"message": "MathMaster Pro API", "version": "2.0.0"}
 
 
 @legacy_router.get("/translations")
