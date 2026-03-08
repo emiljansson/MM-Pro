@@ -47,7 +47,7 @@ export const BarChart: React.FC<BarChartProps> = ({
   return (
     <View style={styles.container}>
       {/* Chart area */}
-      <View style={[styles.chartArea, { height: s.maxHeight + 40 }]}>
+      <View style={[styles.chartArea, { height: s.maxHeight + 60 }]}>
         {/* Y-axis labels */}
         <View style={styles.yAxis}>
           <Text style={[styles.yLabel, { color: theme.textMuted, fontSize: s.labelSize - 1 }]}>
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+    overflow: 'visible',
   },
   chartArea: {
     flexDirection: 'row',
