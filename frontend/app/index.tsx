@@ -406,8 +406,14 @@ export default function HomeScreen() {
               compact={isCompact}
             />
           </View>
+        </ScrollView>
 
-          {/* Start Button */}
+        {/* Start Button - Fixed at bottom like game keyboard */}
+        <View style={[
+          styles.startButtonContainer,
+          { backgroundColor: theme.background },
+          isTablet && { paddingHorizontal: 24, paddingBottom: 16 }
+        ]}>
           <TouchableOpacity
             style={[
               styles.startButton,
@@ -433,7 +439,7 @@ export default function HomeScreen() {
               </>
             )}
           </TouchableOpacity>
-        </ScrollView>
+        </View>
       </View>
 
       {/* Language Selector Modal */}
@@ -491,7 +497,7 @@ const styles = StyleSheet.create({
   },
   mainScrollContent: {
     paddingHorizontal: 16,
-    paddingBottom: 24,
+    paddingBottom: 8,
   },
   titleContainer: {
     alignItems: 'center',
@@ -615,6 +621,11 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
   },
+  startButtonContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    paddingBottom: 24,
+  },
   startButton: {
     flexDirection: 'row',
     height: 52,
@@ -622,7 +633,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    marginTop: 8,
   },
   startButtonCompact: {
     height: 44,
