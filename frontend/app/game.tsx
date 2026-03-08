@@ -593,11 +593,10 @@ const styles = StyleSheet.create({
   },
   centeredWrapper: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   keyboardContainer: {
-    flex: 1,
-    paddingTop: 0,
+    paddingTop: 10,
     paddingBottom: 0,
     justifyContent: 'flex-end',
   },
@@ -657,17 +656,16 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   questionArea: {
-    flex: 0,
+    flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 8,
+    paddingVertical: 8,
   },
   questionAreaCompact: {
     paddingHorizontal: 12,
     paddingVertical: 4,
   },
   questionCard: {
-    flex: 0,
+    flex: 1,
     width: '100%',
     paddingVertical: 8,
     paddingHorizontal: 16,
