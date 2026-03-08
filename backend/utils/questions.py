@@ -194,60 +194,214 @@ def generate_fractions(min_val: int, max_val: int, lang: str = "sv") -> Dict[str
 def generate_equations(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
     Equations - solve for x:
-    - x + 5 = 12
-    - x - 3 = 7
-    - 3 × x = 15
-    - x ÷ 4 = 3
+    Easy (max_val <= 10):
+      - x + 5 = 12
+      - x - 3 = 7
+      - 3 × x = 15
+      - x ÷ 4 = 3
+    Medium (max_val <= 50):
+      - 2x + 6 = 12
+      - 3x - 4 = 11
+    Hard (max_val > 50):
+      - 2x + 6 = 12 (with larger numbers)
+      - Decimals: 2.5x + 3 = 8
+      - Negative: -2x + 4 = 10
     """
-    eq_type = random.choice(['add', 'subtract', 'multiply', 'divide'])
     
-    if eq_type == 'add':
-        x = random.randint(1, max_val)
-        a = random.randint(1, max_val)
-        b = x + a
-        return {
-            "type": "equations",
-            "display": f"x + {a} = {b}",
-            "answer": x,
-            "input_type": "number",
-            "hint": "x = ?"
-        }
+    # Determine difficulty level
+    is_easy = max_val <= 10
+    is_medium = 10 < max_val <= 50
+    is_hard = max_val > 50
     
-    elif eq_type == 'subtract':
-        x = random.randint(1, max_val)
-        a = random.randint(1, x)
-        b = x - a
-        return {
-            "type": "equations",
-            "display": f"x − {a} = {b}",
-            "answer": x,
-            "input_type": "number",
-            "hint": "x = ?"
-        }
+    if is_easy:
+        # Simple equations
+        eq_type = random.choice(['add', 'subtract', 'multiply', 'divide'])
+        
+        if eq_type == 'add':
+            x = random.randint(1, max_val)
+            a = random.randint(1, max_val)
+            b = x + a
+            return {
+                "type": "equations",
+                "display": f"x + {a} = {b}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        elif eq_type == 'subtract':
+            x = random.randint(1, max_val)
+            a = random.randint(1, x)
+            b = x - a
+            return {
+                "type": "equations",
+                "display": f"x − {a} = {b}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        elif eq_type == 'multiply':
+            x = random.randint(1, min(10, max_val))
+            a = random.randint(2, min(10, max_val))
+            b = a * x
+            return {
+                "type": "equations",
+                "display": f"{a} × x = {b}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        else:  # divide
+            x = random.randint(2, min(12, max_val))
+            a = random.randint(2, min(10, max_val))
+            b = x * a
+            return {
+                "type": "equations",
+                "display": f"x ÷ {a} = {x}",
+                "answer": b,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
     
-    elif eq_type == 'multiply':
-        x = random.randint(1, min(10, max_val))
-        a = random.randint(2, min(10, max_val))
-        b = a * x
-        return {
-            "type": "equations",
-            "display": f"{a} × x = {b}",
-            "answer": x,
-            "input_type": "number",
-            "hint": "x = ?"
-        }
+    elif is_medium:
+        # Medium: ax + b = c or ax - b = c
+        eq_type = random.choice(['coeff_add', 'coeff_subtract', 'simple_add', 'simple_multiply'])
+        
+        if eq_type == 'coeff_add':
+            # 2x + 6 = 12 -> x = 3
+            x = random.randint(1, 15)
+            a = random.randint(2, 5)  # coefficient
+            b = random.randint(1, 20)  # constant
+            c = a * x + b
+            return {
+                "type": "equations",
+                "display": f"{a}x + {b} = {c}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        elif eq_type == 'coeff_subtract':
+            # 3x - 4 = 11 -> x = 5
+            x = random.randint(2, 15)
+            a = random.randint(2, 5)  # coefficient
+            b = random.randint(1, min(10, a * x - 1))  # constant (ensure positive result)
+            c = a * x - b
+            return {
+                "type": "equations",
+                "display": f"{a}x − {b} = {c}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        elif eq_type == 'simple_add':
+            x = random.randint(5, 30)
+            a = random.randint(5, 30)
+            b = x + a
+            return {
+                "type": "equations",
+                "display": f"x + {a} = {b}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        else:  # simple_multiply with larger numbers
+            x = random.randint(2, 12)
+            a = random.randint(3, 12)
+            b = a * x
+            return {
+                "type": "equations",
+                "display": f"{a} × x = {b}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
     
-    else:  # divide
-        x = random.randint(2, min(12, max_val))
-        a = random.randint(2, min(10, max_val))
-        b = x * a
-        return {
-            "type": "equations",
-            "display": f"x ÷ {a} = {x}",
-            "answer": b,
-            "input_type": "number",
-            "hint": "x = ?"
-        }
+    else:  # is_hard
+        # Hard: with decimals and negatives
+        eq_type = random.choice(['coeff_add', 'coeff_subtract', 'negative', 'decimal'])
+        
+        if eq_type == 'coeff_add':
+            # Larger numbers: 4x + 15 = 47
+            x = random.randint(5, 25)
+            a = random.randint(2, 8)
+            b = random.randint(10, 50)
+            c = a * x + b
+            return {
+                "type": "equations",
+                "display": f"{a}x + {b} = {c}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        elif eq_type == 'coeff_subtract':
+            # 5x - 12 = 28 -> x = 8
+            x = random.randint(5, 20)
+            a = random.randint(2, 8)
+            b = random.randint(5, 30)
+            c = a * x - b
+            return {
+                "type": "equations",
+                "display": f"{a}x − {b} = {c}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
+        
+        elif eq_type == 'negative':
+            # -2x + 10 = 4 -> x = 3, or x can be negative
+            neg_type = random.choice(['neg_coeff', 'neg_answer'])
+            
+            if neg_type == 'neg_coeff':
+                # -2x + 10 = 4 -> -2x = -6 -> x = 3
+                x = random.randint(1, 10)
+                a = random.randint(2, 5)
+                b = random.randint(a * x + 1, a * x + 20)
+                c = b - a * x
+                return {
+                    "type": "equations",
+                    "display": f"−{a}x + {b} = {c}",
+                    "answer": x,
+                    "input_type": "number",
+                    "hint": "x = ?"
+                }
+            else:
+                # 2x + 10 = 4 -> x = -3
+                x = random.randint(-10, -1)
+                a = random.randint(2, 5)
+                b = random.randint(10, 30)
+                c = a * x + b
+                return {
+                    "type": "equations",
+                    "display": f"{a}x + {b} = {c}",
+                    "answer": x,
+                    "input_type": "number",
+                    "hint": "x = ?"
+                }
+        
+        else:  # decimal
+            # 2.5x + 3 = 8 -> x = 2
+            x = random.randint(1, 8)
+            a_whole = random.randint(1, 4)
+            a_decimal = random.choice([0.5, 1.5, 2.5])
+            a = a_whole + a_decimal - a_whole  # Just use the decimal part
+            a = random.choice([1.5, 2.5, 3.5, 0.5])
+            b = random.randint(1, 10)
+            c = a * x + b
+            # Round to avoid floating point issues
+            c = round(c, 1)
+            return {
+                "type": "equations",
+                "display": f"{a}x + {b} = {c}",
+                "answer": x,
+                "input_type": "number",
+                "hint": "x = ?"
+            }
 
 
 def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
