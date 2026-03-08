@@ -41,7 +41,7 @@ interface GameStore {
   
   // Game actions
   startGame: () => Promise<void>;
-  submitAnswer: (answer: number | null) => void;
+  submitAnswer: (answer: number | string | null) => void;
   endGame: () => GameResult;
   resetGame: () => void;
   
@@ -159,7 +159,40 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const question = questions[currentQuestionIndex];
     const timeSpent = (Date.now() - questionStartTime) / 1000;
     
-    const isCorrect = answer !== null && Math.abs(answer - question.correct_answer) < 0.001;
+    // Handle both numeric and string answers (fractions)
+    let isCorrect = false;
+    if (answer !== null) {
+      const correctAnswer = question.correct_answer;
+      
+      if (typeof answer === 'string' && typeof correctAnswer === 'string') {
+        // Both are strings - compare as fractions or exact match
+        if (answer.includes('/') && correctAnswer.includes('/')) {
+          // Compare fraction values
+          const [userNum, userDenom] = answer.split('/').map(Number);
+          const [correctNum, correctDenom] = correctAnswer.split('/').map(Number);
+          const userVal = userNum / userDenom;
+          const correctVal = correctNum / correctDenom;
+          isCorrect = Math.abs(userVal - correctVal) < 0.001;
+        } else {
+          // Direct string comparison
+          isCorrect = answer === correctAnswer;
+        }
+      } else if (typeof answer === 'number') {
+        // Numeric answer
+        if (typeof correctAnswer === 'string' && correctAnswer.includes('/')) {
+          // Compare number to fraction
+          const [num, denom] = correctAnswer.split('/').map(Number);
+          const correctVal = num / denom;
+          isCorrect = Math.abs(answer - correctVal) < 0.001;
+        } else {
+          // Both numeric
+          const correctVal = typeof correctAnswer === 'string' 
+            ? parseFloat(correctAnswer) 
+            : correctAnswer;
+          isCorrect = Math.abs(answer - correctVal) < 0.001;
+        }
+      }
+    }
     
     const newAnswer: AnswerRecord = {
       question,

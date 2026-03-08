@@ -14,7 +14,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
-import { NumericKeyboard, FractionExpression, containsFraction } from '../src/components';
+import { NumericKeyboard, FractionExpression, containsFraction, FractionKeyboard, Fraction } from '../src/components';
 import * as Haptics from 'expo-haptics';
 
 export default function GameScreen() {
@@ -32,6 +32,8 @@ export default function GameScreen() {
   } = useGameStore();
 
   const [userInput, setUserInput] = useState('');
+  const [fractionInput, setFractionInput] = useState({ numerator: '', denominator: '' });
+  const [activeFractionField, setActiveFractionField] = useState<'numerator' | 'denominator'>('numerator');
   const [showFeedback, setShowFeedback] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState(false);
 
@@ -75,6 +77,23 @@ export default function GameScreen() {
     setUserInput((prev) => prev.slice(0, -1));
   };
 
+  const handleFractionDelete = (field: 'numerator' | 'denominator') => {
+    setFractionInput((prev) => ({
+      ...prev,
+      [field]: prev[field].slice(0, -1),
+    }));
+  };
+
+  const handleFractionKeyPress = (field: 'numerator' | 'denominator', key: string) => {
+    setFractionInput((prev) => {
+      const current = prev[field];
+      if (current.length < 3) {
+        return { ...prev, [field]: current + key };
+      }
+      return prev;
+    });
+  };
+
   const showAnswerFeedback = (isCorrect: boolean) => {
     setLastAnswerCorrect(isCorrect);
     setShowFeedback(true);
@@ -98,10 +117,57 @@ export default function GameScreen() {
   };
 
   const handleSubmit = () => {
-    if (userInput === '') return;
+    const isFractionQuestion = currentQuestion.input_type === 'fraction';
+    
+    // Check for empty input
+    if (isFractionQuestion) {
+      if (!fractionInput.numerator || !fractionInput.denominator) return;
+    } else {
+      if (userInput === '') return;
+    }
 
-    const numAnswer = parseFloat(userInput);
-    const isCorrect = Math.abs(numAnswer - currentQuestion.correct_answer) < 0.001;
+    let isCorrect = false;
+    let userAnswer: string | number;
+    
+    if (isFractionQuestion) {
+      // Create user's fraction string
+      userAnswer = `${fractionInput.numerator}/${fractionInput.denominator}`;
+      const correctAnswer = currentQuestion.correct_answer;
+      
+      // Compare fractions by their decimal value
+      const userNum = parseInt(fractionInput.numerator, 10);
+      const userDenom = parseInt(fractionInput.denominator, 10);
+      const userValue = userNum / userDenom;
+      
+      // Parse correct answer (can be "3/4" or a number)
+      let correctValue: number;
+      if (typeof correctAnswer === 'string' && correctAnswer.includes('/')) {
+        const [correctNum, correctDenom] = correctAnswer.split('/').map(Number);
+        correctValue = correctNum / correctDenom;
+      } else {
+        correctValue = parseFloat(String(correctAnswer));
+      }
+      
+      // Check if values match (with small epsilon for floating point)
+      isCorrect = Math.abs(userValue - correctValue) < 0.001;
+    } else {
+      const numAnswer = parseFloat(userInput);
+      userAnswer = numAnswer;
+      
+      // Handle both numeric and string correct_answer
+      const correctAnswer = currentQuestion.correct_answer;
+      let correctValue: number;
+      
+      if (typeof correctAnswer === 'string' && correctAnswer.includes('/')) {
+        // Handle fraction answer for non-fraction input mode
+        const [num, denom] = correctAnswer.split('/').map(Number);
+        correctValue = num / denom;
+      } else {
+        correctValue = parseFloat(String(correctAnswer));
+      }
+      
+      isCorrect = Math.abs(numAnswer - correctValue) < 0.001;
+    }
 
     // Animate scale
     Animated.sequence([
@@ -118,8 +184,12 @@ export default function GameScreen() {
     ]).start();
 
     showAnswerFeedback(isCorrect);
-    submitAnswer(numAnswer);
+    submitAnswer(typeof userAnswer === 'number' ? userAnswer : userAnswer);
+    
+    // Reset inputs
     setUserInput('');
+    setFractionInput({ numerator: '', denominator: '' });
+    setActiveFractionField('numerator');
   };
 
   if (!currentQuestion) {
@@ -246,23 +316,67 @@ export default function GameScreen() {
                     : '?'}
                 </Text>
               )}
-            <View style={[
-              styles.answerBox, 
-              { borderColor: theme.primary, backgroundColor: theme.surface },
-              isSmallScreen && styles.answerBoxCompact,
-              isVerySmallScreen && styles.answerBoxVeryCompact,
-              isLargeScreen && { paddingVertical: 18, paddingHorizontal: 28, borderRadius: 16, borderWidth: 3 }
-            ]}>
-              <Text style={[
-                styles.answerText,
-                { color: userInput ? theme.text : theme.textMuted },
-                isSmallScreen && styles.answerTextCompact,
-                isVerySmallScreen && styles.answerTextVeryCompact,
-                isLargeScreen && { fontSize: 44 }
+            {/* Answer input area */}
+            {currentQuestion.input_type === 'fraction' ? (
+              <View style={[
+                styles.answerBox, 
+                { borderColor: theme.primary, backgroundColor: theme.surface },
+                isSmallScreen && styles.answerBoxCompact,
+                isVerySmallScreen && styles.answerBoxVeryCompact,
+                isLargeScreen && { paddingVertical: 18, paddingHorizontal: 28, borderRadius: 16, borderWidth: 3 }
               ]}>
-                {userInput || '?'}
-              </Text>
-            </View>
+                <View style={styles.fractionInputContainer}>
+                  {/* Numerator */}
+                  <Text style={[
+                    styles.fractionInputText,
+                    { 
+                      color: fractionInput.numerator ? theme.text : theme.textMuted,
+                      fontSize: isSmallScreen ? 24 : isLargeScreen ? 40 : 32,
+                      backgroundColor: activeFractionField === 'numerator' ? theme.primaryLight : 'transparent',
+                    },
+                  ]}>
+                    {fractionInput.numerator || '?'}
+                  </Text>
+                  {/* Fraction line */}
+                  <View style={[
+                    styles.fractionInputLine,
+                    { 
+                      backgroundColor: theme.text,
+                      width: isSmallScreen ? 50 : isLargeScreen ? 80 : 60,
+                    }
+                  ]} />
+                  {/* Denominator */}
+                  <Text style={[
+                    styles.fractionInputText,
+                    { 
+                      color: fractionInput.denominator ? theme.text : theme.textMuted,
+                      fontSize: isSmallScreen ? 24 : isLargeScreen ? 40 : 32,
+                      backgroundColor: activeFractionField === 'denominator' ? theme.primaryLight : 'transparent',
+                    },
+                  ]}>
+                    {fractionInput.denominator || '?'}
+                  </Text>
+                </View>
+              </View>
+            ) : (
+              <View style={[
+                styles.answerBox, 
+                { borderColor: theme.primary, backgroundColor: theme.surface },
+                isSmallScreen && styles.answerBoxCompact,
+                isVerySmallScreen && styles.answerBoxVeryCompact,
+                isLargeScreen && { paddingVertical: 18, paddingHorizontal: 28, borderRadius: 16, borderWidth: 3 }
+              ]}>
+                <Text style={[
+                  styles.answerText,
+                  { color: userInput ? theme.text : theme.textMuted },
+                  isSmallScreen && styles.answerTextCompact,
+                  isVerySmallScreen && styles.answerTextVeryCompact,
+                  isLargeScreen && { fontSize: 44 }
+                ]}>
+                  {userInput || '?'}
+                </Text>
+              </View>
+            )}
           </Animated.View>
 
           {/* Feedback Overlay */}
@@ -285,23 +399,37 @@ export default function GameScreen() {
         </View>
 
         {/* Keyboard */}
-        <NumericKeyboard
-          onKeyPress={handleKeyPress}
-          onDelete={handleDelete}
-          onSubmit={handleSubmit}
-          submitLabel={t('submit')}
-          mode={
-            currentQuestion.operation === 'division' ? 'decimal' :
-            currentQuestion.operation === 'fractions' ? 'fraction' :
-            currentQuestion.operation === 'equations' ? 'equation' :
-            'standard'
-          }
-          showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
-          showFraction={currentQuestion.operation === 'fractions'}
-          showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
-          compact={isSmallScreen}
-          large={isLargeScreen}
-        />
+        {currentQuestion.input_type === 'fraction' ? (
+          <FractionKeyboard
+            onNumeratorKey={(key) => handleFractionKeyPress('numerator', key)}
+            onDenominatorKey={(key) => handleFractionKeyPress('denominator', key)}
+            onDelete={handleFractionDelete}
+            onSubmit={handleSubmit}
+            submitLabel={t('submit')}
+            activeField={activeFractionField}
+            onFieldSwitch={setActiveFractionField}
+            compact={isSmallScreen}
+            large={isLargeScreen}
+          />
+        ) : (
+          <NumericKeyboard
+            onKeyPress={handleKeyPress}
+            onDelete={handleDelete}
+            onSubmit={handleSubmit}
+            submitLabel={t('submit')}
+            mode={
+              currentQuestion.operation === 'division' ? 'decimal' :
+              currentQuestion.operation === 'fractions' ? 'fraction' :
+              currentQuestion.operation === 'equations' ? 'equation' :
+              'standard'
+            }
+            showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
+            showFraction={currentQuestion.operation === 'fractions'}
+            showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
+            compact={isSmallScreen}
+            large={isLargeScreen}
+          />
+        )}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -483,5 +611,22 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+  fractionInputContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fractionInputText: {
+    fontWeight: '700',
+    textAlign: 'center',
+    minWidth: 40,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  fractionInputLine: {
+    height: 3,
+    marginVertical: 4,
+    borderRadius: 2,
   },
 });

@@ -28,7 +28,7 @@ export interface GameResult {
 
 export interface AnswerRecord {
   question: Question;
-  userAnswer: number | null;
+  userAnswer: number | string | null;
   isCorrect: boolean;
   timeSpent: number;
 }
