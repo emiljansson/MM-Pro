@@ -628,7 +628,7 @@ const styles = StyleSheet.create({
   },
   keyboardContainer: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 0,
     paddingBottom: 0,
     justifyContent: 'flex-end',
   },
