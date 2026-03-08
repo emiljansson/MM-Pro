@@ -798,6 +798,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     marginBottom: 12,
+    paddingBottom: 20,
   },
   diagramQuestionText: {
     fontSize: 18,
