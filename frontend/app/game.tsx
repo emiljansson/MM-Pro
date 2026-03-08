@@ -564,8 +564,6 @@ const styles = StyleSheet.create({
   },
   questionArea: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
@@ -574,11 +572,13 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   questionCard: {
+    flex: 1,
     width: '100%',
     paddingVertical: 16,
     paddingHorizontal: 16,
     borderRadius: 16,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   questionCardCompact: {
     paddingVertical: 12,
