@@ -73,12 +73,6 @@ export default function SettingsScreen() {
 
   const accountItems = [
     {
-      icon: 'person',
-      label: t('profile') || 'Profil',
-      onPress: () => router.push('/profile'),
-      hidden: !isAuthenticated,
-    },
-    {
       icon: 'log-in',
       label: t('login') || 'Logga in',
       onPress: () => router.push('/login'),
@@ -156,34 +150,36 @@ export default function SettingsScreen() {
           </View>
         </View>
 
-        {/* Account Section */}
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
-            {t('account') || 'Konto'}
-          </Text>
-          <View style={[styles.sectionContent, { backgroundColor: theme.card }]}>
-            {accountItems
-              .filter((item) => !item.hidden)
-              .map((item, index, arr) => (
-                <TouchableOpacity
-                  key={item.label}
-                  style={[
-                    styles.settingItem,
-                    index < arr.length - 1 && { borderBottomWidth: 0.5, borderBottomColor: theme.border }
-                  ]}
-                  onPress={item.onPress}
-                >
-                  <View style={styles.settingLeft}>
-                    <Ionicons name={item.icon as any} size={22} color={theme.primary} />
-                    <Text style={[styles.settingLabel, { color: theme.text }]}>
-                      {item.label}
-                    </Text>
-                  </View>
-                  <Ionicons name="chevron-forward" size={20} color={theme.textMuted} />
-                </TouchableOpacity>
-              ))}
+        {/* Account Section - Only show for non-authenticated users */}
+        {!isAuthenticated && (
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
+              {t('account') || 'Konto'}
+            </Text>
+            <View style={[styles.sectionContent, { backgroundColor: theme.card }]}>
+              {accountItems
+                .filter((item) => !item.hidden)
+                .map((item, index, arr) => (
+                  <TouchableOpacity
+                    key={item.label}
+                    style={[
+                      styles.settingItem,
+                      index < arr.length - 1 && { borderBottomWidth: 0.5, borderBottomColor: theme.border }
+                    ]}
+                    onPress={item.onPress}
+                  >
+                    <View style={styles.settingLeft}>
+                      <Ionicons name={item.icon as any} size={22} color={theme.primary} />
+                      <Text style={[styles.settingLabel, { color: theme.text }]}>
+                        {item.label}
+                      </Text>
+                    </View>
+                    <Ionicons name="chevron-forward" size={20} color={theme.textMuted} />
+                  </TouchableOpacity>
+                ))}
+            </View>
           </View>
-        </View>
+        )}
 
         {/* Admin Section */}
         {adminItems.length > 0 && (
