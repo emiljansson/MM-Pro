@@ -187,15 +187,33 @@ export default function HomeScreen() {
             marginBottom: isTablet ? 4 : 8,
           }
         ]}>
-          <Text style={[
-            styles.categorySymbol,
-            { 
-              color: isSelected ? '#FFFFFF' : category.color,
-              fontSize: isTablet ? 24 : 24,
-            }
-          ]}>
-            {category.symbol}
-          </Text>
+          {category.key === 'fractions' ? (
+            // Custom vertical fraction display for fractions category
+            <View style={styles.fractionIconContainer}>
+              <Text style={[
+                styles.fractionIconNumber,
+                { color: isSelected ? '#FFFFFF' : category.color }
+              ]}>1</Text>
+              <View style={[
+                styles.fractionIconLine,
+                { backgroundColor: isSelected ? '#FFFFFF' : category.color }
+              ]} />
+              <Text style={[
+                styles.fractionIconNumber,
+                { color: isSelected ? '#FFFFFF' : category.color }
+              ]}>2</Text>
+            </View>
+          ) : (
+            <Text style={[
+              styles.categorySymbol,
+              { 
+                color: isSelected ? '#FFFFFF' : category.color,
+                fontSize: isTablet ? 24 : 24,
+              }
+            ]}>
+              {category.symbol}
+            </Text>
+          )}
         </View>
         <Text style={[
           styles.categoryName,
@@ -609,6 +627,21 @@ const styles = StyleSheet.create({
   categorySymbol: {
     fontSize: 24,
     fontWeight: '700',
+  },
+  fractionIconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fractionIconNumber: {
+    fontSize: 14,
+    fontWeight: '700',
+    lineHeight: 16,
+  },
+  fractionIconLine: {
+    width: 16,
+    height: 2,
+    marginVertical: 1,
+    borderRadius: 1,
   },
   categoryName: {
     fontSize: 13,
