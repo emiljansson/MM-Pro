@@ -495,8 +495,12 @@ def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
         }
     
     else:  # decimal
-        # Generate number with two decimals
-        num = round(random.uniform(0.01, max_val) + random.random(), 2)
+        # Generate number with exactly two decimals (second decimal never 0)
+        whole_part = random.randint(0, max_val)
+        first_decimal = random.randint(0, 9)
+        second_decimal = random.randint(1, 9)  # Never 0 to ensure 2 decimals
+        num = whole_part + first_decimal / 10 + second_decimal / 100
+        num = round(num, 2)
         answer = math_round(num, 1)
         return {
             "type": "rounding",
