@@ -140,7 +140,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
       { 
         backgroundColor: theme.surface, 
         paddingBottom: bottomPadding,
-        paddingTop: 20,
+        paddingTop: 30,
         paddingHorizontal: containerPadding,
       },
     ]}>

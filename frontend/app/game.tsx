@@ -570,8 +570,6 @@ const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
     justifyContent: 'flex-end',
-    borderWidth: 2,
-    borderColor: 'white',
   },
   centeredWrapper: {
     flex: 1,
@@ -580,8 +578,6 @@ const styles = StyleSheet.create({
   keyboardContainer: {
     paddingBottom: 0,
     justifyContent: 'flex-end',
-    borderWidth: 2,
-    borderColor: 'green',
   },
   header: {
     flexDirection: 'row',
