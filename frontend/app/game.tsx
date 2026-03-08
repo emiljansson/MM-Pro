@@ -574,6 +574,7 @@ const styles = StyleSheet.create({
   },
   centeredWrapper: {
     flex: 1,
+    justifyContent: 'space-between',
     borderWidth: 2,
     borderColor: 'red',
   },
