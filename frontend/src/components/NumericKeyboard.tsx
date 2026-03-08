@@ -159,28 +159,28 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
       { 
         backgroundColor: theme.surface, 
         paddingBottom: bottomPadding,
-        paddingTop: 30,
+        paddingTop: mini ? 12 : 30,
         paddingHorizontal: containerPadding,
       },
     ]}>
       {showOperators && renderOperatorRow()}
       
-      <View style={[styles.row, { marginBottom: rowMargin }]}>
+      <View style={[styles.row, { marginBottom: rowMargin, gap: mini ? 6 : 0 }]}>
         {renderKey('1')}
         {renderKey('2')}
         {renderKey('3')}
       </View>
-      <View style={[styles.row, { marginBottom: rowMargin }]}>
+      <View style={[styles.row, { marginBottom: rowMargin, gap: mini ? 6 : 0 }]}>
         {renderKey('4')}
         {renderKey('5')}
         {renderKey('6')}
       </View>
-      <View style={[styles.row, { marginBottom: rowMargin }]}>
+      <View style={[styles.row, { marginBottom: rowMargin, gap: mini ? 6 : 0 }]}>
         {renderKey('7')}
         {renderKey('8')}
         {renderKey('9')}
       </View>
-      <View style={[styles.row, { marginBottom: rowMargin }]}>
+      <View style={[styles.row, { marginBottom: rowMargin, gap: mini ? 6 : 0 }]}>
         {/* Always show special key (usually decimal point) */}
         {renderKey(specialKey.value, false, specialKey.icon)}
         {renderKey('0')}
