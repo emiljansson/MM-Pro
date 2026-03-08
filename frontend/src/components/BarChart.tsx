@@ -195,9 +195,10 @@ const styles = StyleSheet.create({
   },
   barColumn: {
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   valueLabel: {
-    marginBottom: 4,
+    marginBottom: 2,
     textAlign: 'center',
   },
   barWrapper: {
