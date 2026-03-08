@@ -28,12 +28,14 @@ app = FastAPI(
 app.state.db = db
 
 # Import routes
-from routes import auth_router, languages_router, games_router
+from routes import auth_router, languages_router, games_router, groups_router, leaderboard_router
 
 # Include routers
 app.include_router(auth_router)
 app.include_router(languages_router)
 app.include_router(games_router)
+app.include_router(groups_router)
+app.include_router(leaderboard_router)
 
 # Legacy API router for backwards compatibility
 legacy_router = APIRouter(prefix="/api")

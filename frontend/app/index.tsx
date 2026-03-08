@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,8 @@ import {
   Alert,
   useWindowDimensions,
   Image,
+  ScrollView,
+  Animated,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -18,20 +20,30 @@ import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import {
-  OperationCard,
   DifficultySelector,
   QuestionCountSelector,
   LanguageSelector,
 } from '../src/components';
 
-const OPERATIONS = [
-  { key: 'addition', symbol: '+' },
-  { key: 'subtraction', symbol: '−' },
-  { key: 'multiplication', symbol: '×' },
-  { key: 'division', symbol: '÷' },
+// All 13 categories with their properties
+const ALL_CATEGORIES = [
+  { key: 'addition', symbol: '+', icon: 'add-circle', color: '#81D4FA', pro: false },
+  { key: 'subtraction', symbol: '−', icon: 'remove-circle', color: '#FFB74D', pro: false },
+  { key: 'multiplication', symbol: '×', icon: 'close-circle', color: '#CE93D8', pro: false },
+  { key: 'division', symbol: '÷', icon: 'git-compare', color: '#A5D6A7', pro: false },
+  { key: 'fractions', symbol: '½', icon: 'pie-chart', color: '#F48FB1', pro: true },
+  { key: 'equations', symbol: 'x', icon: 'code-working', color: '#90CAF9', pro: true },
+  { key: 'geometry', symbol: '△', icon: 'shapes', color: '#B39DDB', pro: true },
+  { key: 'percentage', symbol: '%', icon: 'analytics', color: '#FFCC80', pro: true },
+  { key: 'units', symbol: 'm', icon: 'resize', color: '#80DEEA', pro: true },
+  { key: 'rounding', symbol: '≈', icon: 'swap-horizontal', color: '#BCAAA4', pro: true },
+  { key: 'angles', symbol: '∠', icon: 'compass', color: '#EF9A9A', pro: true },
+  { key: 'probability', symbol: 'P', icon: 'dice', color: '#C5E1A5', pro: true },
+  { key: 'diagrams', symbol: '📊', icon: 'bar-chart', color: '#FFF59D', pro: true },
 ];
 
 const QUESTION_COUNTS = [15, 30, 60, 120];
+const ITEMS_PER_PAGE = 4;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -39,7 +51,7 @@ export default function HomeScreen() {
   const { t, language } = useTranslation();
   const { height, width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const {
     settings,
     updateSettings,
@@ -53,15 +65,19 @@ export default function HomeScreen() {
 
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const scrollViewRef = useRef<ScrollView>(null);
 
-  // Calculate if we need compact mode - also check width for tablets
+  // Calculate layout
   const availableHeight = height - insets.top - insets.bottom;
   const isTablet = width > 600;
-  const isCompact = availableHeight < 700 && !isTablet; // Only compact on small phones
-  const isLargeScreen = isTablet; // Use larger sizes on tablets
-  
-  // Scale factor for tablets (1.0 for phones, 1.3-1.5 for tablets)
-  const scale = isTablet ? 1.4 : 1;
+  const isCompact = availableHeight < 700 && !isTablet;
+  const isLargeScreen = isTablet;
+  const scale = isTablet ? 1.3 : 1;
+
+  // Calculate pages
+  const totalPages = Math.ceil(ALL_CATEGORIES.length / ITEMS_PER_PAGE);
+  const pageWidth = width - 32; // Account for padding
 
   useEffect(() => {
     const init = async () => {
@@ -71,14 +87,18 @@ export default function HomeScreen() {
     init();
   }, []);
 
-  const operationColors = {
-    addition: theme.addition,
-    subtraction: theme.subtraction,
-    multiplication: theme.multiplication,
-    division: theme.division,
-  };
-
   const toggleOperation = (operation: string) => {
+    // Check if it's a pro category and user is not pro
+    const category = ALL_CATEGORIES.find(c => c.key === operation);
+    if (category?.pro && (!user || !user.is_pro)) {
+      Alert.alert(
+        t('pro_required'),
+        t('upgrade_to_pro'),
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
     const newOperations = settings.operations.includes(operation)
       ? settings.operations.filter((op) => op !== operation)
       : [...settings.operations, operation];
@@ -92,6 +112,21 @@ export default function HomeScreen() {
     }
     await startGame();
     router.push('/game');
+  };
+
+  const goToPage = (page: number) => {
+    if (page >= 0 && page < totalPages) {
+      setCurrentPage(page);
+      scrollViewRef.current?.scrollTo({ x: page * pageWidth, animated: true });
+    }
+  };
+
+  const handleScroll = (event: any) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const newPage = Math.round(offsetX / pageWidth);
+    if (newPage !== currentPage && newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   const difficultyOptions = [
@@ -108,68 +143,107 @@ export default function HomeScreen() {
     );
   }
 
+  // Render a single category card
+  const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
+    const isSelected = settings.operations.includes(category.key);
+    const isLocked = category.pro && (!user || !user.is_pro);
+    const cardWidth = (pageWidth - 16) / 2 - 8;
+
+    return (
+      <TouchableOpacity
+        key={category.key}
+        style={[
+          styles.categoryCard,
+          {
+            width: cardWidth,
+            backgroundColor: isSelected ? category.color : theme.card,
+            borderColor: isSelected ? category.color : theme.border,
+            opacity: isLocked ? 0.6 : 1,
+          },
+        ]}
+        onPress={() => toggleOperation(category.key)}
+        activeOpacity={0.7}
+      >
+        {isSelected && (
+          <View style={styles.selectedBadge}>
+            <Ionicons name="checkmark-circle" size={18} color="#FFFFFF" />
+          </View>
+        )}
+        {isLocked && (
+          <View style={styles.lockedBadge}>
+            <Ionicons name="lock-closed" size={14} color="#FFFFFF" />
+          </View>
+        )}
+        <View style={[
+          styles.categoryIconContainer,
+          { backgroundColor: isSelected ? 'rgba(255,255,255,0.3)' : category.color + '30' }
+        ]}>
+          <Text style={[
+            styles.categorySymbol,
+            { color: isSelected ? '#FFFFFF' : category.color }
+          ]}>
+            {category.symbol}
+          </Text>
+        </View>
+        <Text style={[
+          styles.categoryName,
+          { color: isSelected ? '#FFFFFF' : theme.text }
+        ]}>
+          {t(category.key)}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  // Render a page of categories (4 items in 2x2 grid)
+  const renderPage = (pageIndex: number) => {
+    const startIndex = pageIndex * ITEMS_PER_PAGE;
+    const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    return (
+      <View key={pageIndex} style={[styles.page, { width: pageWidth }]}>
+        <View style={styles.categoryGrid}>
+          {pageCategories.map((cat, idx) => renderCategoryCard(cat, startIndex + idx))}
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'bottom']}>
       <StatusBar barStyle={themeMode === 'dark' ? 'light-content' : 'dark-content'} />
       
-      {/* Full width wrapper */}
       <View style={styles.centeredWrapper}>
         {/* Header */}
-        <View style={[
-          styles.header, 
-          isCompact && styles.headerCompact,
-          isLargeScreen && { paddingHorizontal: 28, paddingVertical: 10 }
-        ]}>
+        <View style={[styles.header, isCompact && styles.headerCompact]}>
           <TouchableOpacity
-            style={[
-              styles.iconButton, 
-              { backgroundColor: theme.card },
-              isCompact && styles.iconButtonCompact,
-              isLargeScreen && { width: 48, height: 48, borderRadius: 24 }
-            ]}
+            style={[styles.iconButton, { backgroundColor: theme.card }]}
             onPress={toggleTheme}
           >
             <Ionicons
               name={themeMode === 'dark' ? 'sunny' : 'moon'}
-              size={isLargeScreen ? 28 : (isCompact ? 20 : 24)}
+              size={isCompact ? 20 : 24}
               color={theme.primary}
             />
           </TouchableOpacity>
           
           <TouchableOpacity
-            style={[
-              styles.iconButton, 
-              { backgroundColor: theme.card },
-              isCompact && styles.iconButtonCompact,
-              isLargeScreen && { width: 48, height: 48, borderRadius: 24 }
-            ]}
+            style={[styles.iconButton, { backgroundColor: theme.card }]}
             onPress={() => setShowLanguageSelector(true)}
           >
-            <Ionicons name="language" size={isLargeScreen ? 28 : (isCompact ? 20 : 24)} color={theme.primary} />
+            <Ionicons name="language" size={isCompact ? 20 : 24} color={theme.primary} />
           </TouchableOpacity>
 
-          {/* Profile/Login Button */}
           <TouchableOpacity
-            style={[
-              styles.iconButton, 
-              { backgroundColor: theme.card },
-              isCompact && styles.iconButtonCompact,
-              isLargeScreen && { width: 48, height: 48, borderRadius: 24 }
-            ]}
+            style={[styles.iconButton, { backgroundColor: theme.card }]}
             onPress={() => isAuthenticated ? router.push('/profile') : router.push('/login')}
           >
             {isAuthenticated && user?.picture ? (
-              <Image
-                source={{ uri: user.picture }}
-                style={[
-                  styles.profileImage,
-                  isLargeScreen && { width: 32, height: 32, borderRadius: 16 }
-                ]}
-              />
+              <Image source={{ uri: user.picture }} style={styles.profileImage} />
             ) : (
               <Ionicons 
                 name={isAuthenticated ? 'person' : 'log-in-outline'} 
-                size={isLargeScreen ? 28 : (isCompact ? 20 : 24)} 
+                size={isCompact ? 20 : 24} 
                 color={theme.primary} 
               />
             )}
@@ -177,154 +251,150 @@ export default function HomeScreen() {
         </View>
 
         {/* Main Content */}
-        <View style={[
-          styles.content, 
-          isLargeScreen && { paddingHorizontal: 36, flex: 1, justifyContent: 'space-evenly' }
-        ]}>
+        <ScrollView 
+          style={styles.mainScroll}
+          contentContainerStyle={styles.mainScrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           {/* Title */}
-          <View style={[
-            styles.titleContainer, 
-            isCompact && styles.titleContainerCompact,
-            isLargeScreen && { marginBottom: 24 }
-          ]}>
-            <Text 
-              style={[
-                styles.title, 
-                { color: theme.primary },
-                isCompact && styles.titleCompact,
-                isLargeScreen && { fontSize: 42 }
-              ]}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-            >
-              {t('app_title_part1')}<Text style={{ color: theme.secondary }}>{t('app_title_part2')}</Text>
+          <View style={[styles.titleContainer, isCompact && styles.titleContainerCompact]}>
+            <Text style={[styles.title, { color: theme.primary }, isCompact && styles.titleCompact]}>
+              <Text style={{ fontWeight: '400' }}>{t('app_title_part1')}</Text>
+              <Text style={{ fontWeight: '800' }}>{t('app_title_part2')}</Text>
             </Text>
-            <Text style={[
-              styles.tagline, 
-              { color: theme.textSecondary },
-              isCompact && styles.taglineCompact,
-              isLargeScreen && { fontSize: 18, marginTop: 8 }
-            ]}>
+            <Text style={[styles.tagline, { color: theme.textSecondary }, isCompact && styles.taglineCompact]}>
               {t('tagline')}
             </Text>
           </View>
 
-          {/* Operations Section */}
-          <View style={[
-            styles.section, 
-            isCompact && styles.sectionCompact,
-            isLargeScreen && { marginBottom: 24 }
-          ]}>
-            <Text style={[
-              styles.sectionTitle, 
-              { color: theme.textSecondary },
-              isCompact && styles.sectionTitleCompact,
-              isLargeScreen && { fontSize: 14, marginBottom: 12 }
-            ]}>
+          {/* Categories Section */}
+          <View style={[styles.section, isCompact && styles.sectionCompact]}>
+            <Text style={[styles.sectionTitle, { color: theme.textMuted }, isCompact && styles.sectionTitleCompact]}>
               {t('select_operation')}
             </Text>
-            <View style={styles.operationsGrid}>
-              {OPERATIONS.map((op) => (
-                <OperationCard
-                  key={op.key}
-                  operation={op.key}
-                  label={t(op.key)}
-                  symbol={op.symbol}
-                  selected={settings.operations.includes(op.key)}
-                  onPress={() => toggleOperation(op.key)}
-                  color={operationColors[op.key as keyof typeof operationColors]}
-                  compact={isCompact}
-                  large={isLargeScreen}
+            
+            {/* Horizontal Scroll */}
+            <ScrollView
+              ref={scrollViewRef}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onMomentumScrollEnd={handleScroll}
+              scrollEventThrottle={16}
+              style={styles.categoriesScroll}
+              contentContainerStyle={styles.categoriesScrollContent}
+            >
+              {Array.from({ length: totalPages }).map((_, idx) => renderPage(idx))}
+            </ScrollView>
+
+            {/* Navigation Arrows & Page Indicators */}
+            <View style={styles.navigationContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.navArrow,
+                  { backgroundColor: theme.card },
+                  currentPage === 0 && styles.navArrowDisabled
+                ]}
+                onPress={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 0}
+              >
+                <Ionicons 
+                  name="chevron-back" 
+                  size={24} 
+                  color={currentPage === 0 ? theme.textMuted : theme.primary} 
                 />
-              ))}
+              </TouchableOpacity>
+
+              <View style={styles.pageIndicators}>
+                {Array.from({ length: totalPages }).map((_, idx) => (
+                  <TouchableOpacity
+                    key={idx}
+                    onPress={() => goToPage(idx)}
+                    style={[
+                      styles.pageIndicator,
+                      { backgroundColor: idx === currentPage ? theme.primary : theme.border }
+                    ]}
+                  />
+                ))}
+              </View>
+
+              <TouchableOpacity
+                style={[
+                  styles.navArrow,
+                  { backgroundColor: theme.card },
+                  currentPage === totalPages - 1 && styles.navArrowDisabled
+                ]}
+                onPress={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages - 1}
+              >
+                <Ionicons 
+                  name="chevron-forward" 
+                  size={24} 
+                  color={currentPage === totalPages - 1 ? theme.textMuted : theme.primary} 
+                />
+              </TouchableOpacity>
             </View>
           </View>
 
           {/* Difficulty Section */}
-          <View style={[
-            styles.section, 
-            isCompact && styles.sectionCompact,
-            isLargeScreen && { marginBottom: 24 }
-          ]}>
-            <Text style={[
-              styles.sectionTitle, 
-              { color: theme.textSecondary },
-              isCompact && styles.sectionTitleCompact,
-              isLargeScreen && { fontSize: 14, marginBottom: 12 }
-            ]}>
+          <View style={[styles.section, isCompact && styles.sectionCompact]}>
+            <Text style={[styles.sectionTitle, { color: theme.textMuted }, isCompact && styles.sectionTitleCompact]}>
               {t('difficulty')}
             </Text>
             <DifficultySelector
-              difficulty={settings.difficulty}
-              onSelect={(d) => updateSettings({ difficulty: d })}
               options={difficultyOptions}
-              compact={isCompact}
-              large={isLargeScreen}
+              selected={settings.difficulty}
+              onSelect={(difficulty) => updateSettings({ difficulty })}
+              isCompact={isCompact}
             />
           </View>
 
-        {/* Question Count Section */}
-        <View style={[
-          styles.section, 
-          isCompact && styles.sectionCompact,
-          isLargeScreen && { marginBottom: 24 }
-        ]}>
-          <Text style={[
-            styles.sectionTitle, 
-            { color: theme.textSecondary },
-            isCompact && styles.sectionTitleCompact,
-            isLargeScreen && { fontSize: 14, marginBottom: 12 }
-          ]}>
-            {t('question_count')}: {settings.questionCount}
-          </Text>
-          <QuestionCountSelector
-            count={settings.questionCount}
-            onSelect={(c) => updateSettings({ questionCount: c })}
-            options={QUESTION_COUNTS}
-            compact={isCompact}
-            large={isLargeScreen}
-          />
-        </View>
+          {/* Question Count Section */}
+          <View style={[styles.section, isCompact && styles.sectionCompact]}>
+            <Text style={[styles.sectionTitle, { color: theme.textMuted }, isCompact && styles.sectionTitleCompact]}>
+              {t('question_count')}: {settings.questionCount}
+            </Text>
+            <QuestionCountSelector
+              options={QUESTION_COUNTS}
+              count={settings.questionCount}
+              onSelect={(count) => updateSettings({ questionCount: count })}
+              compact={isCompact}
+            />
+          </View>
 
-        {/* Start Button */}
-        <TouchableOpacity
-          style={[
-            styles.startButton,
-            {
-              backgroundColor: settings.operations.length > 0 ? theme.primary : theme.textMuted,
-            },
-            isCompact && styles.startButtonCompact,
-            isLargeScreen && { height: 64, borderRadius: 18 }
-          ]}
-          onPress={handleStartGame}
-          disabled={isLoading || settings.operations.length === 0}
-          activeOpacity={0.8}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="#FFFFFF" />
-          ) : (
-            <>
-              <Ionicons name="play" size={isLargeScreen ? 32 : (isCompact ? 20 : 24)} color="#FFFFFF" />
-              <Text style={[
-                styles.startButtonText, 
-                isCompact && styles.startButtonTextCompact,
-                isLargeScreen && { fontSize: 24 }
-              ]}>{t('start_game')}</Text>
-            </>
-          )}
-        </TouchableOpacity>
-        </View>
+          {/* Start Button */}
+          <TouchableOpacity
+            style={[
+              styles.startButton,
+              { backgroundColor: theme.primary },
+              isCompact && styles.startButtonCompact
+            ]}
+            onPress={handleStartGame}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <>
+                <Ionicons name="play" size={isCompact ? 20 : 24} color="#FFFFFF" />
+                <Text style={[styles.startButtonText, isCompact && styles.startButtonTextCompact]}>
+                  {t('start_game')}
+                </Text>
+              </>
+            )}
+          </TouchableOpacity>
+        </ScrollView>
       </View>
 
       {/* Language Selector Modal */}
       <LanguageSelector
         visible={showLanguageSelector}
+        onClose={() => setShowLanguageSelector(false)}
         currentLanguage={language}
-        onSelect={(code) => {
+        onSelectLanguage={(code) => {
           setLanguage(code);
           setShowLanguageSelector(false);
         }}
-        onClose={() => setShowLanguageSelector(false)}
       />
     </SafeAreaView>
   );
@@ -334,13 +404,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  centeredWrapper: {
-    flex: 1,
-  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  centeredWrapper: {
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
@@ -361,31 +431,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  iconButtonCompact: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
+  profileImage: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
   },
-  content: {
+  mainScroll: {
     flex: 1,
+  },
+  mainScrollContent: {
     paddingHorizontal: 16,
-    paddingTop: 8,
-    justifyContent: 'space-between',
+    paddingBottom: 24,
   },
   titleContainer: {
     alignItems: 'center',
-    marginBottom: 16,
-    paddingHorizontal: 10,
+    marginBottom: 20,
   },
   titleContainerCompact: {
-    marginBottom: 8,
+    marginBottom: 12,
   },
   title: {
     fontSize: 28,
     fontWeight: '800',
     letterSpacing: -0.5,
     textAlign: 'center',
-    minWidth: '100%',
   },
   titleCompact: {
     fontSize: 24,
@@ -400,26 +469,101 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   section: {
-    marginBottom: 16,
+    marginBottom: 20,
   },
   sectionCompact: {
-    marginBottom: 10,
+    marginBottom: 14,
   },
   sectionTitle: {
     fontSize: 11,
     fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 1,
-    marginBottom: 8,
+    marginBottom: 12,
   },
   sectionTitleCompact: {
     fontSize: 10,
-    marginBottom: 6,
+    marginBottom: 8,
   },
-  operationsGrid: {
+  categoriesScroll: {
+    marginHorizontal: -16,
+  },
+  categoriesScrollContent: {
+    paddingHorizontal: 16,
+  },
+  page: {
+    paddingHorizontal: 0,
+  },
+  categoryGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    gap: 12,
+  },
+  categoryCard: {
+    aspectRatio: 1.3,
+    borderRadius: 16,
+    borderWidth: 2,
+    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  selectedBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+  },
+  lockedBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 10,
+    padding: 4,
+  },
+  categoryIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  categorySymbol: {
+    fontSize: 24,
+    fontWeight: '700',
+  },
+  categoryName: {
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  navigationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 16,
+    gap: 16,
+  },
+  navArrow: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  navArrowDisabled: {
+    opacity: 0.5,
+  },
+  pageIndicators: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  pageIndicator: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
   startButton: {
     flexDirection: 'row',
@@ -428,7 +572,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 8,
+    marginTop: 8,
   },
   startButtonCompact: {
     height: 44,
@@ -441,10 +585,5 @@ const styles = StyleSheet.create({
   },
   startButtonTextCompact: {
     fontSize: 15,
-  },
-  profileImage: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
   },
 });
