@@ -1,0 +1,4761 @@
+{
+  "users": [
+    {
+      "_id": "69ad8c011a2485276a192105",
+      "user_id": "user_4bcfe4ed919a",
+      "email": "superadmin@mathmaster.com",
+      "display_name": "superadmin",
+      "language": "sv",
+      "role": "superadmin",
+      "password_hash": "$2b$12$1oHe0PgRbaQMImyAGYVtsuCnmZSisq/w4nwSVuDOpYuwQNtDR5Oo2",
+      "statistics": {
+        "games_played": 0,
+        "total_correct": 0,
+        "total_questions": 0,
+        "best_streak": 0,
+        "current_streak": 0,
+        "total_time_played": 0,
+        "category_stats": {}
+      },
+      "is_pro": true,
+      "auth_provider": "email",
+      "created_at": "2026-03-08T14:47:29.819000",
+      "updated_at": "2026-03-08T14:47:29.819000",
+      "password": "$2b$12$3CjNZpizKqK3KtRp.L/1BOsX4SPNwZx0lBmH0st34tOfQD5kYqI9K"
+    },
+    {
+      "_id": "69adfe98f2333363cbcfbd16",
+      "user_id": "user_9e424f14a5c4",
+      "email": "admin@mathmaster.app",
+      "display_name": "Super Admin",
+      "password_hash": "$2b$12$1oHe0PgRbaQMImyAGYVtsuCnmZSisq/w4nwSVuDOpYuwQNtDR5Oo2",
+      "role": "superadmin",
+      "language": "sv",
+      "is_pro": true,
+      "auth_provider": "email",
+      "statistics": {
+        "games_played": 0,
+        "total_correct": 0,
+        "total_questions": 0,
+        "best_streak": 0,
+        "current_streak": 0,
+        "total_time_played": 0.0,
+        "category_stats": {}
+      },
+      "created_at": "2026-03-08T11:24:18.210000",
+      "updated_at": "2026-03-08T11:24:18.210000",
+      "password": "$2b$12$3CjNZpizKqK3KtRp.L/1BOsX4SPNwZx0lBmH0st34tOfQD5kYqI9K"
+    },
+    {
+      "_id": "69adfe98f2333363cbcfbd17",
+      "email": "test@example.com",
+      "display_name": "Test User",
+      "language": "sv",
+      "user_id": "user_89108f8bebf0",
+      "picture": null,
+      "role": "user",
+      "statistics": {
+        "games_played": 0,
+        "total_correct": 0,
+        "total_questions": 0,
+        "best_streak": 0,
+        "current_streak": 0,
+        "total_time_played": 0.0,
+        "category_stats": {}
+      },
+      "created_at": "2026-03-08T11:24:39.544000",
+      "updated_at": "2026-03-08T11:24:39.544000",
+      "is_pro": false,
+      "auth_provider": "email",
+      "password_hash": "$2b$12$1oHe0PgRbaQMImyAGYVtsuCnmZSisq/w4nwSVuDOpYuwQNtDR5Oo2",
+      "password": "$2b$12$3CjNZpizKqK3KtRp.L/1BOsX4SPNwZx0lBmH0st34tOfQD5kYqI9K"
+    },
+    {
+      "_id": "69adfe98f2333363cbcfbd18",
+      "email": "emil@jawel.se",
+      "display_name": "Emil Jansson",
+      "language": "sv",
+      "user_id": "user_a3aa0b0648b1",
+      "picture": null,
+      "role": "superadmin",
+      "statistics": {
+        "games_played": 0,
+        "total_correct": 0,
+        "total_questions": 0,
+        "best_streak": 0,
+        "current_streak": 0,
+        "total_time_played": 0.0,
+        "category_stats": {}
+      },
+      "created_at": "2026-03-08T12:45:11.388000",
+      "updated_at": "2026-03-08T15:46:10.539000",
+      "is_pro": false,
+      "auth_provider": "email",
+      "password_hash": "$2b$12$1oHe0PgRbaQMImyAGYVtsuCnmZSisq/w4nwSVuDOpYuwQNtDR5Oo2",
+      "first_name": "Emil",
+      "last_name": "Jansson",
+      "password": "$2b$12$3CjNZpizKqK3KtRp.L/1BOsX4SPNwZx0lBmH0st34tOfQD5kYqI9K"
+    }
+  ],
+  "translations": [
+    {
+      "_id": "69adffbb815b63b22fe5b34a",
+      "key": "app_title_part1",
+      "language_code": "sv",
+      "text": "Matematik",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b34b",
+      "key": "app_title_part1",
+      "language_code": "en",
+      "text": "Math",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b34c",
+      "key": "app_title_part1",
+      "language_code": "ar",
+      "text": "ماث",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b34d",
+      "key": "app_title_part1",
+      "language_code": "fi",
+      "text": "Matematiikka",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b34e",
+      "key": "app_title_part1",
+      "language_code": "es",
+      "text": "Mate",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b34f",
+      "key": "app_title_part1",
+      "language_code": "so",
+      "text": "Xisaab",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b350",
+      "key": "app_title_part2",
+      "language_code": "sv",
+      "text": "Mästaren Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b351",
+      "key": "app_title_part2",
+      "language_code": "en",
+      "text": "Master Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b352",
+      "key": "app_title_part2",
+      "language_code": "ar",
+      "text": "ماستر برو",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b353",
+      "key": "app_title_part2",
+      "language_code": "fi",
+      "text": "Mestari Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b354",
+      "key": "app_title_part2",
+      "language_code": "es",
+      "text": "Maestro Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b355",
+      "key": "app_title_part2",
+      "language_code": "so",
+      "text": "Sare Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b356",
+      "key": "app_title",
+      "language_code": "sv",
+      "text": "MatematikMästaren Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b357",
+      "key": "app_title",
+      "language_code": "en",
+      "text": "MathMaster Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b358",
+      "key": "app_title",
+      "language_code": "ar",
+      "text": "ماث ماستر برو",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b359",
+      "key": "app_title",
+      "language_code": "fi",
+      "text": "MatematiikkaMestari Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b35a",
+      "key": "app_title",
+      "language_code": "es",
+      "text": "MateMaestro Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b35b",
+      "key": "app_title",
+      "language_code": "so",
+      "text": "XisaabSare Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b35c",
+      "key": "tagline",
+      "language_code": "sv",
+      "text": "Bli trygg i matematik.",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b35d",
+      "key": "tagline",
+      "language_code": "en",
+      "text": "Become confident in math.",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b35e",
+      "key": "tagline",
+      "language_code": "ar",
+      "text": "كن واثقًا في الرياضيات.",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b35f",
+      "key": "tagline",
+      "language_code": "fi",
+      "text": "Tule varmaksi matematiikassa.",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b360",
+      "key": "tagline",
+      "language_code": "es",
+      "text": "Siéntete seguro en matemáticas.",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b361",
+      "key": "tagline",
+      "language_code": "so",
+      "text": "Ku kalsoonow xisaabta.",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b362",
+      "key": "select_operation",
+      "language_code": "sv",
+      "text": "Välj räknesätt (ett eller flera)",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b363",
+      "key": "select_operation",
+      "language_code": "en",
+      "text": "Select operation (one or more)",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b364",
+      "key": "select_operation",
+      "language_code": "ar",
+      "text": "اختر العملية (واحدة أو أكثر)",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b365",
+      "key": "select_operation",
+      "language_code": "fi",
+      "text": "Valitse laskutoimitus (yksi tai useampi)",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b366",
+      "key": "select_operation",
+      "language_code": "es",
+      "text": "Selecciona operación (una o más)",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b367",
+      "key": "select_operation",
+      "language_code": "so",
+      "text": "Dooro hawlgal (mid ama ka badan)",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b368",
+      "key": "addition",
+      "language_code": "sv",
+      "text": "Addition",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b369",
+      "key": "addition",
+      "language_code": "en",
+      "text": "Addition",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b36a",
+      "key": "addition",
+      "language_code": "ar",
+      "text": "الجمع",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b36b",
+      "key": "addition",
+      "language_code": "fi",
+      "text": "Yhteenlasku",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b36c",
+      "key": "addition",
+      "language_code": "es",
+      "text": "Suma",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b36d",
+      "key": "addition",
+      "language_code": "so",
+      "text": "Isku-dar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b36e",
+      "key": "subtraction",
+      "language_code": "sv",
+      "text": "Subtraktion",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b36f",
+      "key": "subtraction",
+      "language_code": "en",
+      "text": "Subtraction",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b370",
+      "key": "subtraction",
+      "language_code": "ar",
+      "text": "الطرح",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b371",
+      "key": "subtraction",
+      "language_code": "fi",
+      "text": "Vähennyslasku",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b372",
+      "key": "subtraction",
+      "language_code": "es",
+      "text": "Resta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b373",
+      "key": "subtraction",
+      "language_code": "so",
+      "text": "Ka-jar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b374",
+      "key": "multiplication",
+      "language_code": "sv",
+      "text": "Multiplikation",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b375",
+      "key": "multiplication",
+      "language_code": "en",
+      "text": "Multiplication",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b376",
+      "key": "multiplication",
+      "language_code": "ar",
+      "text": "الضرب",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b377",
+      "key": "multiplication",
+      "language_code": "fi",
+      "text": "Kertolasku",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b378",
+      "key": "multiplication",
+      "language_code": "es",
+      "text": "Multiplicación",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b379",
+      "key": "multiplication",
+      "language_code": "so",
+      "text": "Isku-dhufasho",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b37a",
+      "key": "division",
+      "language_code": "sv",
+      "text": "Division",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b37b",
+      "key": "division",
+      "language_code": "en",
+      "text": "Division",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b37c",
+      "key": "division",
+      "language_code": "ar",
+      "text": "القسمة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b37d",
+      "key": "division",
+      "language_code": "fi",
+      "text": "Jakolasku",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b37e",
+      "key": "division",
+      "language_code": "es",
+      "text": "División",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b37f",
+      "key": "division",
+      "language_code": "so",
+      "text": "Qeybinta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b380",
+      "key": "fractions",
+      "language_code": "sv",
+      "text": "Bråk",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b381",
+      "key": "fractions",
+      "language_code": "en",
+      "text": "Fractions",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b382",
+      "key": "fractions",
+      "language_code": "ar",
+      "text": "الكسور",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b383",
+      "key": "fractions",
+      "language_code": "fi",
+      "text": "Murtoluvut",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b384",
+      "key": "fractions",
+      "language_code": "es",
+      "text": "Fracciones",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b385",
+      "key": "fractions",
+      "language_code": "so",
+      "text": "Jabjibin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b386",
+      "key": "equations",
+      "language_code": "sv",
+      "text": "Ekvationer",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b387",
+      "key": "equations",
+      "language_code": "en",
+      "text": "Equations",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b388",
+      "key": "equations",
+      "language_code": "ar",
+      "text": "المعادلات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b389",
+      "key": "equations",
+      "language_code": "fi",
+      "text": "Yhtälöt",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b38a",
+      "key": "equations",
+      "language_code": "es",
+      "text": "Ecuaciones",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b38b",
+      "key": "equations",
+      "language_code": "so",
+      "text": "Isleynta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b38c",
+      "key": "geometry",
+      "language_code": "sv",
+      "text": "Geometri",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b38d",
+      "key": "geometry",
+      "language_code": "en",
+      "text": "Geometry",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b38e",
+      "key": "geometry",
+      "language_code": "ar",
+      "text": "الهندسة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b38f",
+      "key": "geometry",
+      "language_code": "fi",
+      "text": "Geometria",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b390",
+      "key": "geometry",
+      "language_code": "es",
+      "text": "Geometría",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b391",
+      "key": "geometry",
+      "language_code": "so",
+      "text": "Joomitiri",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b392",
+      "key": "percentage",
+      "language_code": "sv",
+      "text": "Procent",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b393",
+      "key": "percentage",
+      "language_code": "en",
+      "text": "Percentage",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b394",
+      "key": "percentage",
+      "language_code": "ar",
+      "text": "النسبة المئوية",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b395",
+      "key": "percentage",
+      "language_code": "fi",
+      "text": "Prosentti",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b396",
+      "key": "percentage",
+      "language_code": "es",
+      "text": "Porcentaje",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b397",
+      "key": "percentage",
+      "language_code": "so",
+      "text": "Boqolkiiba",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b398",
+      "key": "units",
+      "language_code": "sv",
+      "text": "Enheter",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b399",
+      "key": "units",
+      "language_code": "en",
+      "text": "Units",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b39a",
+      "key": "units",
+      "language_code": "ar",
+      "text": "الوحدات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b39b",
+      "key": "units",
+      "language_code": "fi",
+      "text": "Yksiköt",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b39c",
+      "key": "units",
+      "language_code": "es",
+      "text": "Unidades",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b39d",
+      "key": "units",
+      "language_code": "so",
+      "text": "Unugyada",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b39e",
+      "key": "rounding",
+      "language_code": "sv",
+      "text": "Avrundning",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b39f",
+      "key": "rounding",
+      "language_code": "en",
+      "text": "Rounding",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a0",
+      "key": "rounding",
+      "language_code": "ar",
+      "text": "التقريب",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a1",
+      "key": "rounding",
+      "language_code": "fi",
+      "text": "Pyöristys",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a2",
+      "key": "rounding",
+      "language_code": "es",
+      "text": "Redondeo",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a3",
+      "key": "rounding",
+      "language_code": "so",
+      "text": "Wareegga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a4",
+      "key": "angles",
+      "language_code": "sv",
+      "text": "Vinklar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a5",
+      "key": "angles",
+      "language_code": "en",
+      "text": "Angles",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a6",
+      "key": "angles",
+      "language_code": "ar",
+      "text": "الزوايا",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a7",
+      "key": "angles",
+      "language_code": "fi",
+      "text": "Kulmat",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a8",
+      "key": "angles",
+      "language_code": "es",
+      "text": "Ángulos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3a9",
+      "key": "angles",
+      "language_code": "so",
+      "text": "Xagalaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3aa",
+      "key": "probability",
+      "language_code": "sv",
+      "text": "Sannolikhet",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ab",
+      "key": "probability",
+      "language_code": "en",
+      "text": "Probability",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ac",
+      "key": "probability",
+      "language_code": "ar",
+      "text": "الاحتمالية",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ad",
+      "key": "probability",
+      "language_code": "fi",
+      "text": "Todennäköisyys",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ae",
+      "key": "probability",
+      "language_code": "es",
+      "text": "Probabilidad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3af",
+      "key": "probability",
+      "language_code": "so",
+      "text": "Suurtagalnimo",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b0",
+      "key": "diagrams",
+      "language_code": "sv",
+      "text": "Diagram",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b1",
+      "key": "diagrams",
+      "language_code": "en",
+      "text": "Charts",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b2",
+      "key": "diagrams",
+      "language_code": "ar",
+      "text": "الرسوم البيانية",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b3",
+      "key": "diagrams",
+      "language_code": "fi",
+      "text": "Kaaviot",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b4",
+      "key": "diagrams",
+      "language_code": "es",
+      "text": "Gráficos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b5",
+      "key": "diagrams",
+      "language_code": "so",
+      "text": "Jaantuska",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b6",
+      "key": "difficulty",
+      "language_code": "sv",
+      "text": "Svårighetsgrad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b7",
+      "key": "difficulty",
+      "language_code": "en",
+      "text": "Difficulty",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b8",
+      "key": "difficulty",
+      "language_code": "ar",
+      "text": "مستوى الصعوبة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3b9",
+      "key": "difficulty",
+      "language_code": "fi",
+      "text": "Vaikeustaso",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ba",
+      "key": "difficulty",
+      "language_code": "es",
+      "text": "Dificultad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3bb",
+      "key": "difficulty",
+      "language_code": "so",
+      "text": "Heerka adkaanta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3bc",
+      "key": "easy",
+      "language_code": "sv",
+      "text": "Lätt",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3bd",
+      "key": "easy",
+      "language_code": "en",
+      "text": "Easy",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3be",
+      "key": "easy",
+      "language_code": "ar",
+      "text": "سهل",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3bf",
+      "key": "easy",
+      "language_code": "fi",
+      "text": "Helppo",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c0",
+      "key": "easy",
+      "language_code": "es",
+      "text": "Fácil",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c1",
+      "key": "easy",
+      "language_code": "so",
+      "text": "Fudud",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c2",
+      "key": "easy_desc",
+      "language_code": "sv",
+      "text": "Tal 1-10",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c3",
+      "key": "easy_desc",
+      "language_code": "en",
+      "text": "Numbers 1-10",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c4",
+      "key": "easy_desc",
+      "language_code": "ar",
+      "text": "أرقام 1-10",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c5",
+      "key": "easy_desc",
+      "language_code": "fi",
+      "text": "Luvut 1-10",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c6",
+      "key": "easy_desc",
+      "language_code": "es",
+      "text": "Números 1-10",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c7",
+      "key": "easy_desc",
+      "language_code": "so",
+      "text": "Tirooyinka 1-10",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c8",
+      "key": "medium",
+      "language_code": "sv",
+      "text": "Medel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3c9",
+      "key": "medium",
+      "language_code": "en",
+      "text": "Medium",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ca",
+      "key": "medium",
+      "language_code": "ar",
+      "text": "متوسط",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3cb",
+      "key": "medium",
+      "language_code": "fi",
+      "text": "Keskitaso",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3cc",
+      "key": "medium",
+      "language_code": "es",
+      "text": "Medio",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3cd",
+      "key": "medium",
+      "language_code": "so",
+      "text": "Dhexe",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ce",
+      "key": "medium_desc",
+      "language_code": "sv",
+      "text": "Tal 10-50",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3cf",
+      "key": "medium_desc",
+      "language_code": "en",
+      "text": "Numbers 10-50",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d0",
+      "key": "medium_desc",
+      "language_code": "ar",
+      "text": "أرقام 10-50",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d1",
+      "key": "medium_desc",
+      "language_code": "fi",
+      "text": "Luvut 10-50",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d2",
+      "key": "medium_desc",
+      "language_code": "es",
+      "text": "Números 10-50",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d3",
+      "key": "medium_desc",
+      "language_code": "so",
+      "text": "Tirooyinka 10-50",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d4",
+      "key": "hard",
+      "language_code": "sv",
+      "text": "Svår",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d5",
+      "key": "hard",
+      "language_code": "en",
+      "text": "Hard",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d6",
+      "key": "hard",
+      "language_code": "ar",
+      "text": "صعب",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d7",
+      "key": "hard",
+      "language_code": "fi",
+      "text": "Vaikea",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d8",
+      "key": "hard",
+      "language_code": "es",
+      "text": "Difícil",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3d9",
+      "key": "hard",
+      "language_code": "so",
+      "text": "Adag",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3da",
+      "key": "hard_desc",
+      "language_code": "sv",
+      "text": "Tal 50-100",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3db",
+      "key": "hard_desc",
+      "language_code": "en",
+      "text": "Numbers 50-100",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3dc",
+      "key": "hard_desc",
+      "language_code": "ar",
+      "text": "أرقام 50-100",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3dd",
+      "key": "hard_desc",
+      "language_code": "fi",
+      "text": "Luvut 50-100",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3de",
+      "key": "hard_desc",
+      "language_code": "es",
+      "text": "Números 50-100",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3df",
+      "key": "hard_desc",
+      "language_code": "so",
+      "text": "Tirooyinka 50-100",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e0",
+      "key": "question_count",
+      "language_code": "sv",
+      "text": "Antal frågor",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e1",
+      "key": "question_count",
+      "language_code": "en",
+      "text": "Number of questions",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e2",
+      "key": "question_count",
+      "language_code": "ar",
+      "text": "عدد الأسئلة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e3",
+      "key": "question_count",
+      "language_code": "fi",
+      "text": "Kysymysten määrä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e4",
+      "key": "question_count",
+      "language_code": "es",
+      "text": "Número de preguntas",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e5",
+      "key": "question_count",
+      "language_code": "so",
+      "text": "Tirada su'aalaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e6",
+      "key": "start_game",
+      "language_code": "sv",
+      "text": "Starta spelet",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e7",
+      "key": "start_game",
+      "language_code": "en",
+      "text": "Start game",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e8",
+      "key": "start_game",
+      "language_code": "ar",
+      "text": "ابدأ اللعبة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3e9",
+      "key": "start_game",
+      "language_code": "fi",
+      "text": "Aloita peli",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ea",
+      "key": "start_game",
+      "language_code": "es",
+      "text": "Iniciar juego",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3eb",
+      "key": "start_game",
+      "language_code": "so",
+      "text": "Bilow ciyaarta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ec",
+      "key": "submit",
+      "language_code": "sv",
+      "text": "Svara",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ed",
+      "key": "submit",
+      "language_code": "en",
+      "text": "Submit",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ee",
+      "key": "submit",
+      "language_code": "ar",
+      "text": "إرسال",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ef",
+      "key": "submit",
+      "language_code": "fi",
+      "text": "Lähetä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f0",
+      "key": "submit",
+      "language_code": "es",
+      "text": "Enviar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f1",
+      "key": "submit",
+      "language_code": "so",
+      "text": "Dir",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f2",
+      "key": "results",
+      "language_code": "sv",
+      "text": "Resultat",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f3",
+      "key": "results",
+      "language_code": "en",
+      "text": "Results",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f4",
+      "key": "results",
+      "language_code": "ar",
+      "text": "النتائج",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f5",
+      "key": "results",
+      "language_code": "fi",
+      "text": "Tulokset",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f6",
+      "key": "results",
+      "language_code": "es",
+      "text": "Resultados",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f7",
+      "key": "results",
+      "language_code": "so",
+      "text": "Natiijooyinka",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f8",
+      "key": "score",
+      "language_code": "sv",
+      "text": "Poäng",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3f9",
+      "key": "score",
+      "language_code": "en",
+      "text": "Score",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3fa",
+      "key": "score",
+      "language_code": "ar",
+      "text": "النقاط",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3fb",
+      "key": "score",
+      "language_code": "fi",
+      "text": "Pisteet",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3fc",
+      "key": "score",
+      "language_code": "es",
+      "text": "Puntuación",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3fd",
+      "key": "score",
+      "language_code": "so",
+      "text": "Dhibcaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3fe",
+      "key": "correct",
+      "language_code": "sv",
+      "text": "Rätt",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b3ff",
+      "key": "correct",
+      "language_code": "en",
+      "text": "Correct",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b400",
+      "key": "correct",
+      "language_code": "ar",
+      "text": "صحيح",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b401",
+      "key": "correct",
+      "language_code": "fi",
+      "text": "Oikein",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b402",
+      "key": "correct",
+      "language_code": "es",
+      "text": "Correcto",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b403",
+      "key": "correct",
+      "language_code": "so",
+      "text": "Sax",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b404",
+      "key": "incorrect",
+      "language_code": "sv",
+      "text": "Fel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b405",
+      "key": "incorrect",
+      "language_code": "en",
+      "text": "Incorrect",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b406",
+      "key": "incorrect",
+      "language_code": "ar",
+      "text": "خطأ",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b407",
+      "key": "incorrect",
+      "language_code": "fi",
+      "text": "Väärin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b408",
+      "key": "incorrect",
+      "language_code": "es",
+      "text": "Incorrecto",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b409",
+      "key": "incorrect",
+      "language_code": "so",
+      "text": "Khalad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b40a",
+      "key": "time",
+      "language_code": "sv",
+      "text": "Tid",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b40b",
+      "key": "time",
+      "language_code": "en",
+      "text": "Time",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b40c",
+      "key": "time",
+      "language_code": "ar",
+      "text": "الوقت",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b40d",
+      "key": "time",
+      "language_code": "fi",
+      "text": "Aika",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b40e",
+      "key": "time",
+      "language_code": "es",
+      "text": "Tiempo",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b40f",
+      "key": "time",
+      "language_code": "so",
+      "text": "Waqtiga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b410",
+      "key": "play_again",
+      "language_code": "sv",
+      "text": "Spela igen",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b411",
+      "key": "play_again",
+      "language_code": "en",
+      "text": "Play again",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b412",
+      "key": "play_again",
+      "language_code": "ar",
+      "text": "العب مرة أخرى",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b413",
+      "key": "play_again",
+      "language_code": "fi",
+      "text": "Pelaa uudelleen",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b414",
+      "key": "play_again",
+      "language_code": "es",
+      "text": "Jugar de nuevo",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b415",
+      "key": "play_again",
+      "language_code": "so",
+      "text": "Ciyaar mar kale",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b416",
+      "key": "back_to_menu",
+      "language_code": "sv",
+      "text": "Tillbaka till menyn",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b417",
+      "key": "back_to_menu",
+      "language_code": "en",
+      "text": "Back to menu",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b418",
+      "key": "back_to_menu",
+      "language_code": "ar",
+      "text": "العودة إلى القائمة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b419",
+      "key": "back_to_menu",
+      "language_code": "fi",
+      "text": "Takaisin valikkoon",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b41a",
+      "key": "back_to_menu",
+      "language_code": "es",
+      "text": "Volver al menú",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b41b",
+      "key": "back_to_menu",
+      "language_code": "so",
+      "text": "Ku noqo liiska",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b41c",
+      "key": "question",
+      "language_code": "sv",
+      "text": "Fråga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b41d",
+      "key": "question",
+      "language_code": "en",
+      "text": "Question",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b41e",
+      "key": "question",
+      "language_code": "ar",
+      "text": "سؤال",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b41f",
+      "key": "question",
+      "language_code": "fi",
+      "text": "Kysymys",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b420",
+      "key": "question",
+      "language_code": "es",
+      "text": "Pregunta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b421",
+      "key": "question",
+      "language_code": "so",
+      "text": "Su'aal",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b422",
+      "key": "of",
+      "language_code": "sv",
+      "text": "av",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b423",
+      "key": "of",
+      "language_code": "en",
+      "text": "of",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b424",
+      "key": "of",
+      "language_code": "ar",
+      "text": "من",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b425",
+      "key": "of",
+      "language_code": "fi",
+      "text": "/",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b426",
+      "key": "of",
+      "language_code": "es",
+      "text": "de",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b427",
+      "key": "of",
+      "language_code": "so",
+      "text": "ka mid ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b428",
+      "key": "great_job",
+      "language_code": "sv",
+      "text": "Bra jobbat!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b429",
+      "key": "great_job",
+      "language_code": "en",
+      "text": "Great job!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b42a",
+      "key": "great_job",
+      "language_code": "ar",
+      "text": "عمل رائع!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b42b",
+      "key": "great_job",
+      "language_code": "fi",
+      "text": "Hienoa!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b42c",
+      "key": "great_job",
+      "language_code": "es",
+      "text": "¡Buen trabajo!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b42d",
+      "key": "great_job",
+      "language_code": "so",
+      "text": "Shaqo wanaagsan!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b42e",
+      "key": "keep_trying",
+      "language_code": "sv",
+      "text": "Fortsätt försöka!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b42f",
+      "key": "keep_trying",
+      "language_code": "en",
+      "text": "Keep trying!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b430",
+      "key": "keep_trying",
+      "language_code": "ar",
+      "text": "استمر في المحاولة!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b431",
+      "key": "keep_trying",
+      "language_code": "fi",
+      "text": "Jatka yrittämistä!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b432",
+      "key": "keep_trying",
+      "language_code": "es",
+      "text": "¡Sigue intentando!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b433",
+      "key": "keep_trying",
+      "language_code": "so",
+      "text": "Sii wad isku dayga!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b434",
+      "key": "perfect_score",
+      "language_code": "sv",
+      "text": "Perfekt resultat!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b435",
+      "key": "perfect_score",
+      "language_code": "en",
+      "text": "Perfect score!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b436",
+      "key": "perfect_score",
+      "language_code": "ar",
+      "text": "نتيجة مثالية!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b437",
+      "key": "perfect_score",
+      "language_code": "fi",
+      "text": "Täydellinen tulos!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b438",
+      "key": "perfect_score",
+      "language_code": "es",
+      "text": "¡Puntuación perfecta!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b439",
+      "key": "perfect_score",
+      "language_code": "so",
+      "text": "Natiijo qumman!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b43a",
+      "key": "select_one_operation",
+      "language_code": "sv",
+      "text": "Välj minst ett räknesätt",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b43b",
+      "key": "select_one_operation",
+      "language_code": "en",
+      "text": "Select at least one operation",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b43c",
+      "key": "select_one_operation",
+      "language_code": "ar",
+      "text": "اختر عملية واحدة على الأقل",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b43d",
+      "key": "select_one_operation",
+      "language_code": "fi",
+      "text": "Valitse vähintään yksi laskutoimitus",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b43e",
+      "key": "select_one_operation",
+      "language_code": "es",
+      "text": "Selecciona al menos una operación",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b43f",
+      "key": "select_one_operation",
+      "language_code": "so",
+      "text": "Dooro ugu yaraan hal hawlgal",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b440",
+      "key": "login",
+      "language_code": "sv",
+      "text": "Logga in",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b441",
+      "key": "login",
+      "language_code": "en",
+      "text": "Login",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b442",
+      "key": "login",
+      "language_code": "ar",
+      "text": "تسجيل الدخول",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b443",
+      "key": "login",
+      "language_code": "fi",
+      "text": "Kirjaudu",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b444",
+      "key": "login",
+      "language_code": "es",
+      "text": "Iniciar sesión",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b445",
+      "key": "login",
+      "language_code": "so",
+      "text": "Gal",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b446",
+      "key": "register",
+      "language_code": "sv",
+      "text": "Registrera",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b447",
+      "key": "register",
+      "language_code": "en",
+      "text": "Register",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b448",
+      "key": "register",
+      "language_code": "ar",
+      "text": "تسجيل",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b449",
+      "key": "register",
+      "language_code": "fi",
+      "text": "Rekisteröidy",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b44a",
+      "key": "register",
+      "language_code": "es",
+      "text": "Registrarse",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b44b",
+      "key": "register",
+      "language_code": "so",
+      "text": "Isdiiwaangeli",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b44c",
+      "key": "logout",
+      "language_code": "sv",
+      "text": "Logga ut",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b44d",
+      "key": "logout",
+      "language_code": "en",
+      "text": "Logout",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b44e",
+      "key": "logout",
+      "language_code": "ar",
+      "text": "تسجيل الخروج",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b44f",
+      "key": "logout",
+      "language_code": "fi",
+      "text": "Kirjaudu ulos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b450",
+      "key": "logout",
+      "language_code": "es",
+      "text": "Cerrar sesión",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b451",
+      "key": "logout",
+      "language_code": "so",
+      "text": "Ka bax",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b452",
+      "key": "email",
+      "language_code": "sv",
+      "text": "E-post",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b453",
+      "key": "email",
+      "language_code": "en",
+      "text": "Email",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b454",
+      "key": "email",
+      "language_code": "ar",
+      "text": "البريد الإلكتروني",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b455",
+      "key": "email",
+      "language_code": "fi",
+      "text": "Sähköposti",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b456",
+      "key": "email",
+      "language_code": "es",
+      "text": "Correo electrónico",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b457",
+      "key": "email",
+      "language_code": "so",
+      "text": "Iimaylka",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b458",
+      "key": "password",
+      "language_code": "sv",
+      "text": "Lösenord",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b459",
+      "key": "password",
+      "language_code": "en",
+      "text": "Password",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b45a",
+      "key": "password",
+      "language_code": "ar",
+      "text": "كلمة المرور",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b45b",
+      "key": "password",
+      "language_code": "fi",
+      "text": "Salasana",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b45c",
+      "key": "password",
+      "language_code": "es",
+      "text": "Contraseña",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b45d",
+      "key": "password",
+      "language_code": "so",
+      "text": "Erayga sirta ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b45e",
+      "key": "display_name",
+      "language_code": "sv",
+      "text": "Visningsnamn",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b45f",
+      "key": "display_name",
+      "language_code": "en",
+      "text": "Display name",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b460",
+      "key": "display_name",
+      "language_code": "ar",
+      "text": "اسم العرض",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b461",
+      "key": "display_name",
+      "language_code": "fi",
+      "text": "Näyttönimi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b462",
+      "key": "display_name",
+      "language_code": "es",
+      "text": "Nombre para mostrar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b463",
+      "key": "display_name",
+      "language_code": "so",
+      "text": "Magaca muuqda",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b464",
+      "key": "forgot_password",
+      "language_code": "sv",
+      "text": "Glömt lösenord?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b465",
+      "key": "forgot_password",
+      "language_code": "en",
+      "text": "Forgot password?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b466",
+      "key": "forgot_password",
+      "language_code": "ar",
+      "text": "نسيت كلمة المرور؟",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b467",
+      "key": "forgot_password",
+      "language_code": "fi",
+      "text": "Unohditko salasanan?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b468",
+      "key": "forgot_password",
+      "language_code": "es",
+      "text": "¿Olvidaste la contraseña?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b469",
+      "key": "forgot_password",
+      "language_code": "so",
+      "text": "Ma ilowday erayga sirta ah?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b46a",
+      "key": "continue_with_google",
+      "language_code": "sv",
+      "text": "Fortsätt med Google",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b46b",
+      "key": "continue_with_google",
+      "language_code": "en",
+      "text": "Continue with Google",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b46c",
+      "key": "continue_with_google",
+      "language_code": "ar",
+      "text": "المتابعة مع Google",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b46d",
+      "key": "continue_with_google",
+      "language_code": "fi",
+      "text": "Jatka Googlella",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b46e",
+      "key": "continue_with_google",
+      "language_code": "es",
+      "text": "Continuar con Google",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b46f",
+      "key": "continue_with_google",
+      "language_code": "so",
+      "text": "Ku sii wad Google",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b470",
+      "key": "or",
+      "language_code": "sv",
+      "text": "eller",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b471",
+      "key": "or",
+      "language_code": "en",
+      "text": "or",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b472",
+      "key": "or",
+      "language_code": "ar",
+      "text": "أو",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b473",
+      "key": "or",
+      "language_code": "fi",
+      "text": "tai",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b474",
+      "key": "or",
+      "language_code": "es",
+      "text": "o",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b475",
+      "key": "or",
+      "language_code": "so",
+      "text": "ama",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b476",
+      "key": "profile",
+      "language_code": "sv",
+      "text": "Profil",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b477",
+      "key": "profile",
+      "language_code": "en",
+      "text": "Profile",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b478",
+      "key": "profile",
+      "language_code": "ar",
+      "text": "الملف الشخصي",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b479",
+      "key": "profile",
+      "language_code": "fi",
+      "text": "Profiili",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b47a",
+      "key": "profile",
+      "language_code": "es",
+      "text": "Perfil",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b47b",
+      "key": "profile",
+      "language_code": "so",
+      "text": "Astaanta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b47c",
+      "key": "settings",
+      "language_code": "sv",
+      "text": "Inställningar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b47d",
+      "key": "settings",
+      "language_code": "en",
+      "text": "Settings",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b47e",
+      "key": "settings",
+      "language_code": "ar",
+      "text": "الإعدادات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b47f",
+      "key": "settings",
+      "language_code": "fi",
+      "text": "Asetukset",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b480",
+      "key": "settings",
+      "language_code": "es",
+      "text": "Configuración",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b481",
+      "key": "settings",
+      "language_code": "so",
+      "text": "Dejinta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b482",
+      "key": "history",
+      "language_code": "sv",
+      "text": "Historik",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b483",
+      "key": "history",
+      "language_code": "en",
+      "text": "History",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b484",
+      "key": "history",
+      "language_code": "ar",
+      "text": "السجل",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b485",
+      "key": "history",
+      "language_code": "fi",
+      "text": "Historia",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b486",
+      "key": "history",
+      "language_code": "es",
+      "text": "Historial",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b487",
+      "key": "history",
+      "language_code": "so",
+      "text": "Taariikhda",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b488",
+      "key": "groups",
+      "language_code": "sv",
+      "text": "Grupper",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b489",
+      "key": "groups",
+      "language_code": "en",
+      "text": "Groups",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b48a",
+      "key": "groups",
+      "language_code": "ar",
+      "text": "المجموعات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b48b",
+      "key": "groups",
+      "language_code": "fi",
+      "text": "Ryhmät",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b48c",
+      "key": "groups",
+      "language_code": "es",
+      "text": "Grupos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b48d",
+      "key": "groups",
+      "language_code": "so",
+      "text": "Kooxaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b48e",
+      "key": "leaderboard",
+      "language_code": "sv",
+      "text": "Topplista",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b48f",
+      "key": "leaderboard",
+      "language_code": "en",
+      "text": "Leaderboard",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b490",
+      "key": "leaderboard",
+      "language_code": "ar",
+      "text": "لوحة المتصدرين",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b491",
+      "key": "leaderboard",
+      "language_code": "fi",
+      "text": "Tulostaulukko",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b492",
+      "key": "leaderboard",
+      "language_code": "es",
+      "text": "Clasificación",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b493",
+      "key": "leaderboard",
+      "language_code": "so",
+      "text": "Liiska hogaamiyaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b494",
+      "key": "achievements",
+      "language_code": "sv",
+      "text": "Prestationer",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b495",
+      "key": "achievements",
+      "language_code": "en",
+      "text": "Achievements",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b496",
+      "key": "achievements",
+      "language_code": "ar",
+      "text": "الإنجازات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b497",
+      "key": "achievements",
+      "language_code": "fi",
+      "text": "Saavutukset",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b498",
+      "key": "achievements",
+      "language_code": "es",
+      "text": "Logros",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b499",
+      "key": "achievements",
+      "language_code": "so",
+      "text": "Guulaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b49a",
+      "key": "challenges",
+      "language_code": "sv",
+      "text": "Utmaningar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b49b",
+      "key": "challenges",
+      "language_code": "en",
+      "text": "Challenges",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b49c",
+      "key": "challenges",
+      "language_code": "ar",
+      "text": "التحديات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b49d",
+      "key": "challenges",
+      "language_code": "fi",
+      "text": "Haasteet",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b49e",
+      "key": "challenges",
+      "language_code": "es",
+      "text": "Desafíos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b49f",
+      "key": "challenges",
+      "language_code": "so",
+      "text": "Caqabadaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a0",
+      "key": "pro_required",
+      "language_code": "sv",
+      "text": "Pro-version krävs",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a1",
+      "key": "pro_required",
+      "language_code": "en",
+      "text": "Pro version required",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a2",
+      "key": "pro_required",
+      "language_code": "ar",
+      "text": "مطلوب النسخة الاحترافية",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a3",
+      "key": "pro_required",
+      "language_code": "fi",
+      "text": "Pro-versio vaaditaan",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a4",
+      "key": "pro_required",
+      "language_code": "es",
+      "text": "Se requiere versión Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a5",
+      "key": "pro_required",
+      "language_code": "so",
+      "text": "Nooca Pro ayaa loo baahan yahay",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a6",
+      "key": "upgrade_to_pro",
+      "language_code": "sv",
+      "text": "Uppgradera till Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a7",
+      "key": "upgrade_to_pro",
+      "language_code": "en",
+      "text": "Upgrade to Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a8",
+      "key": "upgrade_to_pro",
+      "language_code": "ar",
+      "text": "الترقية إلى Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4a9",
+      "key": "upgrade_to_pro",
+      "language_code": "fi",
+      "text": "Päivitä Pro-versioon",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4aa",
+      "key": "upgrade_to_pro",
+      "language_code": "es",
+      "text": "Actualizar a Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ab",
+      "key": "upgrade_to_pro",
+      "language_code": "so",
+      "text": "U kor u qaad Pro",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ac",
+      "key": "login_subtitle",
+      "language_code": "sv",
+      "text": "Välkommen tillbaka!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ad",
+      "key": "login_subtitle",
+      "language_code": "en",
+      "text": "Welcome back!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ae",
+      "key": "login_subtitle",
+      "language_code": "ar",
+      "text": "مرحبًا بعودتك!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4af",
+      "key": "login_subtitle",
+      "language_code": "fi",
+      "text": "Tervetuloa takaisin!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b0",
+      "key": "login_subtitle",
+      "language_code": "es",
+      "text": "¡Bienvenido de nuevo!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b1",
+      "key": "login_subtitle",
+      "language_code": "so",
+      "text": "Ku soo dhawoow!",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b2",
+      "key": "register_subtitle",
+      "language_code": "sv",
+      "text": "Skapa ditt konto",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b3",
+      "key": "register_subtitle",
+      "language_code": "en",
+      "text": "Create your account",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b4",
+      "key": "register_subtitle",
+      "language_code": "ar",
+      "text": "أنشئ حسابك",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b5",
+      "key": "register_subtitle",
+      "language_code": "fi",
+      "text": "Luo tilisi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b6",
+      "key": "register_subtitle",
+      "language_code": "es",
+      "text": "Crea tu cuenta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b7",
+      "key": "register_subtitle",
+      "language_code": "so",
+      "text": "Samee akoonkaaga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b8",
+      "key": "email_placeholder",
+      "language_code": "sv",
+      "text": "Ange din e-post",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4b9",
+      "key": "email_placeholder",
+      "language_code": "en",
+      "text": "Enter your email",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ba",
+      "key": "email_placeholder",
+      "language_code": "ar",
+      "text": "أدخل بريدك الإلكتروني",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4bb",
+      "key": "email_placeholder",
+      "language_code": "fi",
+      "text": "Syötä sähköpostisi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4bc",
+      "key": "email_placeholder",
+      "language_code": "es",
+      "text": "Introduce tu correo",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4bd",
+      "key": "email_placeholder",
+      "language_code": "so",
+      "text": "Geli iimaylkaaga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4be",
+      "key": "password_placeholder",
+      "language_code": "sv",
+      "text": "Ange ditt lösenord",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4bf",
+      "key": "password_placeholder",
+      "language_code": "en",
+      "text": "Enter your password",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c0",
+      "key": "password_placeholder",
+      "language_code": "ar",
+      "text": "أدخل كلمة المرور",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c1",
+      "key": "password_placeholder",
+      "language_code": "fi",
+      "text": "Syötä salasanasi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c2",
+      "key": "password_placeholder",
+      "language_code": "es",
+      "text": "Introduce tu contraseña",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c3",
+      "key": "password_placeholder",
+      "language_code": "so",
+      "text": "Geli eraygaaga sirta ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c4",
+      "key": "display_name_placeholder",
+      "language_code": "sv",
+      "text": "Ange ditt namn",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c5",
+      "key": "display_name_placeholder",
+      "language_code": "en",
+      "text": "Enter your name",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c6",
+      "key": "display_name_placeholder",
+      "language_code": "ar",
+      "text": "أدخل اسمك",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c7",
+      "key": "display_name_placeholder",
+      "language_code": "fi",
+      "text": "Syötä nimesi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c8",
+      "key": "display_name_placeholder",
+      "language_code": "es",
+      "text": "Introduce tu nombre",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4c9",
+      "key": "display_name_placeholder",
+      "language_code": "so",
+      "text": "Geli magacaaga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ca",
+      "key": "confirm_password",
+      "language_code": "sv",
+      "text": "Bekräfta lösenord",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4cb",
+      "key": "confirm_password",
+      "language_code": "en",
+      "text": "Confirm password",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4cc",
+      "key": "confirm_password",
+      "language_code": "ar",
+      "text": "تأكيد كلمة المرور",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4cd",
+      "key": "confirm_password",
+      "language_code": "fi",
+      "text": "Vahvista salasana",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ce",
+      "key": "confirm_password",
+      "language_code": "es",
+      "text": "Confirmar contraseña",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4cf",
+      "key": "confirm_password",
+      "language_code": "so",
+      "text": "Xaqiiji erayga sirta ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d0",
+      "key": "confirm_password_placeholder",
+      "language_code": "sv",
+      "text": "Bekräfta ditt lösenord",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d1",
+      "key": "confirm_password_placeholder",
+      "language_code": "en",
+      "text": "Confirm your password",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d2",
+      "key": "confirm_password_placeholder",
+      "language_code": "ar",
+      "text": "أكد كلمة المرور",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d3",
+      "key": "confirm_password_placeholder",
+      "language_code": "fi",
+      "text": "Vahvista salasanasi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d4",
+      "key": "confirm_password_placeholder",
+      "language_code": "es",
+      "text": "Confirma tu contraseña",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d5",
+      "key": "confirm_password_placeholder",
+      "language_code": "so",
+      "text": "Xaqiiji eraygaaga sirta ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d6",
+      "key": "no_account",
+      "language_code": "sv",
+      "text": "Har du inget konto?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d7",
+      "key": "no_account",
+      "language_code": "en",
+      "text": "Don't have an account?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d8",
+      "key": "no_account",
+      "language_code": "ar",
+      "text": "ليس لديك حساب؟",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4d9",
+      "key": "no_account",
+      "language_code": "fi",
+      "text": "Eikö sinulla ole tiliä?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4da",
+      "key": "no_account",
+      "language_code": "es",
+      "text": "¿No tienes cuenta?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4db",
+      "key": "no_account",
+      "language_code": "so",
+      "text": "Ma haysatid akoon?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4dc",
+      "key": "have_account",
+      "language_code": "sv",
+      "text": "Har du redan ett konto?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4dd",
+      "key": "have_account",
+      "language_code": "en",
+      "text": "Already have an account?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4de",
+      "key": "have_account",
+      "language_code": "ar",
+      "text": "لديك حساب بالفعل؟",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4df",
+      "key": "have_account",
+      "language_code": "fi",
+      "text": "Onko sinulla jo tili?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e0",
+      "key": "have_account",
+      "language_code": "es",
+      "text": "¿Ya tienes cuenta?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e1",
+      "key": "have_account",
+      "language_code": "so",
+      "text": "Ma haysataa akoon?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e2",
+      "key": "enter_email_password",
+      "language_code": "sv",
+      "text": "Ange e-post och lösenord",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e3",
+      "key": "enter_email_password",
+      "language_code": "en",
+      "text": "Please enter email and password",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e4",
+      "key": "enter_email_password",
+      "language_code": "ar",
+      "text": "الرجاء إدخال البريد وكلمة المرور",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e5",
+      "key": "enter_email_password",
+      "language_code": "fi",
+      "text": "Syötä sähköposti ja salasana",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e6",
+      "key": "enter_email_password",
+      "language_code": "es",
+      "text": "Introduce email y contraseña",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e7",
+      "key": "enter_email_password",
+      "language_code": "so",
+      "text": "Geli iimaylka iyo erayga sirta ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e8",
+      "key": "fill_all_fields",
+      "language_code": "sv",
+      "text": "Fyll i alla fält",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4e9",
+      "key": "fill_all_fields",
+      "language_code": "en",
+      "text": "Please fill in all fields",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ea",
+      "key": "fill_all_fields",
+      "language_code": "ar",
+      "text": "الرجاء ملء جميع الحقول",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4eb",
+      "key": "fill_all_fields",
+      "language_code": "fi",
+      "text": "Täytä kaikki kentät",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ec",
+      "key": "fill_all_fields",
+      "language_code": "es",
+      "text": "Por favor, rellena todos los campos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ed",
+      "key": "fill_all_fields",
+      "language_code": "so",
+      "text": "Buuxi dhammaan meelaha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ee",
+      "key": "passwords_not_match",
+      "language_code": "sv",
+      "text": "Lösenorden matchar inte",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ef",
+      "key": "passwords_not_match",
+      "language_code": "en",
+      "text": "Passwords do not match",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f0",
+      "key": "passwords_not_match",
+      "language_code": "ar",
+      "text": "كلمات المرور غير متطابقة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f1",
+      "key": "passwords_not_match",
+      "language_code": "fi",
+      "text": "Salasanat eivät täsmää",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f2",
+      "key": "passwords_not_match",
+      "language_code": "es",
+      "text": "Las contraseñas no coinciden",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f3",
+      "key": "passwords_not_match",
+      "language_code": "so",
+      "text": "Erayada sirta ah ma iswaafaqaan",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f4",
+      "key": "password_too_short",
+      "language_code": "sv",
+      "text": "Lösenordet måste vara minst 6 tecken",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f5",
+      "key": "password_too_short",
+      "language_code": "en",
+      "text": "Password must be at least 6 characters",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f6",
+      "key": "password_too_short",
+      "language_code": "ar",
+      "text": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f7",
+      "key": "password_too_short",
+      "language_code": "fi",
+      "text": "Salasanan tulee olla vähintään 6 merkkiä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f8",
+      "key": "password_too_short",
+      "language_code": "es",
+      "text": "La contraseña debe tener al menos 6 caracteres",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4f9",
+      "key": "password_too_short",
+      "language_code": "so",
+      "text": "Erayga sirta ah waa inuu ahaadaa ugu yaraan 6 xaraf",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4fa",
+      "key": "cancel",
+      "language_code": "sv",
+      "text": "Avbryt",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4fb",
+      "key": "cancel",
+      "language_code": "en",
+      "text": "Cancel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4fc",
+      "key": "cancel",
+      "language_code": "ar",
+      "text": "إلغاء",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4fd",
+      "key": "cancel",
+      "language_code": "fi",
+      "text": "Peruuta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4fe",
+      "key": "cancel",
+      "language_code": "es",
+      "text": "Cancelar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b4ff",
+      "key": "cancel",
+      "language_code": "so",
+      "text": "Jooji",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b500",
+      "key": "logout_confirm",
+      "language_code": "sv",
+      "text": "Är du säker på att du vill logga ut?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b501",
+      "key": "logout_confirm",
+      "language_code": "en",
+      "text": "Are you sure you want to logout?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b502",
+      "key": "logout_confirm",
+      "language_code": "ar",
+      "text": "هل أنت متأكد من تسجيل الخروج؟",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b503",
+      "key": "logout_confirm",
+      "language_code": "fi",
+      "text": "Haluatko varmasti kirjautua ulos?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b504",
+      "key": "logout_confirm",
+      "language_code": "es",
+      "text": "¿Seguro que quieres cerrar sesión?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b505",
+      "key": "logout_confirm",
+      "language_code": "so",
+      "text": "Ma hubtaa inaad rabto inaad ka baxdo?",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b506",
+      "key": "statistics",
+      "language_code": "sv",
+      "text": "Statistik",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b507",
+      "key": "statistics",
+      "language_code": "en",
+      "text": "Statistics",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b508",
+      "key": "statistics",
+      "language_code": "ar",
+      "text": "الإحصائيات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b509",
+      "key": "statistics",
+      "language_code": "fi",
+      "text": "Tilastot",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b50a",
+      "key": "statistics",
+      "language_code": "es",
+      "text": "Estadísticas",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b50b",
+      "key": "statistics",
+      "language_code": "so",
+      "text": "Tirakoobka",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b50c",
+      "key": "games_played",
+      "language_code": "sv",
+      "text": "Spel spelade",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b50d",
+      "key": "games_played",
+      "language_code": "en",
+      "text": "Games played",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b50e",
+      "key": "games_played",
+      "language_code": "ar",
+      "text": "الألعاب التي لعبتها",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b50f",
+      "key": "games_played",
+      "language_code": "fi",
+      "text": "Pelatut pelit",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b510",
+      "key": "games_played",
+      "language_code": "es",
+      "text": "Juegos jugados",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b511",
+      "key": "games_played",
+      "language_code": "so",
+      "text": "Ciyaarooyinka la ciyaaray",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b512",
+      "key": "correct_answers",
+      "language_code": "sv",
+      "text": "Rätta svar",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b513",
+      "key": "correct_answers",
+      "language_code": "en",
+      "text": "Correct answers",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b514",
+      "key": "correct_answers",
+      "language_code": "ar",
+      "text": "الإجابات الصحيحة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b515",
+      "key": "correct_answers",
+      "language_code": "fi",
+      "text": "Oikeat vastaukset",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b516",
+      "key": "correct_answers",
+      "language_code": "es",
+      "text": "Respuestas correctas",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b517",
+      "key": "correct_answers",
+      "language_code": "so",
+      "text": "Jawaabaha saxda ah",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b518",
+      "key": "accuracy",
+      "language_code": "sv",
+      "text": "Träffsäkerhet",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b519",
+      "key": "accuracy",
+      "language_code": "en",
+      "text": "Accuracy",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b51a",
+      "key": "accuracy",
+      "language_code": "ar",
+      "text": "الدقة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b51b",
+      "key": "accuracy",
+      "language_code": "fi",
+      "text": "Tarkkuus",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b51c",
+      "key": "accuracy",
+      "language_code": "es",
+      "text": "Precisión",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b51d",
+      "key": "accuracy",
+      "language_code": "so",
+      "text": "Saxnaanta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b51e",
+      "key": "best_streak",
+      "language_code": "sv",
+      "text": "Bästa svit",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b51f",
+      "key": "best_streak",
+      "language_code": "en",
+      "text": "Best streak",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b520",
+      "key": "best_streak",
+      "language_code": "ar",
+      "text": "أفضل سلسلة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b521",
+      "key": "best_streak",
+      "language_code": "fi",
+      "text": "Paras putki",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b522",
+      "key": "best_streak",
+      "language_code": "es",
+      "text": "Mejor racha",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b523",
+      "key": "best_streak",
+      "language_code": "so",
+      "text": "Isku xigxigga ugu fiican",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b524",
+      "key": "pro_features_desc",
+      "language_code": "sv",
+      "text": "Lås upp alla matematikkategorier",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b525",
+      "key": "pro_features_desc",
+      "language_code": "en",
+      "text": "Unlock all math categories",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b526",
+      "key": "pro_features_desc",
+      "language_code": "ar",
+      "text": "افتح جميع فئات الرياضيات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b527",
+      "key": "pro_features_desc",
+      "language_code": "fi",
+      "text": "Avaa kaikki matematiikkakategoriat",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b528",
+      "key": "pro_features_desc",
+      "language_code": "es",
+      "text": "Desbloquea todas las categorías",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b529",
+      "key": "pro_features_desc",
+      "language_code": "so",
+      "text": "Fur dhammaan qaybaha xisaabta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b52a",
+      "key": "ach_first_game",
+      "language_code": "sv",
+      "text": "Första spelet",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b52b",
+      "key": "ach_first_game",
+      "language_code": "en",
+      "text": "First Game",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b52c",
+      "key": "ach_first_game",
+      "language_code": "ar",
+      "text": "اللعبة الأولى",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b52d",
+      "key": "ach_first_game",
+      "language_code": "fi",
+      "text": "Ensimmäinen peli",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b52e",
+      "key": "ach_first_game",
+      "language_code": "es",
+      "text": "Primer juego",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b52f",
+      "key": "ach_first_game",
+      "language_code": "so",
+      "text": "Ciyaarta koowaad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b530",
+      "key": "ach_first_game_desc",
+      "language_code": "sv",
+      "text": "Spela ditt första spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b531",
+      "key": "ach_first_game_desc",
+      "language_code": "en",
+      "text": "Play your first game",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b532",
+      "key": "ach_first_game_desc",
+      "language_code": "ar",
+      "text": "العب لعبتك الأولى",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b533",
+      "key": "ach_first_game_desc",
+      "language_code": "fi",
+      "text": "Pelaa ensimmäinen pelisi",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b534",
+      "key": "ach_first_game_desc",
+      "language_code": "es",
+      "text": "Juega tu primer juego",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b535",
+      "key": "ach_first_game_desc",
+      "language_code": "so",
+      "text": "Ciyaar ciyaartaada koowaad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b536",
+      "key": "ach_ten_games",
+      "language_code": "sv",
+      "text": "Tio spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b537",
+      "key": "ach_ten_games",
+      "language_code": "en",
+      "text": "Ten Games",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b538",
+      "key": "ach_ten_games",
+      "language_code": "ar",
+      "text": "عشر ألعاب",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b539",
+      "key": "ach_ten_games",
+      "language_code": "fi",
+      "text": "Kymmenen peliä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b53a",
+      "key": "ach_ten_games",
+      "language_code": "es",
+      "text": "Diez juegos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b53b",
+      "key": "ach_ten_games",
+      "language_code": "so",
+      "text": "Toban ciyaarood",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b53c",
+      "key": "ach_ten_games_desc",
+      "language_code": "sv",
+      "text": "Spela 10 spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b53d",
+      "key": "ach_ten_games_desc",
+      "language_code": "en",
+      "text": "Play 10 games",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b53e",
+      "key": "ach_ten_games_desc",
+      "language_code": "ar",
+      "text": "العب 10 ألعاب",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b53f",
+      "key": "ach_ten_games_desc",
+      "language_code": "fi",
+      "text": "Pelaa 10 peliä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b540",
+      "key": "ach_ten_games_desc",
+      "language_code": "es",
+      "text": "Juega 10 juegos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b541",
+      "key": "ach_ten_games_desc",
+      "language_code": "so",
+      "text": "Ciyaar 10 ciyaarood",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b542",
+      "key": "ach_hundred_games",
+      "language_code": "sv",
+      "text": "Hundra spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b543",
+      "key": "ach_hundred_games",
+      "language_code": "en",
+      "text": "Hundred Games",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b544",
+      "key": "ach_hundred_games",
+      "language_code": "ar",
+      "text": "مئة لعبة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b545",
+      "key": "ach_hundred_games",
+      "language_code": "fi",
+      "text": "Sata peliä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b546",
+      "key": "ach_hundred_games",
+      "language_code": "es",
+      "text": "Cien juegos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b547",
+      "key": "ach_hundred_games",
+      "language_code": "so",
+      "text": "Boqol ciyaarood",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b548",
+      "key": "ach_hundred_games_desc",
+      "language_code": "sv",
+      "text": "Spela 100 spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b549",
+      "key": "ach_hundred_games_desc",
+      "language_code": "en",
+      "text": "Play 100 games",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b54a",
+      "key": "ach_hundred_games_desc",
+      "language_code": "ar",
+      "text": "العب 100 لعبة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b54b",
+      "key": "ach_hundred_games_desc",
+      "language_code": "fi",
+      "text": "Pelaa 100 peliä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b54c",
+      "key": "ach_hundred_games_desc",
+      "language_code": "es",
+      "text": "Juega 100 juegos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b54d",
+      "key": "ach_hundred_games_desc",
+      "language_code": "so",
+      "text": "Ciyaar 100 ciyaarood",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b54e",
+      "key": "ach_perfect_game",
+      "language_code": "sv",
+      "text": "Perfekt spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b54f",
+      "key": "ach_perfect_game",
+      "language_code": "en",
+      "text": "Perfect Game",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b550",
+      "key": "ach_perfect_game",
+      "language_code": "ar",
+      "text": "لعبة مثالية",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b551",
+      "key": "ach_perfect_game",
+      "language_code": "fi",
+      "text": "Täydellinen peli",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b552",
+      "key": "ach_perfect_game",
+      "language_code": "es",
+      "text": "Juego perfecto",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b553",
+      "key": "ach_perfect_game",
+      "language_code": "so",
+      "text": "Ciyaar qumman",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b554",
+      "key": "ach_perfect_game_desc",
+      "language_code": "sv",
+      "text": "Få 100% rätt i ett spel",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b555",
+      "key": "ach_perfect_game_desc",
+      "language_code": "en",
+      "text": "Get 100% correct in a game",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b556",
+      "key": "ach_perfect_game_desc",
+      "language_code": "ar",
+      "text": "احصل على 100% صحيح في لعبة",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b557",
+      "key": "ach_perfect_game_desc",
+      "language_code": "fi",
+      "text": "Saa 100% oikein pelissä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b558",
+      "key": "ach_perfect_game_desc",
+      "language_code": "es",
+      "text": "Obtén 100% correcto en un juego",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b559",
+      "key": "ach_perfect_game_desc",
+      "language_code": "so",
+      "text": "Hel 100% sax ciyaarta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b55a",
+      "key": "ach_streak_5",
+      "language_code": "sv",
+      "text": "5 i rad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b55b",
+      "key": "ach_streak_5",
+      "language_code": "en",
+      "text": "5 in a Row",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b55c",
+      "key": "ach_streak_5",
+      "language_code": "ar",
+      "text": "5 على التوالي",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b55d",
+      "key": "ach_streak_5",
+      "language_code": "fi",
+      "text": "5 peräkkäin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b55e",
+      "key": "ach_streak_5",
+      "language_code": "es",
+      "text": "5 seguidos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b55f",
+      "key": "ach_streak_5",
+      "language_code": "so",
+      "text": "5 isku xiga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b560",
+      "key": "ach_streak_5_desc",
+      "language_code": "sv",
+      "text": "Svara rätt på 5 frågor i rad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b561",
+      "key": "ach_streak_5_desc",
+      "language_code": "en",
+      "text": "Answer 5 questions correctly in a row",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b562",
+      "key": "ach_streak_5_desc",
+      "language_code": "ar",
+      "text": "أجب على 5 أسئلة صحيحة على التوالي",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b563",
+      "key": "ach_streak_5_desc",
+      "language_code": "fi",
+      "text": "Vastaa 5 kysymykseen oikein peräkkäin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b564",
+      "key": "ach_streak_5_desc",
+      "language_code": "es",
+      "text": "Responde 5 preguntas correctamente seguidas",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b565",
+      "key": "ach_streak_5_desc",
+      "language_code": "so",
+      "text": "Ka jawaab 5 su'aalood si sax ah isku xigta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b566",
+      "key": "ach_streak_10",
+      "language_code": "sv",
+      "text": "10 i rad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b567",
+      "key": "ach_streak_10",
+      "language_code": "en",
+      "text": "10 in a Row",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b568",
+      "key": "ach_streak_10",
+      "language_code": "ar",
+      "text": "10 على التوالي",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b569",
+      "key": "ach_streak_10",
+      "language_code": "fi",
+      "text": "10 peräkkäin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b56a",
+      "key": "ach_streak_10",
+      "language_code": "es",
+      "text": "10 seguidos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b56b",
+      "key": "ach_streak_10",
+      "language_code": "so",
+      "text": "10 isku xiga",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b56c",
+      "key": "ach_streak_10_desc",
+      "language_code": "sv",
+      "text": "Svara rätt på 10 frågor i rad",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b56d",
+      "key": "ach_streak_10_desc",
+      "language_code": "en",
+      "text": "Answer 10 questions correctly in a row",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b56e",
+      "key": "ach_streak_10_desc",
+      "language_code": "ar",
+      "text": "أجب على 10 أسئلة صحيحة على التوالي",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b56f",
+      "key": "ach_streak_10_desc",
+      "language_code": "fi",
+      "text": "Vastaa 10 kysymykseen oikein peräkkäin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b570",
+      "key": "ach_streak_10_desc",
+      "language_code": "es",
+      "text": "Responde 10 preguntas correctamente seguidas",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b571",
+      "key": "ach_streak_10_desc",
+      "language_code": "so",
+      "text": "Ka jawaab 10 su'aalood si sax ah isku xigta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b572",
+      "key": "ach_math_master",
+      "language_code": "sv",
+      "text": "Matematikmästare",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b573",
+      "key": "ach_math_master",
+      "language_code": "en",
+      "text": "Math Master",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b574",
+      "key": "ach_math_master",
+      "language_code": "ar",
+      "text": "سيد الرياضيات",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b575",
+      "key": "ach_math_master",
+      "language_code": "fi",
+      "text": "Matematiikan mestari",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b576",
+      "key": "ach_math_master",
+      "language_code": "es",
+      "text": "Maestro de matemáticas",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b577",
+      "key": "ach_math_master",
+      "language_code": "so",
+      "text": "Sayidka xisaabta",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b578",
+      "key": "ach_math_master_desc",
+      "language_code": "sv",
+      "text": "Spela alla 13 kategorier",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b579",
+      "key": "ach_math_master_desc",
+      "language_code": "en",
+      "text": "Play all 13 categories",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b57a",
+      "key": "ach_math_master_desc",
+      "language_code": "ar",
+      "text": "العب جميع الفئات الـ 13",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b57b",
+      "key": "ach_math_master_desc",
+      "language_code": "fi",
+      "text": "Pelaa kaikki 13 kategoriaa",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b57c",
+      "key": "ach_math_master_desc",
+      "language_code": "es",
+      "text": "Juega todas las 13 categorías",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b57d",
+      "key": "ach_math_master_desc",
+      "language_code": "so",
+      "text": "Ciyaar dhammaan 13 qaybood",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b57e",
+      "key": "earned",
+      "language_code": "sv",
+      "text": "Uppnått",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b57f",
+      "key": "earned",
+      "language_code": "en",
+      "text": "Earned",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b580",
+      "key": "earned",
+      "language_code": "ar",
+      "text": "تم الحصول عليها",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b581",
+      "key": "earned",
+      "language_code": "fi",
+      "text": "Ansaittu",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b582",
+      "key": "earned",
+      "language_code": "es",
+      "text": "Obtenido",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b583",
+      "key": "earned",
+      "language_code": "so",
+      "text": "La helay",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b584",
+      "key": "not_earned",
+      "language_code": "sv",
+      "text": "Inte uppnått",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b585",
+      "key": "not_earned",
+      "language_code": "en",
+      "text": "Not earned",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b586",
+      "key": "not_earned",
+      "language_code": "ar",
+      "text": "لم يتم الحصول عليها",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b587",
+      "key": "not_earned",
+      "language_code": "fi",
+      "text": "Ei ansaittu",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b588",
+      "key": "not_earned",
+      "language_code": "es",
+      "text": "No obtenido",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b589",
+      "key": "not_earned",
+      "language_code": "so",
+      "text": "Lama helin",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b58a",
+      "key": "points",
+      "language_code": "sv",
+      "text": "poäng",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b58b",
+      "key": "points",
+      "language_code": "en",
+      "text": "points",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b58c",
+      "key": "points",
+      "language_code": "ar",
+      "text": "نقاط",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b58d",
+      "key": "points",
+      "language_code": "fi",
+      "text": "pistettä",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b58e",
+      "key": "points",
+      "language_code": "es",
+      "text": "puntos",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    },
+    {
+      "_id": "69adffbb815b63b22fe5b58f",
+      "key": "points",
+      "language_code": "so",
+      "text": "dhibco",
+      "category": "ui",
+      "updated_at": "2026-03-08T23:01:15.082000"
+    }
+  ],
+  "achievements": [],
+  "user_scores": [],
+  "groups": []
+}
