@@ -40,6 +40,7 @@ const ALL_CATEGORIES = [
   { key: 'angles', symbol: '∠', icon: 'compass', color: '#EF9A9A' },
   { key: 'probability', symbol: 'P', icon: 'dice', color: '#C5E1A5' },
   { key: 'diagrams', symbol: '📊', icon: 'bar-chart', color: '#FFF59D' },
+  { key: 'graphs', symbol: '📈', icon: 'trending-up', color: '#B2DFDB' },
 ];
 
 const QUESTION_COUNTS = [15, 30, 60, 120];

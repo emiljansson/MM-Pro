@@ -15,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { NumericKeyboard, FractionExpression, containsFraction, FractionKeyboard, Fraction, BarChart, isDiagramQuestion, extractChartData } from '../src/components';
+import { LineGraph, isGraphQuestion, extractGraphData } from '../src/components/LineGraph';
 import * as Haptics from 'expo-haptics';
 
 export default function GameScreen() {
@@ -346,6 +347,35 @@ export default function GameScreen() {
                       {currentQuestion.display.split('\n').pop()}
                     </Text>
                   )}
+                </View>
+              ) : isGraphQuestion(currentQuestion) ? (
+                <View style={styles.graphQuestionContainer}>
+                  {/* Render the line graph - large */}
+                  {(() => {
+                    const graphData = extractGraphData(currentQuestion);
+                    if (graphData) {
+                      return (
+                        <LineGraph
+                          points={graphData.points}
+                          xMin={graphData.xMin}
+                          xMax={graphData.xMax}
+                          yMin={graphData.yMin}
+                          yMax={graphData.yMax}
+                          size="large"
+                        />
+                      );
+                    }
+                    return null;
+                  })()}
+                  {/* Question text below graph */}
+                  <Text style={[
+                    styles.graphQuestionText,
+                    { color: theme.primary },
+                    isSmallScreen && { fontSize: 16 },
+                    isLargeScreen && { fontSize: 20 }
+                  ]}>
+                    {currentQuestion.display}
+                  </Text>
                 </View>
               ) : currentQuestion.display && containsFraction(currentQuestion.display) ? (
                 <View style={styles.fractionQuestionContainer}>
@@ -822,6 +852,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginTop: -4,
+    textAlign: 'center',
+  },
+  graphQuestionContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
+  },
+  graphQuestionText: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 12,
     textAlign: 'center',
   },
 });
