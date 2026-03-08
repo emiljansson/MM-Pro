@@ -803,7 +803,7 @@ const styles = StyleSheet.create({
   diagramQuestionText: {
     fontSize: 18,
     fontWeight: '700',
-    marginTop: 16,
+    marginTop: -4,
     textAlign: 'center',
   },
 });
