@@ -161,13 +161,13 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
       { 
         backgroundColor: theme.surface, 
         paddingBottom: bottomPadding,
-        paddingTop: graph ? 20 : (mini ? 12 : 30),
+        paddingTop: mini ? 12 : 30,
         paddingHorizontal: containerPadding,
       },
     ]}>
       {showOperators && renderOperatorRow()}
       
-      <View style={[styles.row, { marginBottom: rowMargin, gap: mini ? 6 : 0 }]}>
+      <View style={[styles.row, { marginTop: graph ? 20 : 0, marginBottom: rowMargin, gap: mini ? 6 : 0 }]}>
         {renderKey('1')}
         {renderKey('2')}
         {renderKey('3')}
