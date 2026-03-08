@@ -350,6 +350,29 @@ export default function GameScreen() {
                 </View>
               ) : isGraphQuestion(currentQuestion) ? (
                 <View style={styles.graphQuestionContainer}>
+                  {/* Question text and answer field at top */}
+                  <View style={styles.graphTopSection}>
+                    <Text style={[
+                      styles.graphQuestionText,
+                      { color: theme.primary },
+                      isSmallScreen && { fontSize: 16 },
+                      isLargeScreen && { fontSize: 20 }
+                    ]}>
+                      {currentQuestion.display}
+                    </Text>
+                    {/* Compact answer box for graphs */}
+                    <View style={[
+                      styles.graphAnswerBox,
+                      { borderColor: theme.primary, backgroundColor: theme.surface }
+                    ]}>
+                      <Text style={[
+                        styles.graphAnswerText,
+                        { color: userInput ? theme.text : theme.textMuted }
+                      ]}>
+                        {userInput || '?'}
+                      </Text>
+                    </View>
+                  </View>
                   {/* Render the line graph - large */}
                   {(() => {
                     const graphData = extractGraphData(currentQuestion);
@@ -367,15 +390,6 @@ export default function GameScreen() {
                     }
                     return null;
                   })()}
-                  {/* Question text below graph */}
-                  <Text style={[
-                    styles.graphQuestionText,
-                    { color: theme.primary },
-                    isSmallScreen && { fontSize: 16 },
-                    isLargeScreen && { fontSize: 20 }
-                  ]}>
-                    {currentQuestion.display}
-                  </Text>
                 </View>
               ) : currentQuestion.display && containsFraction(currentQuestion.display) ? (
                 <View style={styles.fractionQuestionContainer}>
@@ -858,12 +872,31 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 8,
+    paddingVertical: 4,
+  },
+  graphTopSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+    gap: 12,
   },
   graphQuestionText: {
     fontSize: 18,
     fontWeight: '700',
-    marginTop: 12,
+    textAlign: 'center',
+  },
+  graphAnswerBox: {
+    borderWidth: 3,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    minWidth: 60,
+    alignItems: 'center',
+  },
+  graphAnswerText: {
+    fontSize: 24,
+    fontWeight: '700',
     textAlign: 'center',
   },
 });
