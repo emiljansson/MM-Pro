@@ -44,94 +44,123 @@ export interface ThemeColors {
   division: string;
 }
 
+// ============================================
+// RETRO 50s THEME - Inspired by:
+// - American diners
+// - Pastel color palettes
+// - Mid-century modern design
+// - Jukebox aesthetics
+// ============================================
+
 export const lightTheme: ThemeColors = {
-  // Background - soft cream/white like 50s diners
-  background: '#FFF8F0',
+  // Background - warm cream like a 50s diner booth
+  background: '#FEF9F3',      // Warm cream
   surface: '#FFFFFF',
   card: '#FFFFFF',
   cardSelected: '#E8F5E9',
   
-  // Text
-  text: '#2D3436',
-  textSecondary: '#636E72',
-  textMuted: '#B2BEC3',
+  // Text - rich chocolate brown (50s typography feel)
+  text: '#3D2914',            // Dark chocolate
+  textSecondary: '#6D5D4B',   // Warm brown
+  textMuted: '#A89F94',       // Muted taupe
   
-  // Retro 50s pastel accent colors
-  primary: '#7C4DFF', // Violet/purple
-  primaryLight: '#B388FF',
-  secondary: '#FF6B9D', // Soft pink
-  secondaryLight: '#FFB3D1',
-  accent: '#00D4AA', // Mint green
-  accentLight: '#69F0AE',
+  // Primary - Retro turquoise (classic 50s color)
+  primary: '#40C4AA',         // Retro turquoise/mint
+  primaryLight: '#9EE5D8',
   
-  // Status
-  success: '#00C853',
-  successLight: '#B9F6CA',
-  error: '#FF5252',
-  errorLight: '#FFCDD2',
-  warning: '#FFC107',
-  warningLight: '#FFF9C4',
-  info: '#2196F3',
-  infoLight: '#BBDEFB',
+  // Secondary - Coral pink (50s diner sign)
+  secondary: '#FF7B7B',       // Coral/salmon pink
+  secondaryLight: '#FFBDBD',
+  
+  // Accent - Butter yellow (jukebox gold)
+  accent: '#FFD93D',          // Retro yellow
+  accentLight: '#FFF2B3',
+  
+  // Status - keeping them functional but with retro tones
+  success: '#5CB85C',         // Classic green
+  successLight: '#D4EDDA',
+  error: '#E74C3C',           // Cherry red
+  errorLight: '#FADBD8',
+  warning: '#F4A460',         // Sandy orange
+  warningLight: '#FDEBD0',
+  info: '#5DADE2',            // Sky blue
+  infoLight: '#D6EAF8',
   
   // UI elements
-  border: '#E0E0E0',
-  shadow: 'rgba(0, 0, 0, 0.1)',
-  keyboard: '#F5F5F5',
-  keyboardText: '#2D3436',
-  keyboardPressed: '#E0E0E0',
+  border: '#E8DDD4',          // Warm border
+  shadow: 'rgba(61, 41, 20, 0.1)',
+  keyboard: '#F5EDE5',        // Cream keyboard
+  keyboardText: '#3D2914',
+  keyboardPressed: '#E8DDD4',
   
-  // Operation colors (pastel)
-  addition: '#81D4FA', // Light blue
-  subtraction: '#FFB74D', // Soft orange
-  multiplication: '#CE93D8', // Light purple
-  division: '#A5D6A7', // Light green
+  // Operation colors - bright retro pastels
+  addition: '#7EC8E3',        // Baby blue
+  subtraction: '#F9B4AB',     // Peach
+  multiplication: '#C9B1FF',  // Lavender
+  division: '#B5EAD7',        // Mint green
 };
 
 export const darkTheme: ThemeColors = {
-  // Background - deep dark with warm undertones
-  background: '#1A1A2E',
-  surface: '#16213E',
-  card: '#0F3460',
-  cardSelected: '#1E5128',
+  // Background - deep navy with 50s lounge vibe
+  background: '#1B2838',      // Dark navy
+  surface: '#243447',         // Slightly lighter navy
+  card: '#2D4156',            // Card blue-gray
+  cardSelected: '#2E5744',
   
-  // Text
-  text: '#FFFFFF',
-  textSecondary: '#B0BEC5',
-  textMuted: '#78909C',
+  // Text - cream and warm tones
+  text: '#FEF9F3',            // Warm cream
+  textSecondary: '#C5B8AB',   // Muted tan
+  textMuted: '#7A7168',       // Dark taupe
   
-  // Retro 50s pastel accent colors (brighter for dark mode)
-  primary: '#B388FF',
-  primaryLight: '#7C4DFF',
-  secondary: '#FF8A80',
-  secondaryLight: '#FF6B9D',
-  accent: '#69F0AE',
-  accentLight: '#00D4AA',
+  // Primary - Neon turquoise (50s neon sign)
+  primary: '#5EECC9',         // Bright mint/turquoise
+  primaryLight: '#40C4AA',
+  
+  // Secondary - Neon pink (diner sign)
+  secondary: '#FF9B9B',       // Bright coral
+  secondaryLight: '#FF7B7B',
+  
+  // Accent - Electric yellow
+  accent: '#FFE566',          // Bright yellow
+  accentLight: '#FFD93D',
   
   // Status
-  success: '#69F0AE',
-  successLight: '#00C853',
-  error: '#FF8A80',
-  errorLight: '#FF5252',
-  warning: '#FFD54F',
-  warningLight: '#FFC107',
-  info: '#64B5F6',
-  infoLight: '#2196F3',
+  success: '#6FCF6F',
+  successLight: '#5CB85C',
+  error: '#FF6B6B',
+  errorLight: '#E74C3C',
+  warning: '#FFB366',
+  warningLight: '#F4A460',
+  info: '#7DC4E8',
+  infoLight: '#5DADE2',
   
   // UI elements
-  border: '#37474F',
+  border: '#3D5067',
   shadow: 'rgba(0, 0, 0, 0.3)',
-  keyboard: '#0F3460',
-  keyboardText: '#FFFFFF',
-  keyboardPressed: '#16213E',
+  keyboard: '#2D4156',
+  keyboardText: '#FEF9F3',
+  keyboardPressed: '#243447',
   
-  // Operation colors (brighter for dark)
-  addition: '#4FC3F7',
-  subtraction: '#FFB74D',
-  multiplication: '#BA68C8',
-  division: '#81C784',
+  // Operation colors - neon versions
+  addition: '#7EC8E3',
+  subtraction: '#FFB4AB',
+  multiplication: '#D4B1FF',
+  division: '#7EEAC1',
 };
 
 export const getTheme = (mode: ThemeMode): ThemeColors => {
   return mode === 'dark' ? darkTheme : lightTheme;
 };
+
+// Retro fonts recommendation (for app.json or custom fonts):
+// - "Pacifico" - Script font for headings
+// - "Bebas Neue" - Bold sans-serif
+// - "Nunito" - Rounded friendly font
+// - "Poppins" - Modern but retro-compatible
+
+// Retro design patterns to use:
+// 1. Rounded corners (12-20px border radius)
+// 2. Soft drop shadows
+// 3. Pastel gradients
+// 4. Vintage iconography
+// 5. Decorative borders and frames

@@ -375,7 +375,7 @@ export default function HomeScreen() {
         visible={showLanguageSelector}
         onClose={() => setShowLanguageSelector(false)}
         currentLanguage={language}
-        onSelectLanguage={(code) => {
+        onSelect={(code) => {
           setLanguage(code);
           setShowLanguageSelector(false);
         }}
