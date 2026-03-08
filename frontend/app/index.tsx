@@ -216,7 +216,11 @@ export default function HomeScreen() {
     const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + itemsPerPage);
 
     return (
-      <View key={pageIndex} style={[styles.page, { width: pageWidth }]}>
+      <View key={pageIndex} style={[
+        styles.page, 
+        { width: pageWidth },
+        !isTablet && { paddingLeft: 21 }
+      ]}>
         <View style={[
           styles.categoryGrid,
           isTablet && { gap: 6 }
