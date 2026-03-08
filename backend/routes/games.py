@@ -76,7 +76,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "fractions_desc",
         "icon": "pie-chart",
         "color": "#F48FB1",
-        "pro_only": True,
+        "pro_only": False,
         "order": 5,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "fractions_easy_desc", "min_value": 2, "max_value": 6, "time_bonus": 1.0},
@@ -90,7 +90,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "equations_desc",
         "icon": "code-working",
         "color": "#90CAF9",
-        "pro_only": True,
+        "pro_only": False,
         "order": 6,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "equations_easy_desc", "min_value": 1, "max_value": 10, "time_bonus": 1.0},
@@ -104,7 +104,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "percentage_desc",
         "icon": "analytics",
         "color": "#FFCC80",
-        "pro_only": True,
+        "pro_only": False,
         "order": 7,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "percentage_easy_desc", "min_value": 10, "max_value": 100, "time_bonus": 1.0},
@@ -118,7 +118,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "geometry_desc",
         "icon": "shapes",
         "color": "#B39DDB",
-        "pro_only": True,
+        "pro_only": False,
         "order": 8,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "geometry_easy_desc", "min_value": 1, "max_value": 10, "time_bonus": 1.0},
@@ -132,7 +132,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "units_desc",
         "icon": "resize",
         "color": "#80DEEA",
-        "pro_only": True,
+        "pro_only": False,
         "order": 9,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "units_easy_desc", "min_value": 1, "max_value": 10, "time_bonus": 1.0},
@@ -146,7 +146,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "rounding_desc",
         "icon": "swap-horizontal",
         "color": "#BCAAA4",
-        "pro_only": True,
+        "pro_only": False,
         "order": 10,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "rounding_easy_desc", "min_value": 1, "max_value": 100, "time_bonus": 1.0},
@@ -160,7 +160,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "angles_desc",
         "icon": "compass",
         "color": "#EF9A9A",
-        "pro_only": True,
+        "pro_only": False,
         "order": 11,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "angles_easy_desc", "min_value": 10, "max_value": 90, "time_bonus": 1.0},
@@ -174,7 +174,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "probability_desc",
         "icon": "dice",
         "color": "#C5E1A5",
-        "pro_only": True,
+        "pro_only": False,
         "order": 12,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "probability_easy_desc", "min_value": 2, "max_value": 6, "time_bonus": 1.0},
@@ -188,7 +188,7 @@ DEFAULT_CATEGORIES = [
         "description_key": "diagrams_desc",
         "icon": "bar-chart",
         "color": "#FFF59D",
-        "pro_only": True,
+        "pro_only": False,
         "order": 13,
         "levels": [
             {"key": "easy", "name_key": "easy", "description_key": "diagrams_easy_desc", "min_value": 1, "max_value": 20, "time_bonus": 1.0},
@@ -286,20 +286,8 @@ async def update_category(request: Request, key: str, update_data: GameCategoryU
 
 @router.post("/generate")
 async def generate_game_questions(request: Request, req: GenerateQuestionsRequest):
-    """Generate questions for a game"""
-    db = request.app.state.db
-    
-    # Check if pro category and user is pro
-    user = await get_current_user(request)
-    
-    # Check if category is pro-only
-    category_key = req.category if not req.operations else req.operations[0]
-    for cat in DEFAULT_CATEGORIES:
-        if cat["key"] == category_key and cat.get("pro_only"):
-            if not user or not user.is_pro:
-                raise HTTPException(status_code=403, detail="Pro subscription required")
-    
-    # Generate questions
+    """Generate questions for a game - all categories are free"""
+    # Generate questions - no pro check needed, all categories are free
     questions = generate_questions(
         category=req.category,
         difficulty=req.difficulty,

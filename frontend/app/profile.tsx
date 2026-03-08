@@ -106,12 +106,6 @@ export default function ProfileScreen() {
           <Text style={[styles.email, { color: theme.textSecondary }]}>
             {user.email}
           </Text>
-          {user.is_pro && (
-            <View style={[styles.proBadge, { backgroundColor: theme.success }]}>
-              <Ionicons name="star" size={14} color="#FFFFFF" />
-              <Text style={styles.proBadgeText}>PRO</Text>
-            </View>
-          )}
         </View>
 
         {/* Statistics */}
@@ -234,23 +228,6 @@ export default function ProfileScreen() {
             {t('logout')}
           </Text>
         </TouchableOpacity>
-
-        {/* Pro Upgrade */}
-        {!user.is_pro && (
-          <View style={[styles.proUpgrade, { backgroundColor: theme.primaryLight }]}>
-            <View style={styles.proUpgradeContent}>
-              <Ionicons name="star" size={32} color={theme.primary} />
-              <View style={styles.proUpgradeText}>
-                <Text style={[styles.proUpgradeTitle, { color: theme.primary }]}>
-                  {t('upgrade_to_pro')}
-                </Text>
-                <Text style={[styles.proUpgradeDesc, { color: theme.textSecondary }]}>
-                  {t('pro_features_desc') || 'Unlock all math categories'}
-                </Text>
-              </View>
-            </View>
-          </View>
-        )}
       </ScrollView>
     </SafeAreaView>
   );

@@ -25,21 +25,21 @@ import {
   LanguageSelector,
 } from '../src/components';
 
-// All 13 categories with their properties
+// All 13 categories with their properties - All categories are free
 const ALL_CATEGORIES = [
-  { key: 'addition', symbol: '+', icon: 'add-circle', color: '#81D4FA', pro: false },
-  { key: 'subtraction', symbol: '−', icon: 'remove-circle', color: '#FFB74D', pro: false },
-  { key: 'multiplication', symbol: '×', icon: 'close-circle', color: '#CE93D8', pro: false },
-  { key: 'division', symbol: '÷', icon: 'git-compare', color: '#A5D6A7', pro: false },
-  { key: 'fractions', symbol: '½', icon: 'pie-chart', color: '#F48FB1', pro: true },
-  { key: 'equations', symbol: 'x', icon: 'code-working', color: '#90CAF9', pro: true },
-  { key: 'geometry', symbol: '△', icon: 'shapes', color: '#B39DDB', pro: true },
-  { key: 'percentage', symbol: '%', icon: 'analytics', color: '#FFCC80', pro: true },
-  { key: 'units', symbol: 'm', icon: 'resize', color: '#80DEEA', pro: true },
-  { key: 'rounding', symbol: '≈', icon: 'swap-horizontal', color: '#BCAAA4', pro: true },
-  { key: 'angles', symbol: '∠', icon: 'compass', color: '#EF9A9A', pro: true },
-  { key: 'probability', symbol: 'P', icon: 'dice', color: '#C5E1A5', pro: true },
-  { key: 'diagrams', symbol: '📊', icon: 'bar-chart', color: '#FFF59D', pro: true },
+  { key: 'addition', symbol: '+', icon: 'add-circle', color: '#81D4FA' },
+  { key: 'subtraction', symbol: '−', icon: 'remove-circle', color: '#FFB74D' },
+  { key: 'multiplication', symbol: '×', icon: 'close-circle', color: '#CE93D8' },
+  { key: 'division', symbol: '÷', icon: 'git-compare', color: '#A5D6A7' },
+  { key: 'fractions', symbol: '½', icon: 'pie-chart', color: '#F48FB1' },
+  { key: 'equations', symbol: 'x', icon: 'code-working', color: '#90CAF9' },
+  { key: 'geometry', symbol: '△', icon: 'shapes', color: '#B39DDB' },
+  { key: 'percentage', symbol: '%', icon: 'analytics', color: '#FFCC80' },
+  { key: 'units', symbol: 'm', icon: 'resize', color: '#80DEEA' },
+  { key: 'rounding', symbol: '≈', icon: 'swap-horizontal', color: '#BCAAA4' },
+  { key: 'angles', symbol: '∠', icon: 'compass', color: '#EF9A9A' },
+  { key: 'probability', symbol: 'P', icon: 'dice', color: '#C5E1A5' },
+  { key: 'diagrams', symbol: '📊', icon: 'bar-chart', color: '#FFF59D' },
 ];
 
 const QUESTION_COUNTS = [15, 30, 60, 120];
@@ -88,17 +88,7 @@ export default function HomeScreen() {
   }, []);
 
   const toggleOperation = (operation: string) => {
-    // Check if it's a pro category and user is not pro
-    const category = ALL_CATEGORIES.find(c => c.key === operation);
-    if (category?.pro && (!user || !user.is_pro)) {
-      Alert.alert(
-        t('pro_required'),
-        t('upgrade_to_pro'),
-        [{ text: 'OK' }]
-      );
-      return;
-    }
-
+    // All categories are free - no pro check needed
     const newOperations = settings.operations.includes(operation)
       ? settings.operations.filter((op) => op !== operation)
       : [...settings.operations, operation];
@@ -146,7 +136,6 @@ export default function HomeScreen() {
   // Render a single category card
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
-    const isLocked = category.pro && (!user || !user.is_pro);
     // Calculate card width: (page width - 2*padding - gap) / 2
     const cardWidth = (width - 32 - 12) / 2;
 
@@ -159,7 +148,6 @@ export default function HomeScreen() {
             width: cardWidth,
             backgroundColor: isSelected ? category.color : theme.card,
             borderColor: isSelected ? category.color : theme.border,
-            opacity: isLocked ? 0.6 : 1,
           },
         ]}
         onPress={() => toggleOperation(category.key)}
@@ -168,11 +156,6 @@ export default function HomeScreen() {
         {isSelected && (
           <View style={styles.selectedBadge}>
             <Ionicons name="checkmark-circle" size={18} color="#FFFFFF" />
-          </View>
-        )}
-        {isLocked && (
-          <View style={styles.lockedBadge}>
-            <Ionicons name="lock-closed" size={14} color="#FFFFFF" />
           </View>
         )}
         <View style={[
