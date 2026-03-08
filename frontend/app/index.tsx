@@ -44,7 +44,7 @@ const ALL_CATEGORIES = [
 
 const QUESTION_COUNTS = [15, 30, 60, 120];
 const ITEMS_PER_PAGE_PHONE = 4;
-const ITEMS_PER_PAGE_TABLET = 6;
+const ITEMS_PER_PAGE_TABLET = 8;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -149,10 +149,10 @@ export default function HomeScreen() {
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
     // Calculate card width: (page width - 2*padding - gap) / 2
-    const cardGap = isTablet ? 12 : 10;
+    const cardGap = isTablet ? 10 : 10;
     const cardWidth = (width - 32 - cardGap) / 2;
-    // Use fixed height for tablets - taller cards for better visibility
-    const cardHeight = isTablet ? 110 : undefined;
+    // Use fixed height for tablets - smaller for 4 rows
+    const cardHeight = isTablet ? 85 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
@@ -173,24 +173,24 @@ export default function HomeScreen() {
       >
         {isSelected && (
           <View style={styles.selectedBadge}>
-            <Ionicons name="checkmark-circle" size={isTablet ? 20 : 18} color="#FFFFFF" />
+            <Ionicons name="checkmark-circle" size={isTablet ? 18 : 18} color="#FFFFFF" />
           </View>
         )}
         <View style={[
           styles.categoryIconContainer,
           { 
             backgroundColor: isSelected ? 'rgba(255,255,255,0.3)' : category.color + '30',
-            width: isTablet ? 44 : 48,
-            height: isTablet ? 44 : 48,
-            borderRadius: isTablet ? 22 : 24,
-            marginBottom: isTablet ? 8 : 8,
+            width: isTablet ? 38 : 48,
+            height: isTablet ? 38 : 48,
+            borderRadius: isTablet ? 19 : 24,
+            marginBottom: isTablet ? 6 : 8,
           }
         ]}>
           <Text style={[
             styles.categorySymbol,
             { 
               color: isSelected ? '#FFFFFF' : category.color,
-              fontSize: isTablet ? 22 : 24,
+              fontSize: isTablet ? 20 : 24,
             }
           ]}>
             {category.symbol}
@@ -200,7 +200,7 @@ export default function HomeScreen() {
           styles.categoryName,
           { 
             color: isSelected ? '#FFFFFF' : theme.text,
-            fontSize: isTablet ? 14 : 13,
+            fontSize: isTablet ? 13 : 13,
           }
         ]}>
           {t(category.key)}
@@ -209,7 +209,7 @@ export default function HomeScreen() {
     );
   };
 
-  // Render a page of categories (6 items in 2x3 grid for tablet, 4 items in 2x2 grid for phone)
+  // Render a page of categories (8 items in 2x4 grid for tablet, 4 items in 2x2 grid for phone)
   const renderPage = (pageIndex: number) => {
     const startIndex = pageIndex * itemsPerPage;
     const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + itemsPerPage);
@@ -218,7 +218,7 @@ export default function HomeScreen() {
       <View key={pageIndex} style={[styles.page, { width: pageWidth }]}>
         <View style={[
           styles.categoryGrid,
-          isTablet && { gap: 12 }
+          isTablet && { gap: 10 }
         ]}>
           {pageCategories.map((cat, idx) => renderCategoryCard(cat, startIndex + idx))}
         </View>
