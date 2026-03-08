@@ -44,7 +44,7 @@ const ALL_CATEGORIES = [
 
 const QUESTION_COUNTS = [15, 30, 60, 120];
 const ITEMS_PER_PAGE_PHONE = 4;
-const ITEMS_PER_PAGE_TABLET = 8;
+const ITEMS_PER_PAGE_TABLET = 12;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -149,10 +149,10 @@ export default function HomeScreen() {
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
     // Calculate card width: (page width - 2*padding - gap) / 2
-    const cardGap = isTablet ? 10 : 10;
+    const cardGap = isTablet ? 6 : 10;
     const cardWidth = (width - 32 - cardGap) / 2;
-    // Use fixed height for tablets - smaller for 4 rows
-    const cardHeight = isTablet ? 85 : undefined;
+    // Use fixed height for tablets - smaller for 6 rows
+    const cardHeight = isTablet ? 52 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
@@ -166,6 +166,7 @@ export default function HomeScreen() {
             aspectRatio: cardAspectRatio,
             backgroundColor: isSelected ? category.color : theme.card,
             borderColor: isSelected ? category.color : theme.border,
+            padding: isTablet ? 6 : 10,
           },
         ]}
         onPress={() => toggleOperation(category.key)}
@@ -173,24 +174,24 @@ export default function HomeScreen() {
       >
         {isSelected && (
           <View style={styles.selectedBadge}>
-            <Ionicons name="checkmark-circle" size={isTablet ? 18 : 18} color="#FFFFFF" />
+            <Ionicons name="checkmark-circle" size={isTablet ? 14 : 18} color="#FFFFFF" />
           </View>
         )}
         <View style={[
           styles.categoryIconContainer,
           { 
             backgroundColor: isSelected ? 'rgba(255,255,255,0.3)' : category.color + '30',
-            width: isTablet ? 38 : 48,
-            height: isTablet ? 38 : 48,
-            borderRadius: isTablet ? 19 : 24,
-            marginBottom: isTablet ? 6 : 8,
+            width: isTablet ? 24 : 48,
+            height: isTablet ? 24 : 48,
+            borderRadius: isTablet ? 12 : 24,
+            marginBottom: isTablet ? 2 : 8,
           }
         ]}>
           <Text style={[
             styles.categorySymbol,
             { 
               color: isSelected ? '#FFFFFF' : category.color,
-              fontSize: isTablet ? 20 : 24,
+              fontSize: isTablet ? 12 : 24,
             }
           ]}>
             {category.symbol}
@@ -200,7 +201,7 @@ export default function HomeScreen() {
           styles.categoryName,
           { 
             color: isSelected ? '#FFFFFF' : theme.text,
-            fontSize: isTablet ? 13 : 13,
+            fontSize: isTablet ? 10 : 13,
           }
         ]}>
           {t(category.key)}
@@ -209,7 +210,7 @@ export default function HomeScreen() {
     );
   };
 
-  // Render a page of categories (8 items in 2x4 grid for tablet, 4 items in 2x2 grid for phone)
+  // Render a page of categories (12 items in 2x6 grid for tablet, 4 items in 2x2 grid for phone)
   const renderPage = (pageIndex: number) => {
     const startIndex = pageIndex * itemsPerPage;
     const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + itemsPerPage);
@@ -218,7 +219,7 @@ export default function HomeScreen() {
       <View key={pageIndex} style={[styles.page, { width: pageWidth }]}>
         <View style={[
           styles.categoryGrid,
-          isTablet && { gap: 10 }
+          isTablet && { gap: 6 }
         ]}>
           {pageCategories.map((cat, idx) => renderCategoryCard(cat, startIndex + idx))}
         </View>
@@ -322,21 +323,21 @@ export default function HomeScreen() {
             {/* Navigation Arrows & Page Indicators */}
             <View style={[
               styles.navigationContainer,
-              isTablet && { marginTop: -8, marginBottom: 0 }
+              isTablet && { marginTop: 8, marginBottom: 8 }
             ]}>
               <TouchableOpacity
                 style={[
                   styles.navArrow,
                   { backgroundColor: theme.card },
                   currentPage === 0 && styles.navArrowDisabled,
-                  isTablet && { width: 44, height: 44, borderRadius: 22 }
+                  isTablet && { width: 36, height: 36, borderRadius: 18 }
                 ]}
                 onPress={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 0}
               >
                 <Ionicons 
                   name="chevron-back" 
-                  size={isTablet ? 28 : 24} 
+                  size={isTablet ? 22 : 24} 
                   color={currentPage === 0 ? theme.textMuted : theme.primary} 
                 />
               </TouchableOpacity>
@@ -349,7 +350,7 @@ export default function HomeScreen() {
                     style={[
                       styles.pageIndicator,
                       { backgroundColor: idx === currentPage ? theme.primary : theme.border },
-                      isTablet && { width: 10, height: 10, marginHorizontal: 5 }
+                      isTablet && { width: 8, height: 8, marginHorizontal: 4 }
                     ]}
                   />
                 ))}
@@ -360,7 +361,7 @@ export default function HomeScreen() {
                   styles.navArrow,
                   { backgroundColor: theme.card },
                   currentPage === totalPages - 1 && styles.navArrowDisabled,
-                  isTablet && { width: 44, height: 44, borderRadius: 22 }
+                  isTablet && { width: 36, height: 36, borderRadius: 18 }
                 ]}
                 onPress={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages - 1}
