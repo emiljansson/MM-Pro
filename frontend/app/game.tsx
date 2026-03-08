@@ -569,6 +569,7 @@ const styles = StyleSheet.create({
   },
   keyboardView: {
     flex: 1,
+    justifyContent: 'flex-end',
     borderWidth: 2,
     borderColor: 'orange',
   },
