@@ -140,7 +140,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
       { 
         backgroundColor: theme.surface, 
         paddingBottom: bottomPadding,
-        paddingTop: large ? 12 : (compact ? 6 : 8),
+        paddingTop: 20,
         paddingHorizontal: containerPadding,
       },
     ]}>
@@ -197,6 +197,8 @@ const styles = StyleSheet.create({
   container: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     justifyContent: 'flex-end',
   },
   row: {
