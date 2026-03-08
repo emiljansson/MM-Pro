@@ -15,6 +15,7 @@ interface DifficultySelectorProps {
   options: DifficultyOption[];
   compact?: boolean;
   large?: boolean;
+  disabled?: boolean;
 }
 
 export const DifficultySelector: React.FC<DifficultySelectorProps> = ({
@@ -23,10 +24,12 @@ export const DifficultySelector: React.FC<DifficultySelectorProps> = ({
   options,
   compact = false,
   large = false,
+  disabled = false,
 }) => {
   const theme = useTheme();
 
   const handleSelect = (key: 'easy' | 'medium' | 'hard') => {
+    if (disabled) return;
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
@@ -34,7 +37,7 @@ export const DifficultySelector: React.FC<DifficultySelectorProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, disabled && { opacity: 0.4 }]}>
       {options.map((option) => (
         <TouchableOpacity
           key={option.key}
@@ -48,7 +51,8 @@ export const DifficultySelector: React.FC<DifficultySelectorProps> = ({
             large && styles.optionLarge,
           ]}
           onPress={() => handleSelect(option.key)}
-          activeOpacity={0.7}
+          activeOpacity={disabled ? 1 : 0.7}
+          disabled={disabled}
         >
           <Text
             style={[

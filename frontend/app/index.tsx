@@ -99,6 +99,13 @@ export default function HomeScreen() {
     init();
   }, []);
 
+  // Categories that don't support difficulty levels
+  const MIXED_DIFFICULTY_CATEGORIES = ['diagrams', 'probability', 'angles', 'units', 'geometry'];
+  
+  // Check if difficulty selector should be disabled
+  const isDifficultyDisabled = settings.operations.length > 0 && 
+    settings.operations.every(op => MIXED_DIFFICULTY_CATEGORIES.includes(op));
+
   const toggleOperation = (operation: string) => {
     // All categories are free - no pro check needed
     const newOperations = settings.operations.includes(operation)
@@ -422,15 +429,17 @@ export default function HomeScreen() {
               styles.sectionTitle, 
               { color: theme.textMuted }, 
               isCompact && styles.sectionTitleCompact,
-              isTablet && { fontSize: 12, marginBottom: 8 }
+              isTablet && { fontSize: 12, marginBottom: 8 },
+              isDifficultyDisabled && { opacity: 0.5 }
             ]}>
-              {t('difficulty')}
+              {t('difficulty')}{isDifficultyDisabled ? ' (mix)' : ''}
             </Text>
             <DifficultySelector
               options={difficultyOptions}
               difficulty={settings.difficulty}
               onSelect={(difficulty) => updateSettings({ difficulty })}
               compact={isCompact}
+              disabled={isDifficultyDisabled}
             />
           </View>
 
