@@ -294,12 +294,17 @@ export default function HomeScreen() {
             isCompact && styles.titleContainerCompact,
             isTablet && { marginBottom: dynamicSpacing.titleMargin }
           ]}>
-            <Text style={[
-              styles.title, 
-              { color: theme.primary }, 
-              isCompact && styles.titleCompact,
-              isTablet && { fontSize: 32 * scale }
-            ]}>
+            <Text 
+              style={[
+                styles.title, 
+                { color: theme.primary }, 
+                isCompact && styles.titleCompact,
+                isTablet && { fontSize: 32 * scale }
+              ]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
               <Text style={{ fontWeight: '400' }}>{t('app_title_part1')}</Text>
               <Text style={{ fontWeight: '800' }}>{t('app_title_part2')}</Text>
             </Text>
