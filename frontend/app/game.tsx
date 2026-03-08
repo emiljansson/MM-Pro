@@ -309,16 +309,14 @@ export default function GameScreen() {
           <View style={[
             styles.questionArea, 
             isSmallScreen && styles.questionAreaCompact,
-            isLargeScreen && { paddingHorizontal: 36 },
-            isGraphQuestion(currentQuestion) && styles.questionAreaGraph
+            isLargeScreen && { paddingHorizontal: 36 }
           ]}>
             <Animated.View style={[
               styles.questionCard, 
               { backgroundColor: theme.card, transform: [{ scale: scaleAnim }] },
               isSmallScreen && styles.questionCardCompact,
               isVerySmallScreen && styles.questionCardVeryCompact,
-              isLargeScreen && { paddingVertical: 32, paddingHorizontal: 28, borderRadius: 24 },
-              isGraphQuestion(currentQuestion) && styles.questionCardGraph
+              isLargeScreen && { paddingVertical: 32, paddingHorizontal: 28, borderRadius: 24 }
             ]}>
               {/* Check if question is a diagram question */}
               {isDiagramQuestion(currentQuestion) ? (
@@ -871,24 +869,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 8,
     textAlign: 'center',
-  },
-  questionAreaGraph: {
-    flex: 0,
-    paddingTop: 5,
-    paddingBottom: 0,
-    paddingHorizontal: 8,
-    alignSelf: 'flex-start',
-    width: '100%',
-    borderWidth: 2,
-    borderColor: 'blue',
-  },
-  questionCardGraph: {
-    flex: 0,
-    paddingTop: 5,
-    paddingBottom: 4,
-    paddingHorizontal: 8,
-    justifyContent: 'flex-start',
-    borderWidth: 2,
-    borderColor: 'green',
   },
 });
