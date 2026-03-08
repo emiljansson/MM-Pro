@@ -511,8 +511,6 @@ const styles = StyleSheet.create({
   centeredWrapper: {
     flex: 1,
     justifyContent: 'space-between',
-    borderWidth: 2,
-    borderColor: 'red',
   },
   header: {
     flexDirection: 'row',
@@ -540,8 +538,6 @@ const styles = StyleSheet.create({
   },
   mainScroll: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'blue',
   },
   mainScrollContent: {
     paddingHorizontal: 16,
@@ -688,8 +684,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 28,
     paddingBottom: 24,
-    borderWidth: 2,
-    borderColor: 'green',
   },
   startButton: {
     flexDirection: 'row',

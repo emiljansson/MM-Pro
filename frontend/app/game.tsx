@@ -570,20 +570,14 @@ const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
     justifyContent: 'flex-end',
-    borderWidth: 2,
-    borderColor: 'orange',
   },
   centeredWrapper: {
     flex: 1,
     justifyContent: 'space-between',
-    borderWidth: 2,
-    borderColor: 'red',
   },
   keyboardContainer: {
     paddingBottom: 0,
     justifyContent: 'flex-end',
-    borderWidth: 2,
-    borderColor: 'green',
   },
   header: {
     flexDirection: 'row',
@@ -644,8 +638,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderWidth: 2,
-    borderColor: 'blue',
   },
   questionAreaCompact: {
     paddingHorizontal: 12,
