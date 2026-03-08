@@ -152,7 +152,7 @@ export default function HomeScreen() {
     const cardGap = isTablet ? 6 : 10;
     const cardWidth = (width - 32 - cardGap) / 2;
     // Use fixed height for tablets - for 5 rows
-    const cardHeight = isTablet ? 85 : undefined;
+    const cardHeight = isTablet ? 100 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
@@ -181,17 +181,17 @@ export default function HomeScreen() {
           styles.categoryIconContainer,
           { 
             backgroundColor: isSelected ? 'rgba(255,255,255,0.3)' : category.color + '30',
-            width: isTablet ? 24 : 48,
-            height: isTablet ? 24 : 48,
-            borderRadius: isTablet ? 12 : 24,
-            marginBottom: isTablet ? 2 : 8,
+            width: isTablet ? 48 : 48,
+            height: isTablet ? 48 : 48,
+            borderRadius: isTablet ? 24 : 24,
+            marginBottom: isTablet ? 4 : 8,
           }
         ]}>
           <Text style={[
             styles.categorySymbol,
             { 
               color: isSelected ? '#FFFFFF' : category.color,
-              fontSize: isTablet ? 12 : 24,
+              fontSize: isTablet ? 24 : 24,
             }
           ]}>
             {category.symbol}
@@ -201,7 +201,7 @@ export default function HomeScreen() {
           styles.categoryName,
           { 
             color: isSelected ? '#FFFFFF' : theme.text,
-            fontSize: isTablet ? 10 : 13,
+            fontSize: isTablet ? 20 : 13,
           }
         ]}>
           {t(category.key)}
