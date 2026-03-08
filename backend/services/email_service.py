@@ -28,7 +28,7 @@ class EmailService:
             return
         
         # Try to load from database first
-        if self.db:
+        if self.db is not None:
             settings = await self.db.settings.find_one({"key": "email_settings"})
             if settings and settings.get("api_key"):
                 self._api_key = settings.get("api_key")
