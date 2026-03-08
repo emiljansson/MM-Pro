@@ -148,11 +148,18 @@ async def register(request: Request, user_data: UserCreate, response: Response):
 
 @router.post("/login")
 async def login(request: Request, credentials: UserLogin, response: Response):
-    """Login with email/password"""
+    """Login with email/username and password"""
     db = request.app.state.db
     
-    # Find user
-    user_doc = await db.users.find_one({"email": credentials.email}, {"_id": 0})
+    # Find user by email or display_name
+    user_doc = await db.users.find_one(
+        {"$or": [
+            {"email": credentials.email},
+            {"display_name": credentials.email}
+        ]}, 
+        {"_id": 0}
+    )
+    
     if not user_doc:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
