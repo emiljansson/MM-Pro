@@ -874,7 +874,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   questionCardGraph: {
-    paddingTop: 10,
+    paddingTop: 5,
     paddingBottom: 4,
     paddingHorizontal: 8,
     justifyContent: 'flex-start',
