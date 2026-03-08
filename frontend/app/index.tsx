@@ -427,10 +427,9 @@ export default function HomeScreen() {
           ]}>
             <Text style={[
               styles.sectionTitle, 
-              { color: theme.textMuted }, 
+              { color: isDifficultyDisabled ? theme.primary : theme.textMuted }, 
               isCompact && styles.sectionTitleCompact,
-              isTablet && { fontSize: 12, marginBottom: 8 },
-              isDifficultyDisabled && { opacity: 0.5 }
+              isTablet && { fontSize: 12, marginBottom: 8 }
             ]}>
               {t('difficulty')}{isDifficultyDisabled ? ' (mix)' : ''}
             </Text>
