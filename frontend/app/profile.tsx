@@ -106,6 +106,17 @@ export default function ProfileScreen() {
           <Text style={[styles.email, { color: theme.textSecondary }]}>
             {user.email}
           </Text>
+          
+          {/* Edit Profile Button */}
+          <TouchableOpacity
+            style={[styles.editProfileButton, { backgroundColor: theme.surface, borderColor: theme.border }]}
+            onPress={() => router.push('/edit-profile')}
+          >
+            <Ionicons name="pencil" size={16} color={theme.primary} />
+            <Text style={[styles.editProfileButtonText, { color: theme.primary }]}>
+              Redigera profil
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Statistics */}
@@ -291,6 +302,20 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 14,
+  },
+  editProfileButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 1,
+    gap: 6,
+  },
+  editProfileButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
   },
   proBadge: {
     flexDirection: 'row',

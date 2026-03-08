@@ -393,3 +393,81 @@ async def confirm_password_reset(request: Request, data: PasswordResetConfirm):
     await db.user_sessions.delete_many({"user_id": reset_doc["user_id"]})
     
     return {"message": "Password updated successfully"}
+
+
+@router.put("/update-profile")
+async def update_profile(request: Request):
+    """Update user profile with all fields"""
+    db = request.app.state.db
+    user = await require_auth(request)
+    
+    body = await request.json()
+    
+    update_dict = {}
+    
+    # Update allowed fields
+    if "display_name" in body and body["display_name"]:
+        update_dict["display_name"] = body["display_name"].strip()
+    
+    if "first_name" in body:
+        update_dict["first_name"] = body["first_name"].strip() if body["first_name"] else None
+    
+    if "last_name" in body:
+        update_dict["last_name"] = body["last_name"].strip() if body["last_name"] else None
+    
+    if "email" in body and body["email"]:
+        # Check if email is already taken by another user
+        existing = await db.users.find_one({
+            "email": body["email"],
+            "user_id": {"$ne": user.user_id}
+        })
+        if existing:
+            raise HTTPException(status_code=400, detail="E-postadressen används redan")
+        update_dict["email"] = body["email"].strip()
+    
+    if update_dict:
+        update_dict["updated_at"] = datetime.now(timezone.utc)
+        await db.users.update_one(
+            {"user_id": user.user_id},
+            {"$set": update_dict}
+        )
+    
+    # Return updated user
+    user_doc = await db.users.find_one({"user_id": user.user_id}, {"_id": 0})
+    user_doc.pop("password_hash", None)
+    return user_doc
+
+
+@router.delete("/delete-account")
+async def delete_account(request: Request, response: Response):
+    """Delete user account and all associated data"""
+    db = request.app.state.db
+    user = await require_auth(request)
+    
+    # Delete user's game sessions
+    await db.game_sessions.delete_many({"user_id": user.user_id})
+    
+    # Delete user's achievements
+    await db.user_achievements.delete_many({"user_id": user.user_id})
+    
+    # Delete user's group memberships
+    await db.group_members.delete_many({"user_id": user.user_id})
+    
+    # Delete user's sessions
+    await db.user_sessions.delete_many({"user_id": user.user_id})
+    
+    # Delete password reset tokens
+    await db.password_resets.delete_many({"user_id": user.user_id})
+    
+    # Finally delete the user
+    await db.users.delete_one({"user_id": user.user_id})
+    
+    # Clear session cookie
+    response.delete_cookie(
+        key="session_token",
+        path="/",
+        secure=True,
+        samesite="none"
+    )
+    
+    return {"message": "Account deleted successfully"}

@@ -31,12 +31,17 @@ class UserLogin(BaseModel):
 
 class UserUpdate(BaseModel):
     display_name: Optional[str] = Field(None, min_length=2, max_length=50)
+    first_name: Optional[str] = Field(None, max_length=50)
+    last_name: Optional[str] = Field(None, max_length=50)
+    email: Optional[EmailStr] = None
     language: Optional[str] = None
     picture: Optional[str] = None
 
 
 class User(UserBase):
     user_id: str = Field(default_factory=lambda: f"user_{uuid.uuid4().hex[:12]}")
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     picture: Optional[str] = None
     role: str = "user"  # user, admin, superadmin
     statistics: UserStatistics = Field(default_factory=UserStatistics)
