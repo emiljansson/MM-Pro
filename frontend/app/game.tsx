@@ -664,17 +664,17 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   questionText: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: '700',
-    letterSpacing: 2,
+    letterSpacing: 1,
     marginBottom: 12,
   },
   questionTextCompact: {
-    fontSize: 28,
+    fontSize: 20,
     marginBottom: 10,
   },
   questionTextVeryCompact: {
-    fontSize: 24,
+    fontSize: 18,
     marginBottom: 8,
   },
   fractionQuestionContainer: {
