@@ -89,22 +89,22 @@ export const BarChart: React.FC<BarChartProps> = ({
               
               return (
                 <View key={index} style={[styles.barColumn, { width: s.barWidth }]}>
-                  {/* Value label above bar */}
-                  {showValues && (
-                    <Text style={[
-                      styles.valueLabel,
-                      { 
-                        color: theme.text,
-                        fontSize: s.fontSize,
-                        fontWeight: (isMax || isMin) ? '700' : '600',
-                      }
-                    ]}>
-                      {value}
-                    </Text>
-                  )}
-                  
-                  {/* Bar */}
+                  {/* Bar with value label */}
                   <View style={[styles.barWrapper, { height: s.maxHeight }]}>
+                    {/* Value label positioned above bar */}
+                    {showValues && (
+                      <Text style={[
+                        styles.valueLabel,
+                        { 
+                          color: theme.text,
+                          fontSize: s.fontSize,
+                          fontWeight: (isMax || isMin) ? '700' : '600',
+                          bottom: `${heightPercent}%`,
+                        }
+                      ]}>
+                        {value}
+                      </Text>
+                    )}
                     <View
                       style={[
                         styles.bar,
@@ -195,11 +195,11 @@ const styles = StyleSheet.create({
   },
   barColumn: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
   },
   valueLabel: {
-    marginBottom: 2,
+    position: 'absolute',
     textAlign: 'center',
+    width: '100%',
   },
   barWrapper: {
     justifyContent: 'flex-end',
