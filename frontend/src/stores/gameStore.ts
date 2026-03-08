@@ -76,7 +76,7 @@ const detectLanguage = (): string => {
 export const useGameStore = create<GameStore>((set, get) => ({
   // Initial settings
   settings: {
-    operations: ['addition'],
+    operations: [],  // No category selected by default
     difficulty: 'easy',
     questionCount: 15,
   },

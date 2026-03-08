@@ -826,6 +826,14 @@ export const FALLBACK_TRANSLATIONS: Record<string, Record<string, string>> = {
     fi: "Syötä sähköpostisi",
     es: "Introduce tu email",
     so: "Geli iimaylkaaga"
+  },
+  select_category: {
+    sv: "Välj kategori",
+    en: "Select category",
+    ar: "اختر الفئة",
+    fi: "Valitse kategoria",
+    es: "Selecciona categoría",
+    so: "Dooro qaybta"
   }
 };
 

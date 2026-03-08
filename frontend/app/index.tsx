@@ -350,11 +350,14 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={[
               styles.startButton,
-              { backgroundColor: theme.primary },
+              { 
+                backgroundColor: settings.operations.length > 0 ? theme.success : theme.textMuted,
+                opacity: settings.operations.length > 0 ? 1 : 0.6,
+              },
               isCompact && styles.startButtonCompact
             ]}
             onPress={handleStartGame}
-            disabled={isLoading}
+            disabled={isLoading || settings.operations.length === 0}
           >
             {isLoading ? (
               <ActivityIndicator color="#FFFFFF" />
@@ -362,7 +365,9 @@ export default function HomeScreen() {
               <>
                 <Ionicons name="play" size={isCompact ? 20 : 24} color="#FFFFFF" />
                 <Text style={[styles.startButtonText, isCompact && styles.startButtonTextCompact]}>
-                  {t('start_game')}
+                  {settings.operations.length > 0 
+                    ? t('start_game') 
+                    : t('select_category') || 'Välj kategori'}
                 </Text>
               </>
             )}
