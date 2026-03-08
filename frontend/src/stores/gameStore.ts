@@ -264,7 +264,16 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
   
   toggleTheme: () => {
-    const newTheme = get().theme === 'light' ? 'dark' : 'light';
+    const currentTheme = get().theme;
+    // Cycle through: auto -> light -> dark -> auto
+    let newTheme: ThemeMode;
+    if (currentTheme === 'auto') {
+      newTheme = 'light';
+    } else if (currentTheme === 'light') {
+      newTheme = 'dark';
+    } else {
+      newTheme = 'auto';
+    }
     set({ theme: newTheme });
     safeSetItem('theme', newTheme);
   },

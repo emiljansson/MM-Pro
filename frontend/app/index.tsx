@@ -17,7 +17,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
-import { useTheme, useTranslation } from '../src/hooks/useTheme';
+import { useTheme, useTranslation, useEffectiveTheme } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import {
   DifficultySelector,
@@ -48,6 +48,7 @@ const ITEMS_PER_PAGE = 4;
 export default function HomeScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const effectiveTheme = useEffectiveTheme();
   const { t, language } = useTranslation();
   const { height, width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
@@ -57,8 +58,6 @@ export default function HomeScreen() {
     updateSettings,
     startGame,
     isLoading,
-    toggleTheme,
-    theme: themeMode,
     setLanguage,
     initialize,
   } = useGameStore();
@@ -195,22 +194,11 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'bottom']}>
-      <StatusBar barStyle={themeMode === 'dark' ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={effectiveTheme === 'dark' ? 'light-content' : 'dark-content'} />
       
       <View style={styles.centeredWrapper}>
         {/* Header */}
         <View style={[styles.header, isCompact && styles.headerCompact]}>
-          <TouchableOpacity
-            style={[styles.iconButton, { backgroundColor: theme.card }]}
-            onPress={toggleTheme}
-          >
-            <Ionicons
-              name={themeMode === 'dark' ? 'sunny' : 'moon'}
-              size={isCompact ? 20 : 24}
-              color={theme.primary}
-            />
-          </TouchableOpacity>
-          
           <TouchableOpacity
             style={[styles.iconButton, { backgroundColor: theme.card }]}
             onPress={() => setShowLanguageSelector(true)}

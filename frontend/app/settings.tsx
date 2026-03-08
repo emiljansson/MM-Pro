@@ -12,58 +12,87 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import { useGameStore } from '../src/stores/gameStore';
+import { ThemeMode } from '../src/types';
+
+// Theme selector button component
+const ThemeButton = ({
+  mode,
+  currentMode,
+  label,
+  icon,
+  onPress,
+  theme,
+}: {
+  mode: ThemeMode;
+  currentMode: ThemeMode;
+  label: string;
+  icon: string;
+  onPress: () => void;
+  theme: any;
+}) => {
+  const isSelected = currentMode === mode;
+  return (
+    <TouchableOpacity
+      style={[
+        styles.themeButton,
+        {
+          backgroundColor: isSelected ? theme.primary : theme.surface,
+          borderColor: isSelected ? theme.primary : theme.border,
+        },
+      ]}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
+      <Ionicons
+        name={icon as any}
+        size={24}
+        color={isSelected ? '#FFFFFF' : theme.text}
+      />
+      <Text
+        style={[
+          styles.themeButtonText,
+          { color: isSelected ? '#FFFFFF' : theme.text },
+        ]}
+      >
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 export default function SettingsScreen() {
   const router = useRouter();
   const theme = useTheme();
   const { t } = useTranslation();
   const { user, isAuthenticated, logout } = useAuth();
-  const { theme: themeMode, toggleTheme, setLanguage } = useGameStore();
+  const { theme: themeMode, setTheme, setLanguage } = useGameStore();
 
-  const settingsOptions = [
+  const handleThemeChange = (mode: ThemeMode) => {
+    setTheme(mode);
+  };
+
+  const accountItems = [
     {
-      section: t('appearance') || 'Appearance',
-      items: [
-        {
-          icon: themeMode === 'dark' ? 'sunny' : 'moon',
-          label: t('theme') || 'Theme',
-          value: themeMode === 'dark' ? t('dark') || 'Dark' : t('light') || 'Light',
-          onPress: toggleTheme,
-        },
-      ],
+      icon: 'person',
+      label: t('profile') || 'Profil',
+      onPress: () => router.push('/profile'),
+      hidden: !isAuthenticated,
     },
     {
-      section: t('account') || 'Account',
-      items: [
-        {
-          icon: 'person',
-          label: t('profile') || 'Profile',
-          onPress: () => router.push('/profile'),
-          hidden: !isAuthenticated,
-        },
-        {
-          icon: 'log-in',
-          label: t('login') || 'Login',
-          onPress: () => router.push('/login'),
-          hidden: isAuthenticated,
-        },
-      ],
+      icon: 'log-in',
+      label: t('login') || 'Logga in',
+      onPress: () => router.push('/login'),
+      hidden: isAuthenticated,
     },
   ];
 
-  // Add admin option if user is admin
-  if (user?.role === 'superadmin' || user?.role === 'admin') {
-    settingsOptions.push({
-      section: 'Admin',
-      items: [
-        {
-          icon: 'settings',
-          label: 'Admin Panel',
-          onPress: () => router.push('/admin'),
-        },
-      ],
-    });
-  }
+  const adminItems = user?.role === 'superadmin' || user?.role === 'admin' ? [
+    {
+      icon: 'settings',
+      label: 'Admin Panel',
+      onPress: () => router.push('/admin'),
+    },
+  ] : [];
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
@@ -81,43 +110,106 @@ export default function SettingsScreen() {
         <View style={styles.backButton} />
       </View>
 
-      <ScrollView style={styles.content}>
-        {settingsOptions.map((section) => (
-          <View key={section.section} style={styles.section}>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Theme Section */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
+            {t('appearance') || 'Utseende'}
+          </Text>
+          <View style={[styles.themeSelector, { backgroundColor: theme.card }]}>
+            <Text style={[styles.themeSelectorLabel, { color: theme.text }]}>
+              {t('theme') || 'Tema'}
+            </Text>
+            <View style={styles.themeButtons}>
+              <ThemeButton
+                mode="auto"
+                currentMode={themeMode}
+                label="Auto"
+                icon="phone-portrait-outline"
+                onPress={() => handleThemeChange('auto')}
+                theme={theme}
+              />
+              <ThemeButton
+                mode="light"
+                currentMode={themeMode}
+                label={t('light') || 'Ljus'}
+                icon="sunny"
+                onPress={() => handleThemeChange('light')}
+                theme={theme}
+              />
+              <ThemeButton
+                mode="dark"
+                currentMode={themeMode}
+                label={t('dark') || 'Mörk'}
+                icon="moon"
+                onPress={() => handleThemeChange('dark')}
+                theme={theme}
+              />
+            </View>
+            <Text style={[styles.themeDescription, { color: theme.textMuted }]}>
+              {themeMode === 'auto' 
+                ? 'Följer enhetens inställning (dag/natt)'
+                : themeMode === 'light' 
+                  ? 'Alltid ljust tema'
+                  : 'Alltid mörkt tema'}
+            </Text>
+          </View>
+        </View>
+
+        {/* Account Section */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
+            {t('account') || 'Konto'}
+          </Text>
+          <View style={[styles.sectionContent, { backgroundColor: theme.card }]}>
+            {accountItems
+              .filter((item) => !item.hidden)
+              .map((item, index, arr) => (
+                <TouchableOpacity
+                  key={item.label}
+                  style={[
+                    styles.settingItem,
+                    index < arr.length - 1 && { borderBottomWidth: 0.5, borderBottomColor: theme.border }
+                  ]}
+                  onPress={item.onPress}
+                >
+                  <View style={styles.settingLeft}>
+                    <Ionicons name={item.icon as any} size={22} color={theme.primary} />
+                    <Text style={[styles.settingLabel, { color: theme.text }]}>
+                      {item.label}
+                    </Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={20} color={theme.textMuted} />
+                </TouchableOpacity>
+              ))}
+          </View>
+        </View>
+
+        {/* Admin Section */}
+        {adminItems.length > 0 && (
+          <View style={styles.section}>
             <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
-              {section.section}
+              Admin
             </Text>
             <View style={[styles.sectionContent, { backgroundColor: theme.card }]}>
-              {section.items
-                .filter((item) => !item.hidden)
-                .map((item, index, arr) => (
-                  <TouchableOpacity
-                    key={item.label}
-                    style={[
-                      styles.settingItem,
-                      index < arr.length - 1 && { borderBottomWidth: 0.5, borderBottomColor: theme.border }
-                    ]}
-                    onPress={item.onPress}
-                  >
-                    <View style={styles.settingLeft}>
-                      <Ionicons name={item.icon as any} size={22} color={theme.primary} />
-                      <Text style={[styles.settingLabel, { color: theme.text }]}>
-                        {item.label}
-                      </Text>
-                    </View>
-                    <View style={styles.settingRight}>
-                      {item.value && (
-                        <Text style={[styles.settingValue, { color: theme.textSecondary }]}>
-                          {item.value}
-                        </Text>
-                      )}
-                      <Ionicons name="chevron-forward" size={20} color={theme.textMuted} />
-                    </View>
-                  </TouchableOpacity>
-                ))}
+              {adminItems.map((item) => (
+                <TouchableOpacity
+                  key={item.label}
+                  style={styles.settingItem}
+                  onPress={item.onPress}
+                >
+                  <View style={styles.settingLeft}>
+                    <Ionicons name={item.icon as any} size={22} color={theme.primary} />
+                    <Text style={[styles.settingLabel, { color: theme.text }]}>
+                      {item.label}
+                    </Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={20} color={theme.textMuted} />
+                </TouchableOpacity>
+              ))}
             </View>
           </View>
-        ))}
+        )}
 
         {/* App Info */}
         <View style={styles.appInfo}>
@@ -150,6 +242,39 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   sectionContent: { borderRadius: 12, overflow: 'hidden' },
+  themeSelector: {
+    borderRadius: 12,
+    padding: 16,
+  },
+  themeSelectorLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
+  },
+  themeButtons: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  themeButton: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 8,
+    borderRadius: 12,
+    borderWidth: 2,
+    gap: 6,
+  },
+  themeButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  themeDescription: {
+    fontSize: 12,
+    marginTop: 12,
+    textAlign: 'center',
+  },
   settingItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -158,8 +283,6 @@ const styles = StyleSheet.create({
   },
   settingLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   settingLabel: { fontSize: 16 },
-  settingRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  settingValue: { fontSize: 14 },
   appInfo: { alignItems: 'center', marginTop: 32, marginBottom: 48 },
   appName: { fontSize: 16, fontWeight: '600' },
   appVersion: { fontSize: 12, marginTop: 4 },

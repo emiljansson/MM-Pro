@@ -40,4 +40,4 @@ export interface Language {
   rtl?: boolean;
 }
 
-export type ThemeMode = 'light' | 'dark';
+export type ThemeMode = 'light' | 'dark' | 'auto';
