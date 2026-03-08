@@ -34,6 +34,7 @@ export default function GameScreen() {
   const [userInput, setUserInput] = useState('');
   const [fractionInput, setFractionInput] = useState({ numerator: '', denominator: '' });
   const [activeFractionField, setActiveFractionField] = useState<'numerator' | 'denominator'>('numerator');
+  const [choiceAnswer, setChoiceAnswer] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState(false);
 
@@ -133,9 +134,12 @@ export default function GameScreen() {
 
   const handleSubmit = () => {
     const isFractionQuestion = currentQuestion.input_type === 'fraction';
+    const isChoiceQuestion = currentQuestion.input_type === 'choice';
     
     // Check for empty input
-    if (isFractionQuestion) {
+    if (isChoiceQuestion) {
+      if (choiceAnswer === '') return;
+    } else if (isFractionQuestion) {
       if (!fractionInput.numerator || !fractionInput.denominator) return;
     } else {
       if (userInput === '') return;
@@ -144,7 +148,11 @@ export default function GameScreen() {
     let isCorrect = false;
     let userAnswer: string | number;
     
-    if (isFractionQuestion) {
+    if (isChoiceQuestion) {
+      // Choice question - compare directly
+      userAnswer = choiceAnswer;
+      isCorrect = choiceAnswer === currentQuestion.correct_answer;
+    } else if (isFractionQuestion) {
       // Create user's fraction string
       userAnswer = `${fractionInput.numerator}/${fractionInput.denominator}`;
       const correctAnswer = currentQuestion.correct_answer;
@@ -205,6 +213,7 @@ export default function GameScreen() {
     setUserInput('');
     setFractionInput({ numerator: '', denominator: '' });
     setActiveFractionField('numerator');
+    setChoiceAnswer('');
   };
 
   if (!currentQuestion) {
@@ -391,17 +400,17 @@ export default function GameScreen() {
                     style={[
                       styles.choiceButton,
                       { 
-                        backgroundColor: answer === choice ? theme.primary : theme.surface,
+                        backgroundColor: choiceAnswer === choice ? theme.primary : theme.surface,
                         borderColor: theme.primary,
                       },
                       isSmallScreen && { paddingVertical: 12, paddingHorizontal: 24 },
                       isLargeScreen && { paddingVertical: 20, paddingHorizontal: 40 }
                     ]}
-                    onPress={() => setAnswer(choice)}
+                    onPress={() => setChoiceAnswer(choice)}
                   >
                     <Text style={[
                       styles.choiceButtonText,
-                      { color: answer === choice ? '#FFFFFF' : theme.text },
+                      { color: choiceAnswer === choice ? '#FFFFFF' : theme.text },
                       isSmallScreen && { fontSize: 28 },
                       isLargeScreen && { fontSize: 48 }
                     ]}>
