@@ -682,9 +682,8 @@ const styles = StyleSheet.create({
   },
   fixedBottomSection: {
     paddingHorizontal: 16,
-    paddingTop: 8,
+    paddingTop: 28,
     paddingBottom: 24,
-    marginTop: 20,
   },
   startButton: {
     flexDirection: 'row',
