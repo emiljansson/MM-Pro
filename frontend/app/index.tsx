@@ -470,10 +470,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 12,
   },
   sectionCompact: {
-    marginBottom: 14,
+    marginBottom: 8,
   },
   sectionTitle: {
     fontSize: 11,
@@ -544,7 +544,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 16,
+    marginTop: 8,
     gap: 16,
   },
   navArrow: {
