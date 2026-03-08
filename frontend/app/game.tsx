@@ -520,38 +520,43 @@ export default function GameScreen() {
           )}
         </View>
 
-        {/* Keyboard */}
-        {currentQuestion.input_type === 'fraction' ? (
-          <FractionKeyboard
-            onNumeratorKey={(key) => handleFractionKeyPress('numerator', key)}
-            onDenominatorKey={(key) => handleFractionKeyPress('denominator', key)}
-            onDelete={handleFractionDelete}
-            onSubmit={handleSubmit}
-            submitLabel={t('submit')}
-            activeField={activeFractionField}
-            onFieldSwitch={setActiveFractionField}
-            compact={isSmallScreen}
-            large={isLargeScreen}
-          />
-        ) : (
-          <NumericKeyboard
-            onKeyPress={handleKeyPress}
-            onDelete={handleDelete}
-            onSubmit={handleSubmit}
-            submitLabel={t('submit')}
-            mode={
-              currentQuestion.operation === 'division' ? 'decimal' :
-              currentQuestion.operation === 'fractions' ? 'fraction' :
-              currentQuestion.operation === 'equations' ? 'equation' :
-              'standard'
-            }
-            showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
-            showFraction={currentQuestion.operation === 'fractions'}
-            showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
-            compact={isSmallScreen}
-            large={isLargeScreen}
-          />
-        )}
+        {/* Keyboard Container */}
+        <View style={styles.keyboardContainer}>
+          {currentQuestion.input_type === 'choice' ? (
+            // Choice questions don't need keyboard, just the buttons above
+            null
+          ) : currentQuestion.input_type === 'fraction' ? (
+            <FractionKeyboard
+              onNumeratorKey={(key) => handleFractionKeyPress('numerator', key)}
+              onDenominatorKey={(key) => handleFractionKeyPress('denominator', key)}
+              onDelete={handleFractionDelete}
+              onSubmit={handleSubmit}
+              submitLabel={t('submit')}
+              activeField={activeFractionField}
+              onFieldSwitch={setActiveFractionField}
+              compact={isSmallScreen}
+              large={isLargeScreen}
+            />
+          ) : (
+            <NumericKeyboard
+              onKeyPress={handleKeyPress}
+              onDelete={handleDelete}
+              onSubmit={handleSubmit}
+              submitLabel={t('submit')}
+              mode={
+                currentQuestion.operation === 'division' ? 'decimal' :
+                currentQuestion.operation === 'fractions' ? 'fraction' :
+                currentQuestion.operation === 'equations' ? 'equation' :
+                'standard'
+              }
+              showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
+              showFraction={currentQuestion.operation === 'fractions'}
+              showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
+              compact={isSmallScreen}
+              large={isLargeScreen}
+            />
+          )}
+        </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -571,6 +576,11 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 2,
     borderColor: 'red',
+  },
+  keyboardContainer: {
+    paddingBottom: 24,
+    borderWidth: 2,
+    borderColor: 'green',
   },
   header: {
     flexDirection: 'row',
