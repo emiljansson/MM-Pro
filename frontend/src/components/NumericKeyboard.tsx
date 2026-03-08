@@ -22,6 +22,7 @@ interface NumericKeyboardProps {
   showDivision?: boolean;
   showNegative?: boolean;
   showFraction?: boolean;
+  showOperators?: boolean;
   mode?: KeyboardMode;
   compact?: boolean;
   large?: boolean;
@@ -37,6 +38,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   showDivision = false,
   showNegative = false,
   showFraction = false,
+  showOperators = false,
   mode = 'standard',
   compact = false,
   large = false,
@@ -124,13 +126,25 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
     </TouchableOpacity>
   );
 
-  // For equation mode, render additional operator row
+  // For equation mode, render additional operator row (smaller)
   const renderOperatorRow = () => (
-    <View style={[styles.row, { marginBottom: rowMargin }]}>
-      {renderKey('+', true)}
-      {renderKey('-', true)}
-      {renderKey('×', true)}
-      {renderKey('÷', true)}
+    <View style={[styles.operatorRow, { marginBottom: rowMargin / 2 }]}>
+      {['+', '-', '×', '÷'].map((op) => (
+        <TouchableOpacity
+          key={op}
+          style={[
+            styles.operatorKey,
+            { backgroundColor: theme.primary }
+          ]}
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            onKeyPress(op);
+          }}
+          disabled={disabled}
+        >
+          <Text style={styles.operatorKeyText}>{op}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 
@@ -144,7 +158,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
         paddingHorizontal: containerPadding,
       },
     ]}>
-      {mode === 'equation' && renderOperatorRow()}
+      {showOperators && renderOperatorRow()}
       
       <View style={[styles.row, { marginBottom: rowMargin }]}>
         {renderKey('1')}
@@ -204,6 +218,23 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  operatorRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  operatorKey: {
+    width: 50,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  operatorKeyText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
   },
   key: {
     width: '31%',
