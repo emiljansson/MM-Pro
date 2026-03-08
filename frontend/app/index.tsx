@@ -43,7 +43,8 @@ const ALL_CATEGORIES = [
 ];
 
 const QUESTION_COUNTS = [15, 30, 60, 120];
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE_PHONE = 4;
+const ITEMS_PER_PAGE_TABLET = 6;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -83,8 +84,11 @@ export default function HomeScreen() {
     contentPadding: isTablet ? 24 : 16,
   };
 
+  // Items per page: 6 for tablet (2x3 grid), 4 for phone (2x2 grid)
+  const itemsPerPage = isTablet ? ITEMS_PER_PAGE_TABLET : ITEMS_PER_PAGE_PHONE;
+  
   // Calculate pages - use full width for scroll container
-  const totalPages = Math.ceil(ALL_CATEGORIES.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(ALL_CATEGORIES.length / itemsPerPage);
   const pageWidth = width; // Full screen width for paging
 
   useEffect(() => {
@@ -145,9 +149,10 @@ export default function HomeScreen() {
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
     // Calculate card width: (page width - 2*padding - gap) / 2
-    const cardWidth = (width - 32 - 10) / 2;
-    // Use fixed height for tablets instead of aspectRatio to prevent oversized cards
-    const cardHeight = isTablet ? 100 : undefined;
+    const cardGap = isTablet ? 8 : 10;
+    const cardWidth = (width - 32 - cardGap) / 2;
+    // Use fixed height for tablets (smaller for 3 rows) instead of aspectRatio
+    const cardHeight = isTablet ? 80 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
@@ -168,7 +173,7 @@ export default function HomeScreen() {
       >
         {isSelected && (
           <View style={styles.selectedBadge}>
-            <Ionicons name="checkmark-circle" size={18} color="#FFFFFF" />
+            <Ionicons name="checkmark-circle" size={isTablet ? 16 : 18} color="#FFFFFF" />
           </View>
         )}
         <View style={[
@@ -201,14 +206,17 @@ export default function HomeScreen() {
     );
   };
 
-  // Render a page of categories (4 items in 2x2 grid)
+  // Render a page of categories (6 items in 2x3 grid for tablet, 4 items in 2x2 grid for phone)
   const renderPage = (pageIndex: number) => {
-    const startIndex = pageIndex * ITEMS_PER_PAGE;
-    const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const startIndex = pageIndex * itemsPerPage;
+    const pageCategories = ALL_CATEGORIES.slice(startIndex, startIndex + itemsPerPage);
 
     return (
       <View key={pageIndex} style={[styles.page, { width: pageWidth }]}>
-        <View style={styles.categoryGrid}>
+        <View style={[
+          styles.categoryGrid,
+          isTablet && { gap: 8 }
+        ]}>
           {pageCategories.map((cat, idx) => renderCategoryCard(cat, startIndex + idx))}
         </View>
       </View>
