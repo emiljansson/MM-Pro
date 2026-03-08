@@ -316,6 +316,9 @@ export default function HomeScreen() {
               scrollEventThrottle={16}
               style={styles.categoriesScroll}
               contentContainerStyle={styles.categoriesScrollContent}
+              snapToInterval={width}
+              snapToAlignment="start"
+              decelerationRate="fast"
             >
               {Array.from({ length: totalPages }).map((_, idx) => renderPage(idx))}
             </ScrollView>
