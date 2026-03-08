@@ -394,7 +394,7 @@ export default function GameScreen() {
             {/* Answer input area */}
             {currentQuestion.input_type === 'choice' ? (
               <View style={styles.choiceButtonsContainer}>
-                {['<', '=', '>'].map((choice) => (
+                {['>', '=', '<'].map((choice) => (
                   <TouchableOpacity
                     key={choice}
                     style={[
