@@ -3,5 +3,7 @@ from .auth import (
     get_session_expiry, is_session_expired, get_google_session_data
 )
 from .questions import (
-    generate_questions, DIFFICULTY_RANGES, CATEGORY_GENERATORS
+    generate_questions, DIFFICULTY_RANGES, GENERATORS
 )
+# Backward compatibility alias
+CATEGORY_GENERATORS = GENERATORS

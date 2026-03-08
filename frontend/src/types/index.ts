@@ -1,10 +1,15 @@
 export interface Question {
-  num1: number;
-  num2: number;
+  num1?: number;
+  num2?: number;
   operation: string;
-  symbol: string;
-  correct_answer: number;
+  symbol?: string;
+  correct_answer: number | string;
   display: string;
+  type?: string;
+  input_type?: string;
+  options?: string[];
+  hint?: string;
+  answer?: number | string;
 }
 
 export interface GameSettings {

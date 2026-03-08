@@ -208,12 +208,14 @@ export default function GameScreen() {
             ]}>
               <Text style={[
                 styles.questionText, 
-                { color: theme.text },
+                { color: theme.text, textAlign: 'center' },
                 isSmallScreen && styles.questionTextCompact,
                 isVerySmallScreen && styles.questionTextVeryCompact,
                 isLargeScreen && { fontSize: 52, marginBottom: 24 }
               ]}>
-                {currentQuestion.num1} {currentQuestion.symbol} {currentQuestion.num2} =
+                {currentQuestion.display 
+                  ? currentQuestion.display.replace('= ?', '=').replace(' ?', '') 
+                  : '?'}
             </Text>
             <View style={[
               styles.answerBox, 

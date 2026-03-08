@@ -1,568 +1,412 @@
+"""
+Question Generator for MathMaster Pro
+=====================================
+Generates simple, clear math questions similar to MatematikMästaren.
+
+Format: All questions use simple "X ? Y = ?" format where possible.
+"""
+
 import random
 from typing import List, Dict, Any, Optional
-from fractions import Fraction
 import math
 
-# Question text translations
-QUESTION_TEXTS = {
-    # Fractions
-    "simplify": {
-        "sv": "Förenkla",
-        "en": "Simplify",
-        "ar": "بسّط",
-        "fi": "Sievennä",
-        "es": "Simplifica",
-        "so": "Fududee"
-    },
-    # Percentage
-    "what_is_percent_of": {
-        "sv": "Vad är {percent}% av {base}?",
-        "en": "What is {percent}% of {base}?",
-        "ar": "ما هو {percent}% من {base}؟",
-        "fi": "Mikä on {percent}% {base}:sta?",
-        "es": "¿Cuánto es {percent}% de {base}?",
-        "so": "Maxaa {percent}% ka mid ah {base}?"
-    },
-    "what_percent_is_of": {
-        "sv": "Hur många procent är {part} av {base}?",
-        "en": "What percent is {part} of {base}?",
-        "ar": "ما هي النسبة المئوية لـ {part} من {base}؟",
-        "fi": "Kuinka monta prosenttia {part} on {base}:sta?",
-        "es": "¿Qué porcentaje es {part} de {base}?",
-        "so": "Boqolkii intee ayuu {part} ka yahay {base}?"
-    },
-    # Rounding
-    "round_to_integer": {
-        "sv": "Avrunda {num} till heltal",
-        "en": "Round {num} to whole number",
-        "ar": "قرّب {num} إلى عدد صحيح",
-        "fi": "Pyöristä {num} kokonaisluvuksi",
-        "es": "Redondea {num} a número entero",
-        "so": "Wareegi {num} ilaa tiro dhan"
-    },
-    "round_to_tens": {
-        "sv": "Avrunda {num} till tiotal",
-        "en": "Round {num} to tens",
-        "ar": "قرّب {num} إلى العشرات",
-        "fi": "Pyöristä {num} kymmeniin",
-        "es": "Redondea {num} a decenas",
-        "so": "Wareegi {num} ilaa tobanaan"
-    },
-    "round_to_one_decimal": {
-        "sv": "Avrunda {num} till en decimal",
-        "en": "Round {num} to one decimal",
-        "ar": "قرّب {num} إلى منزلة عشرية واحدة",
-        "fi": "Pyöristä {num} yhteen desimaaliin",
-        "es": "Redondea {num} a un decimal",
-        "so": "Wareegi {num} ilaa hal jajab"
-    },
-    # Geometry
-    "rectangle_area": {
-        "sv": "Rektangelns area: bredd {width}, höjd {height}",
-        "en": "Rectangle area: width {width}, height {height}",
-        "ar": "مساحة المستطيل: العرض {width}، الارتفاع {height}",
-        "fi": "Suorakulmion pinta-ala: leveys {width}, korkeus {height}",
-        "es": "Área del rectángulo: ancho {width}, alto {height}",
-        "so": "Aagga leydi: ballac {width}, dherer {height}"
-    },
-    "rectangle_perimeter": {
-        "sv": "Rektangelns omkrets: bredd {width}, höjd {height}",
-        "en": "Rectangle perimeter: width {width}, height {height}",
-        "ar": "محيط المستطيل: العرض {width}، الارتفاع {height}",
-        "fi": "Suorakulmion ympärysmitta: leveys {width}, korkeus {height}",
-        "es": "Perímetro del rectángulo: ancho {width}, alto {height}",
-        "so": "Wareegga leydi: ballac {width}, dherer {height}"
-    },
-    "triangle_area": {
-        "sv": "Triangelns area: bas {base}, höjd {height}",
-        "en": "Triangle area: base {base}, height {height}",
-        "ar": "مساحة المثلث: القاعدة {base}، الارتفاع {height}",
-        "fi": "Kolmion pinta-ala: kanta {base}, korkeus {height}",
-        "es": "Área del triángulo: base {base}, altura {height}",
-        "so": "Aagga saddex-xagal: saldhig {base}, dherer {height}"
-    },
-    "circle_area": {
-        "sv": "Cirkelns area (π≈3.14): radie {radius}",
-        "en": "Circle area (π≈3.14): radius {radius}",
-        "ar": "مساحة الدائرة (π≈3.14): نصف القطر {radius}",
-        "fi": "Ympyrän pinta-ala (π≈3.14): säde {radius}",
-        "es": "Área del círculo (π≈3.14): radio {radius}",
-        "so": "Aagga goobada (π≈3.14): radius {radius}"
-    },
-    # Angles
-    "complement_angle": {
-        "sv": "Komplementvinkel till {angle}°",
-        "en": "Complement angle to {angle}°",
-        "ar": "الزاوية المكملة لـ {angle}°",
-        "fi": "Komplementtikulma kulmalle {angle}°",
-        "es": "Ángulo complementario de {angle}°",
-        "so": "Xagalka dhammaystirka {angle}°"
-    },
-    "supplement_angle": {
-        "sv": "Supplementvinkel till {angle}°",
-        "en": "Supplement angle to {angle}°",
-        "ar": "الزاوية المتممة لـ {angle}°",
-        "fi": "Suplementtikulma kulmalle {angle}°",
-        "es": "Ángulo suplementario de {angle}°",
-        "so": "Xagalka kaabista {angle}°"
-    },
-    "triangle_third_angle": {
-        "sv": "Triangelns tredje vinkel: {angle1}° och {angle2}°",
-        "en": "Triangle's third angle: {angle1}° and {angle2}°",
-        "ar": "الزاوية الثالثة للمثلث: {angle1}° و {angle2}°",
-        "fi": "Kolmion kolmas kulma: {angle1}° ja {angle2}°",
-        "es": "Tercer ángulo del triángulo: {angle1}° y {angle2}°",
-        "so": "Xagalka saddexaad ee saddex-xagalka: {angle1}° iyo {angle2}°"
-    },
-    # Probability
-    "dice_probability": {
-        "sv": "Sannolikhet att slå {target} med en tärning?",
-        "en": "Probability of rolling {target} with a die?",
-        "ar": "احتمال الحصول على {target} برمي النرد؟",
-        "fi": "Todennäköisyys saada {target} nopanheitolla?",
-        "es": "¿Probabilidad de sacar {target} con un dado?",
-        "so": "Suurtagalnimada inaad tuurtid {target} darbuuro?"
-    },
-    "marble_probability": {
-        "sv": "{count} röda kulor av {total}. Sannolikhet för röd?",
-        "en": "{count} red marbles out of {total}. Probability of red?",
-        "ar": "{count} كرات حمراء من {total}. ما احتمال اختيار حمراء؟",
-        "fi": "{count} punaista marmoria {total}:sta. Todennäköisyys punaiselle?",
-        "es": "{count} canicas rojas de {total}. ¿Probabilidad de roja?",
-        "so": "{count} kuul cas {total} ka mid ah. Suurtagalnimada cas?"
-    },
-    "coin_probability": {
-        "sv": "Sannolikhet för krona vid myntkast?",
-        "en": "Probability of heads when flipping a coin?",
-        "ar": "احتمال الحصول على وجه عند رمي عملة؟",
-        "fi": "Todennäköisyys kruunalle kolikonheitossa?",
-        "es": "¿Probabilidad de cara al lanzar una moneda?",
-        "so": "Suurtagalnimada madaxa marka lacagta la tuuro?"
-    },
-    # Diagrams
-    "highest_value": {
-        "sv": "Högsta värde?",
-        "en": "Highest value?",
-        "ar": "أعلى قيمة؟",
-        "fi": "Korkein arvo?",
-        "es": "¿Valor más alto?",
-        "so": "Qiimaha ugu sareeya?"
-    },
-    "lowest_value": {
-        "sv": "Lägsta värde?",
-        "en": "Lowest value?",
-        "ar": "أدنى قيمة؟",
-        "fi": "Alin arvo?",
-        "es": "¿Valor más bajo?",
-        "so": "Qiimaha ugu hooseeya?"
-    },
-    "sum": {
-        "sv": "Summa?",
-        "en": "Sum?",
-        "ar": "المجموع؟",
-        "fi": "Summa?",
-        "es": "¿Suma?",
-        "so": "Wadarta?"
-    },
-    "difference_max_min": {
-        "sv": "Skillnad max-min?",
-        "en": "Difference max-min?",
-        "ar": "الفرق بين الأعلى والأدنى؟",
-        "fi": "Ero max-min?",
-        "es": "¿Diferencia máx-mín?",
-        "so": "Farqiga ugu badan-ugu yar?"
-    },
-    "bar_chart": {
-        "sv": "Stapeldiagram",
-        "en": "Bar chart",
-        "ar": "مخطط شريطي",
-        "fi": "Pylväsdiagrammi",
-        "es": "Gráfico de barras",
-        "so": "Jaantuska tiirarka"
-    },
-    # Days of week for diagrams
-    "monday": {"sv": "Mån", "en": "Mon", "ar": "إثن", "fi": "Ma", "es": "Lun", "so": "Isn"},
-    "tuesday": {"sv": "Tis", "en": "Tue", "ar": "ثلا", "fi": "Ti", "es": "Mar", "so": "Tal"},
-    "wednesday": {"sv": "Ons", "en": "Wed", "ar": "أرب", "fi": "Ke", "es": "Mié", "so": "Arb"},
-    "thursday": {"sv": "Tor", "en": "Thu", "ar": "خمي", "fi": "To", "es": "Jue", "so": "Kha"},
-    "friday": {"sv": "Fre", "en": "Fri", "ar": "جمع", "fi": "Pe", "es": "Vie", "so": "Jim"},
-}
 
-
-def get_text(key: str, lang: str = "sv", **kwargs) -> str:
-    """Get translated text with formatting"""
-    texts = QUESTION_TEXTS.get(key, {})
-    text = texts.get(lang, texts.get("sv", key))
-    if kwargs:
-        try:
-            return text.format(**kwargs)
-        except:
-            return text
-    return text
-
-
-def generate_addition_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate an addition question"""
-    num1 = random.randint(min_val, max_val)
-    num2 = random.randint(min_val, max_val)
+def generate_addition(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """Addition: 5 + 3 = ?"""
+    a = random.randint(min_val, max_val)
+    b = random.randint(min_val, max_val)
     return {
-        "num1": num1,
-        "num2": num2,
-        "operation": "addition",
-        "symbol": "+",
-        "correct_answer": num1 + num2,
-        "display": f"{num1} + {num2} = ?"
+        "type": "addition",
+        "display": f"{a} + {b} = ?",
+        "answer": a + b,
+        "input_type": "number"
     }
 
 
-def generate_subtraction_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a subtraction question (always positive result)"""
-    num1 = random.randint(min_val, max_val)
-    num2 = random.randint(min_val, max_val)
-    if num1 < num2:
-        num1, num2 = num2, num1
+def generate_subtraction(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """Subtraction: 8 - 3 = ? (always positive result)"""
+    a = random.randint(min_val, max_val)
+    b = random.randint(min_val, max_val)
+    if a < b:
+        a, b = b, a
     return {
-        "num1": num1,
-        "num2": num2,
-        "operation": "subtraction",
-        "symbol": "−",
-        "correct_answer": num1 - num2,
-        "display": f"{num1} − {num2} = ?"
+        "type": "subtraction",
+        "display": f"{a} − {b} = ?",
+        "answer": a - b,
+        "input_type": "number"
     }
 
 
-def generate_multiplication_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a multiplication question"""
-    max_mult = min(12, max_val // 5) if max_val > 10 else max_val
-    num1 = random.randint(1, max(2, max_mult))
-    num2 = random.randint(1, max(2, max_mult))
+def generate_multiplication(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """Multiplication: 6 × 7 = ?"""
+    # Keep multiplication tables reasonable
+    max_factor = min(12, max_val) if max_val > 10 else max_val
+    a = random.randint(1, max(2, max_factor))
+    b = random.randint(1, max(2, max_factor))
     return {
-        "num1": num1,
-        "num2": num2,
-        "operation": "multiplication",
-        "symbol": "×",
-        "correct_answer": num1 * num2,
-        "display": f"{num1} × {num2} = ?"
+        "type": "multiplication",
+        "display": f"{a} × {b} = ?",
+        "answer": a * b,
+        "input_type": "number"
     }
 
 
-def generate_division_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a division question (clean division)"""
-    divisor = random.randint(1, min(10, max_val))
-    answer = random.randint(1, min(10, max_val))
-    dividend = divisor * answer
+def generate_division(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """Division: 24 ÷ 6 = ? (clean division)"""
+    divisor = random.randint(2, min(12, max_val))
+    quotient = random.randint(1, min(12, max_val))
+    dividend = divisor * quotient
     return {
-        "num1": dividend,
-        "num2": divisor,
-        "operation": "division",
-        "symbol": "÷",
-        "correct_answer": answer,
-        "display": f"{dividend} ÷ {divisor} = ?"
+        "type": "division",
+        "display": f"{dividend} ÷ {divisor} = ?",
+        "answer": quotient,
+        "input_type": "number"
     }
 
 
-def generate_fraction_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a fraction question"""
-    question_types = ['add', 'subtract', 'simplify', 'compare']
-    q_type = random.choice(question_types)
+def generate_fractions(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Fractions - multiple types:
+    1. Addition: 1/4 + 2/4 = ?
+    2. Subtraction: 3/4 - 1/4 = ?
+    3. Simplify: 4/8 = ?
+    4. Compare: 1/2 ? 2/3
+    5. Mixed to improper: 1 1/2 = ?/2
+    """
+    q_type = random.choice(['add', 'subtract', 'simplify', 'compare', 'multiply'])
     
     if q_type == 'add':
-        denom = random.randint(2, 10)
-        num1 = random.randint(1, denom - 1)
-        num2 = random.randint(1, denom - 1)
-        answer_num = num1 + num2
-        gcd = math.gcd(answer_num, denom)
+        # Same denominator addition
+        denom = random.choice([2, 3, 4, 5, 6, 8, 10])
+        n1 = random.randint(1, denom - 1)
+        n2 = random.randint(1, denom - n1)
+        result_num = n1 + n2
+        # Simplify result
+        gcd = math.gcd(result_num, denom)
+        if result_num == denom:
+            answer = "1"
+        else:
+            answer = f"{result_num // gcd}/{denom // gcd}"
         return {
-            "num1": f"{num1}/{denom}",
-            "num2": f"{num2}/{denom}",
-            "operation": "fractions",
-            "symbol": "+",
-            "correct_answer": f"{answer_num // gcd}/{denom // gcd}" if answer_num != denom else "1",
-            "display": f"{num1}/{denom} + {num2}/{denom} = ?",
-            "answer_type": "fraction"
+            "type": "fractions",
+            "display": f"{n1}/{denom} + {n2}/{denom} = ?",
+            "answer": answer,
+            "input_type": "fraction"
         }
+    
+    elif q_type == 'subtract':
+        denom = random.choice([2, 3, 4, 5, 6, 8, 10])
+        n1 = random.randint(2, denom)
+        n2 = random.randint(1, n1 - 1)
+        result_num = n1 - n2
+        gcd = math.gcd(result_num, denom)
+        answer = f"{result_num // gcd}/{denom // gcd}"
+        return {
+            "type": "fractions",
+            "display": f"{n1}/{denom} − {n2}/{denom} = ?",
+            "answer": answer,
+            "input_type": "fraction"
+        }
+    
     elif q_type == 'simplify':
-        denom = random.randint(4, 12)
+        # Create a fraction that can be simplified
+        simple_num = random.randint(1, 5)
+        simple_denom = random.randint(simple_num + 1, 8)
+        gcd_orig = math.gcd(simple_num, simple_denom)
+        simple_num //= gcd_orig
+        simple_denom //= gcd_orig
+        
         multiplier = random.randint(2, 4)
-        simple_num = random.randint(1, denom - 1)
-        num = simple_num * multiplier
-        denom_big = denom * multiplier
-        gcd = math.gcd(num, denom_big)
-        simplify_text = get_text("simplify", lang)
-        return {
-            "num1": f"{num}/{denom_big}",
-            "num2": None,
-            "operation": "fractions",
-            "symbol": "=",
-            "correct_answer": f"{num // gcd}/{denom_big // gcd}",
-            "display": f"{simplify_text}: {num}/{denom_big} = ?",
-            "answer_type": "fraction"
+        big_num = simple_num * multiplier
+        big_denom = simple_denom * multiplier
+        
+        texts = {
+            "sv": "Förenkla:",
+            "en": "Simplify:",
+            "ar": "بسّط:",
+            "fi": "Sievennä:",
+            "es": "Simplifica:",
+            "so": "Fududee:"
         }
-    else:
-        denom1 = random.randint(2, 8)
-        denom2 = random.randint(2, 8)
-        num1 = random.randint(1, denom1 - 1)
-        num2 = random.randint(1, denom2 - 1)
-        val1 = num1 / denom1
-        val2 = num2 / denom2
+        text = texts.get(lang, texts["sv"])
+        
+        return {
+            "type": "fractions",
+            "display": f"{text} {big_num}/{big_denom} = ?",
+            "answer": f"{simple_num}/{simple_denom}",
+            "input_type": "fraction"
+        }
+    
+    elif q_type == 'compare':
+        # Compare two fractions
+        fracs = [
+            (1, 2), (1, 3), (2, 3), (1, 4), (3, 4),
+            (1, 5), (2, 5), (3, 5), (4, 5),
+            (1, 6), (5, 6), (1, 8), (3, 8), (5, 8), (7, 8)
+        ]
+        f1, f2 = random.sample(fracs, 2)
+        val1 = f1[0] / f1[1]
+        val2 = f2[0] / f2[1]
+        
         if val1 > val2:
             answer = ">"
         elif val1 < val2:
             answer = "<"
         else:
             answer = "="
+        
+        texts = {
+            "sv": "Vilket är störst?",
+            "en": "Which is greater?",
+            "ar": "أيهما أكبر؟",
+            "fi": "Kumpi on suurempi?",
+            "es": "¿Cuál es mayor?",
+            "so": "Kee ka weyn?"
+        }
+        text = texts.get(lang, texts["sv"])
+        
         return {
-            "num1": f"{num1}/{denom1}",
-            "num2": f"{num2}/{denom2}",
-            "operation": "fractions",
-            "symbol": "?",
-            "correct_answer": answer,
-            "display": f"{num1}/{denom1} ? {num2}/{denom2}",
+            "type": "fractions",
+            "display": f"{f1[0]}/{f1[1]} ? {f2[0]}/{f2[1]}",
+            "answer": answer,
+            "input_type": "choice",
             "options": ["<", "=", ">"],
-            "answer_type": "choice"
+            "hint": text
         }
-
-
-def generate_percentage_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a percentage question"""
-    question_types = ['of', 'find_percent']
-    q_type = random.choice(question_types)
     
-    if q_type == 'of':
-        percent = random.choice([10, 20, 25, 50, 75, 100])
-        base = random.randint(10, 100) * 10
-        answer = (percent / 100) * base
-        display = get_text("what_is_percent_of", lang, percent=percent, base=base)
+    else:  # multiply
+        # Simple fraction multiplication
+        n1, d1 = random.randint(1, 3), random.randint(2, 5)
+        n2, d2 = random.randint(1, 3), random.randint(2, 5)
+        result_n = n1 * n2
+        result_d = d1 * d2
+        gcd = math.gcd(result_n, result_d)
+        answer = f"{result_n // gcd}/{result_d // gcd}"
+        
         return {
-            "num1": percent,
-            "num2": base,
-            "operation": "percentage",
-            "symbol": "%",
-            "correct_answer": int(answer),
-            "display": display
-        }
-    else:
-        base = random.randint(10, 100) * 10
-        percent = random.choice([10, 20, 25, 50, 75])
-        part = int((percent / 100) * base)
-        display = get_text("what_percent_is_of", lang, part=part, base=base)
-        return {
-            "num1": part,
-            "num2": base,
-            "operation": "percentage",
-            "symbol": "%",
-            "correct_answer": percent,
-            "display": display
+            "type": "fractions",
+            "display": f"{n1}/{d1} × {n2}/{d2} = ?",
+            "answer": answer,
+            "input_type": "fraction"
         }
 
 
-def generate_equation_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a simple equation question"""
-    equation_type = random.choice(['add', 'mult'])
+def generate_equations(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Equations - solve for x:
+    - x + 5 = 12
+    - x - 3 = 7
+    - 3 × x = 15
+    - x ÷ 4 = 3
+    """
+    eq_type = random.choice(['add', 'subtract', 'multiply', 'divide'])
     
-    if equation_type == 'add':
+    if eq_type == 'add':
         x = random.randint(1, max_val)
         a = random.randint(1, max_val)
         b = x + a
         return {
-            "num1": a,
-            "num2": b,
-            "operation": "equations",
-            "symbol": "x",
-            "correct_answer": x,
-            "display": f"x + {a} = {b}, x = ?"
+            "type": "equations",
+            "display": f"x + {a} = {b}",
+            "answer": x,
+            "input_type": "number",
+            "hint": "x = ?"
         }
-    else:
+    
+    elif eq_type == 'subtract':
+        x = random.randint(1, max_val)
+        a = random.randint(1, x)
+        b = x - a
+        return {
+            "type": "equations",
+            "display": f"x − {a} = {b}",
+            "answer": x,
+            "input_type": "number",
+            "hint": "x = ?"
+        }
+    
+    elif eq_type == 'multiply':
         x = random.randint(1, min(10, max_val))
+        a = random.randint(2, min(10, max_val))
+        b = a * x
+        return {
+            "type": "equations",
+            "display": f"{a} × x = {b}",
+            "answer": x,
+            "input_type": "number",
+            "hint": "x = ?"
+        }
+    
+    else:  # divide
+        x = random.randint(2, min(12, max_val))
         a = random.randint(2, min(10, max_val))
         b = x * a
         return {
-            "num1": a,
-            "num2": b,
-            "operation": "equations",
-            "symbol": "x",
-            "correct_answer": x,
-            "display": f"{a} × x = {b}, x = ?"
+            "type": "equations",
+            "display": f"x ÷ {a} = {x}",
+            "answer": b,
+            "input_type": "number",
+            "hint": "x = ?"
         }
 
 
-def generate_rounding_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a rounding question"""
-    num = random.randint(min_val * 10, max_val * 10) + random.random()
-    round_to = random.choice(['ones', 'tens', 'tenths'])
-    
-    if round_to == 'ones':
-        answer = round(num)
-        display = get_text("round_to_integer", lang, num=f"{num:.1f}")
-    elif round_to == 'tens':
-        num = random.randint(min_val, max_val * 10)
-        answer = round(num, -1)
-        display = get_text("round_to_tens", lang, num=num)
-    else:
-        answer = round(num, 1)
-        display = get_text("round_to_one_decimal", lang, num=f"{num:.2f}")
-    
-    return {
-        "num1": num,
-        "num2": round_to,
-        "operation": "rounding",
-        "symbol": "≈",
-        "correct_answer": answer,
-        "display": display
+def generate_geometry(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Geometry - area and perimeter:
+    - Rectangle area/perimeter
+    - Triangle area
+    - Square area/perimeter
+    """
+    texts = {
+        "sv": {
+            "rect_area": "Rektangel: {w} × {h}\nArea = ?",
+            "rect_perimeter": "Rektangel: {w} × {h}\nOmkrets = ?",
+            "square_area": "Kvadrat: sida = {s}\nArea = ?",
+            "square_perimeter": "Kvadrat: sida = {s}\nOmkrets = ?",
+            "triangle_area": "Triangel: bas = {b}, höjd = {h}\nArea = ?",
+        },
+        "en": {
+            "rect_area": "Rectangle: {w} × {h}\nArea = ?",
+            "rect_perimeter": "Rectangle: {w} × {h}\nPerimeter = ?",
+            "square_area": "Square: side = {s}\nArea = ?",
+            "square_perimeter": "Square: side = {s}\nPerimeter = ?",
+            "triangle_area": "Triangle: base = {b}, height = {h}\nArea = ?",
+        }
     }
-
-
-def generate_geometry_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a geometry question"""
-    shapes = ['rectangle_area', 'rectangle_perimeter', 'triangle_area', 'circle_area']
-    shape = random.choice(shapes)
+    t = texts.get(lang, texts["sv"])
     
-    if shape == 'rectangle_area':
-        width = random.randint(2, min(15, max_val))
-        height = random.randint(2, min(15, max_val))
-        display = get_text("rectangle_area", lang, width=width, height=height)
-        return {
-            "num1": width,
-            "num2": height,
-            "operation": "geometry",
-            "symbol": "□",
-            "correct_answer": width * height,
-            "display": display
-        }
-    elif shape == 'rectangle_perimeter':
-        width = random.randint(2, min(15, max_val))
-        height = random.randint(2, min(15, max_val))
-        display = get_text("rectangle_perimeter", lang, width=width, height=height)
-        return {
-            "num1": width,
-            "num2": height,
-            "operation": "geometry",
-            "symbol": "□",
-            "correct_answer": 2 * (width + height),
-            "display": display
-        }
-    elif shape == 'triangle_area':
-        base = random.randint(2, min(12, max_val)) * 2
-        height = random.randint(2, min(12, max_val))
-        display = get_text("triangle_area", lang, base=base, height=height)
-        return {
-            "num1": base,
-            "num2": height,
-            "operation": "geometry",
-            "symbol": "△",
-            "correct_answer": (base * height) // 2,
-            "display": display
-        }
-    else:
-        radius = random.randint(1, min(10, max_val))
-        display = get_text("circle_area", lang, radius=radius)
-        return {
-            "num1": radius,
-            "num2": 3.14,
-            "operation": "geometry",
-            "symbol": "○",
-            "correct_answer": round(3.14 * radius * radius),
-            "display": display
-        }
-
-
-def generate_angles_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate an angles question"""
-    question_types = ['complement', 'supplement', 'triangle']
-    q_type = random.choice(question_types)
+    shape = random.choice(['rect_area', 'rect_perimeter', 'square_area', 'square_perimeter', 'triangle_area'])
     
-    if q_type == 'complement':
-        angle = random.randint(10, 80)
-        display = get_text("complement_angle", lang, angle=angle)
+    if shape == 'rect_area':
+        w = random.randint(2, min(15, max_val))
+        h = random.randint(2, min(15, max_val))
         return {
-            "num1": angle,
-            "num2": 90,
-            "operation": "angles",
-            "symbol": "∠",
-            "correct_answer": 90 - angle,
-            "display": display
+            "type": "geometry",
+            "display": t["rect_area"].format(w=w, h=h),
+            "answer": w * h,
+            "input_type": "number",
+            "shape": "rectangle",
+            "dimensions": {"width": w, "height": h}
         }
-    elif q_type == 'supplement':
-        angle = random.randint(10, 170)
-        display = get_text("supplement_angle", lang, angle=angle)
-        return {
-            "num1": angle,
-            "num2": 180,
-            "operation": "angles",
-            "symbol": "∠",
-            "correct_answer": 180 - angle,
-            "display": display
-        }
-    else:
-        angle1 = random.randint(30, 80)
-        angle2 = random.randint(30, 150 - angle1)
-        display = get_text("triangle_third_angle", lang, angle1=angle1, angle2=angle2)
-        return {
-            "num1": angle1,
-            "num2": angle2,
-            "operation": "angles",
-            "symbol": "△",
-            "correct_answer": 180 - angle1 - angle2,
-            "display": display
-        }
-
-
-def generate_probability_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a probability question"""
-    q_type = random.choice(['dice', 'marbles', 'coins'])
     
-    if q_type == 'dice':
-        target = random.randint(1, 6)
-        display = get_text("dice_probability", lang, target=target)
+    elif shape == 'rect_perimeter':
+        w = random.randint(2, min(15, max_val))
+        h = random.randint(2, min(15, max_val))
         return {
-            "num1": target,
-            "num2": 6,
-            "operation": "probability",
-            "symbol": "P",
-            "correct_answer": "1/6",
-            "display": display,
-            "answer_type": "fraction"
+            "type": "geometry",
+            "display": t["rect_perimeter"].format(w=w, h=h),
+            "answer": 2 * (w + h),
+            "input_type": "number",
+            "shape": "rectangle",
+            "dimensions": {"width": w, "height": h}
         }
-    elif q_type == 'marbles':
-        total = random.randint(5, 15)
-        target_count = random.randint(1, total - 1)
-        gcd = math.gcd(target_count, total)
-        display = get_text("marble_probability", lang, count=target_count, total=total)
+    
+    elif shape == 'square_area':
+        s = random.randint(2, min(12, max_val))
         return {
-            "num1": target_count,
-            "num2": total,
-            "operation": "probability",
-            "symbol": "P",
-            "correct_answer": f"{target_count // gcd}/{total // gcd}",
-            "display": display,
-            "answer_type": "fraction"
+            "type": "geometry",
+            "display": t["square_area"].format(s=s),
+            "answer": s * s,
+            "input_type": "number",
+            "shape": "square",
+            "dimensions": {"side": s}
         }
-    else:
-        display = get_text("coin_probability", lang)
+    
+    elif shape == 'square_perimeter':
+        s = random.randint(2, min(12, max_val))
         return {
-            "num1": 1,
-            "num2": 2,
-            "operation": "probability",
-            "symbol": "P",
-            "correct_answer": "1/2",
-            "display": display,
-            "answer_type": "fraction"
+            "type": "geometry",
+            "display": t["square_perimeter"].format(s=s),
+            "answer": 4 * s,
+            "input_type": "number",
+            "shape": "square",
+            "dimensions": {"side": s}
+        }
+    
+    else:  # triangle_area
+        b = random.randint(2, min(12, max_val)) * 2  # Even base for clean division
+        h = random.randint(2, min(12, max_val))
+        return {
+            "type": "geometry",
+            "display": t["triangle_area"].format(b=b, h=h),
+            "answer": (b * h) // 2,
+            "input_type": "number",
+            "shape": "triangle",
+            "dimensions": {"base": b, "height": h}
         }
 
 
-def generate_units_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a unit conversion question"""
+def generate_percentage(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Percentage:
+    - What is 25% of 80?
+    - 15 is what % of 60?
+    - Increase/decrease by %
+    """
+    texts = {
+        "sv": {
+            "of": "{p}% av {n} = ?",
+            "find": "{part} är ? % av {whole}",
+        },
+        "en": {
+            "of": "{p}% of {n} = ?",
+            "find": "{part} is ? % of {whole}",
+        }
+    }
+    t = texts.get(lang, texts["sv"])
+    
+    q_type = random.choice(['of', 'find'])
+    
+    if q_type == 'of':
+        percent = random.choice([10, 20, 25, 50, 75, 100, 5, 15, 30])
+        # Make base divisible by factors for clean answers
+        if percent in [25, 75]:
+            base = random.choice([4, 8, 12, 16, 20, 40, 80, 100, 200]) * random.randint(1, 3)
+        elif percent in [10, 20, 30, 50]:
+            base = random.randint(2, 20) * 10
+        else:
+            base = random.randint(10, 100) * 10
+        
+        answer = int((percent / 100) * base)
+        return {
+            "type": "percentage",
+            "display": t["of"].format(p=percent, n=base),
+            "answer": answer,
+            "input_type": "number"
+        }
+    
+    else:  # find percentage
+        whole = random.choice([20, 25, 40, 50, 80, 100, 200])
+        percent = random.choice([10, 20, 25, 50, 75])
+        part = int((percent / 100) * whole)
+        return {
+            "type": "percentage",
+            "display": t["find"].format(part=part, whole=whole),
+            "answer": percent,
+            "input_type": "number"
+        }
+
+
+def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Unit conversion:
+    - 3 m = ? cm
+    - 2500 g = ? kg
+    - 1.5 km = ? m
+    """
     conversions = [
-        ('m', 'cm', 100),
-        ('km', 'm', 1000),
-        ('kg', 'g', 1000),
-        ('l', 'ml', 1000),
-        ('m', 'mm', 1000),
-        ('h', 'min', 60),
+        ("m", "cm", 100, "length"),
+        ("km", "m", 1000, "length"),
+        ("kg", "g", 1000, "mass"),
+        ("l", "ml", 1000, "volume"),
+        ("l", "dl", 10, "volume"),
+        ("m", "mm", 1000, "length"),
+        ("h", "min", 60, "time"),
+        ("min", "sek", 60, "time"),
     ]
     
     conv = random.choice(conversions)
-    from_unit, to_unit, factor = conv
+    big_unit, small_unit, factor, _ = conv
     
     direction = random.choice(['to_small', 'to_big'])
     
@@ -570,140 +414,308 @@ def generate_units_question(min_val: int, max_val: int, lang: str = "sv") -> Dic
         value = random.randint(1, min(10, max_val))
         answer = value * factor
         return {
-            "num1": value,
-            "num2": factor,
-            "operation": "units",
-            "symbol": "→",
-            "correct_answer": answer,
-            "display": f"{value} {from_unit} = ? {to_unit}"
+            "type": "units",
+            "display": f"{value} {big_unit} = ? {small_unit}",
+            "answer": answer,
+            "input_type": "number"
         }
     else:
         value = random.randint(1, min(10, max_val)) * factor
         answer = value // factor
         return {
-            "num1": value,
-            "num2": factor,
-            "operation": "units",
-            "symbol": "→",
-            "correct_answer": answer,
-            "display": f"{value} {to_unit} = ? {from_unit}"
+            "type": "units",
+            "display": f"{value} {small_unit} = ? {big_unit}",
+            "answer": answer,
+            "input_type": "number"
         }
 
 
-def generate_diagram_question(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
-    """Generate a diagram/chart reading question"""
-    day_keys = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
-    categories = [get_text(key, lang) for key in day_keys]
-    values = [random.randint(min_val, max_val) for _ in categories]
+def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Rounding:
+    - Round 7.4 to whole number
+    - Round 234 to nearest ten
+    - Round 3.456 to one decimal
+    """
+    texts = {
+        "sv": {
+            "whole": "Avrunda {n} till heltal",
+            "tens": "Avrunda {n} till tiotal",
+            "decimal": "Avrunda {n} till en decimal",
+            "hundreds": "Avrunda {n} till hundratal"
+        },
+        "en": {
+            "whole": "Round {n} to whole number",
+            "tens": "Round {n} to nearest ten",
+            "decimal": "Round {n} to one decimal",
+            "hundreds": "Round {n} to nearest hundred"
+        }
+    }
+    t = texts.get(lang, texts["sv"])
+    
+    round_type = random.choice(['whole', 'tens', 'decimal'])
+    
+    if round_type == 'whole':
+        num = round(random.uniform(0.1, max_val) + random.random(), 1)
+        answer = round(num)
+        return {
+            "type": "rounding",
+            "display": t["whole"].format(n=num),
+            "answer": answer,
+            "input_type": "number"
+        }
+    
+    elif round_type == 'tens':
+        num = random.randint(min_val, max_val * 10)
+        answer = round(num, -1)
+        return {
+            "type": "rounding",
+            "display": t["tens"].format(n=num),
+            "answer": int(answer),
+            "input_type": "number"
+        }
+    
+    else:  # decimal
+        num = round(random.uniform(0.01, max_val) + random.random(), 2)
+        answer = round(num, 1)
+        return {
+            "type": "rounding",
+            "display": t["decimal"].format(n=num),
+            "answer": answer,
+            "input_type": "decimal"
+        }
+
+
+def generate_angles(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Angles:
+    - Complement (90°): What + 30° = 90°?
+    - Supplement (180°): What + 45° = 180°?
+    - Triangle: 60° + 70° + ? = 180°
+    """
+    texts = {
+        "sv": {
+            "complement": "Komplementvinkel till {a}° = ?",
+            "supplement": "Supplementvinkel till {a}° = ?",
+            "triangle": "Triangel: {a}° + {b}° + ? = 180°"
+        },
+        "en": {
+            "complement": "Complement to {a}° = ?",
+            "supplement": "Supplement to {a}° = ?",
+            "triangle": "Triangle: {a}° + {b}° + ? = 180°"
+        }
+    }
+    t = texts.get(lang, texts["sv"])
+    
+    angle_type = random.choice(['complement', 'supplement', 'triangle'])
+    
+    if angle_type == 'complement':
+        angle = random.randint(10, 80)
+        return {
+            "type": "angles",
+            "display": t["complement"].format(a=angle),
+            "answer": 90 - angle,
+            "input_type": "number"
+        }
+    
+    elif angle_type == 'supplement':
+        angle = random.randint(10, 170)
+        return {
+            "type": "angles",
+            "display": t["supplement"].format(a=angle),
+            "answer": 180 - angle,
+            "input_type": "number"
+        }
+    
+    else:  # triangle
+        a = random.randint(30, 80)
+        b = random.randint(30, 140 - a)
+        c = 180 - a - b
+        return {
+            "type": "angles",
+            "display": t["triangle"].format(a=a, b=b),
+            "answer": c,
+            "input_type": "number"
+        }
+
+
+def generate_probability(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Probability:
+    - Dice: P(roll 4) = ?
+    - Coins: P(heads) = ?
+    - Marbles: 3 red, 5 blue. P(red) = ?
+    """
+    texts = {
+        "sv": {
+            "dice": "Tärning: Sannolikhet för {n}?",
+            "coin": "Mynt: Sannolikhet för krona?",
+            "marble": "{r} röda, {b} blå kulor.\nSannolikhet för röd?"
+        },
+        "en": {
+            "dice": "Dice: Probability of {n}?",
+            "coin": "Coin: Probability of heads?",
+            "marble": "{r} red, {b} blue marbles.\nProbability of red?"
+        }
+    }
+    t = texts.get(lang, texts["sv"])
+    
+    prob_type = random.choice(['dice', 'coin', 'marble'])
+    
+    if prob_type == 'dice':
+        n = random.randint(1, 6)
+        return {
+            "type": "probability",
+            "display": t["dice"].format(n=n),
+            "answer": "1/6",
+            "input_type": "fraction"
+        }
+    
+    elif prob_type == 'coin':
+        return {
+            "type": "probability",
+            "display": t["coin"],
+            "answer": "1/2",
+            "input_type": "fraction"
+        }
+    
+    else:  # marble
+        red = random.randint(1, 8)
+        blue = random.randint(1, 8)
+        total = red + blue
+        gcd = math.gcd(red, total)
+        return {
+            "type": "probability",
+            "display": t["marble"].format(r=red, b=blue),
+            "answer": f"{red // gcd}/{total // gcd}",
+            "input_type": "fraction"
+        }
+
+
+def generate_diagrams(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
+    """
+    Diagrams - read data from bar charts:
+    - Max value
+    - Min value
+    - Sum
+    - Difference
+    """
+    texts = {
+        "sv": {
+            "days": ["Mån", "Tis", "Ons", "Tor", "Fre"],
+            "max": "Högsta värde?",
+            "min": "Lägsta värde?",
+            "sum": "Summa av alla?",
+            "diff": "Skillnad högst-lägst?"
+        },
+        "en": {
+            "days": ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            "max": "Highest value?",
+            "min": "Lowest value?",
+            "sum": "Sum of all?",
+            "diff": "Difference highest-lowest?"
+        }
+    }
+    t = texts.get(lang, texts["sv"])
+    
+    days = t["days"]
+    values = [random.randint(min_val, max_val) for _ in days]
     
     q_type = random.choice(['max', 'min', 'sum', 'diff'])
     
-    bar_chart = get_text("bar_chart", lang)
-    chart_str = ', '.join([f'{c}:{v}' for c, v in zip(categories, values)])
+    # Create display string
+    chart_data = " | ".join([f"{d}:{v}" for d, v in zip(days, values)])
     
     if q_type == 'max':
         answer = max(values)
-        question = get_text("highest_value", lang)
-        return {
-            "num1": values,
-            "num2": categories,
-            "operation": "diagrams",
-            "symbol": "📊",
-            "correct_answer": answer,
-            "display": f"{bar_chart}: {chart_str}. {question}",
-            "chart_data": {"labels": categories, "values": values}
-        }
+        question = t["max"]
     elif q_type == 'min':
         answer = min(values)
-        question = get_text("lowest_value", lang)
-        return {
-            "num1": values,
-            "num2": categories,
-            "operation": "diagrams",
-            "symbol": "📊",
-            "correct_answer": answer,
-            "display": f"{bar_chart}: {chart_str}. {question}",
-            "chart_data": {"labels": categories, "values": values}
-        }
+        question = t["min"]
     elif q_type == 'sum':
         answer = sum(values)
-        question = get_text("sum", lang)
-        return {
-            "num1": values,
-            "num2": categories,
-            "operation": "diagrams",
-            "symbol": "📊",
-            "correct_answer": answer,
-            "display": f"{bar_chart}: {chart_str}. {question}",
-            "chart_data": {"labels": categories, "values": values}
-        }
-    else:
+        question = t["sum"]
+    else:  # diff
         answer = max(values) - min(values)
-        question = get_text("difference_max_min", lang)
-        return {
-            "num1": values,
-            "num2": categories,
-            "operation": "diagrams",
-            "symbol": "📊",
-            "correct_answer": answer,
-            "display": f"{bar_chart}: {chart_str}. {question}",
-            "chart_data": {"labels": categories, "values": values}
-        }
+        question = t["diff"]
+    
+    return {
+        "type": "diagrams",
+        "display": f"📊 {chart_data}\n{question}",
+        "answer": answer,
+        "input_type": "number",
+        "chart_data": {"labels": days, "values": values}
+    }
 
 
-# Difficulty ranges
+# Difficulty settings
 DIFFICULTY_RANGES = {
     "easy": {"min": 1, "max": 10},
-    "medium": {"min": 10, "max": 50},
-    "hard": {"min": 50, "max": 100},
-    "expert": {"min": 100, "max": 500}
+    "medium": {"min": 1, "max": 50},
+    "hard": {"min": 1, "max": 100},
 }
 
-# Category to generator mapping
-CATEGORY_GENERATORS = {
-    "addition": generate_addition_question,
-    "subtraction": generate_subtraction_question,
-    "multiplication": generate_multiplication_question,
-    "division": generate_division_question,
-    "fractions": generate_fraction_question,
-    "percentage": generate_percentage_question,
-    "equations": generate_equation_question,
-    "rounding": generate_rounding_question,
-    "geometry": generate_geometry_question,
-    "angles": generate_angles_question,
-    "probability": generate_probability_question,
-    "units": generate_units_question,
-    "diagrams": generate_diagram_question,
+# Generator mapping
+GENERATORS = {
+    "addition": generate_addition,
+    "subtraction": generate_subtraction,
+    "multiplication": generate_multiplication,
+    "division": generate_division,
+    "fractions": generate_fractions,
+    "equations": generate_equations,
+    "geometry": generate_geometry,
+    "percentage": generate_percentage,
+    "units": generate_units,
+    "rounding": generate_rounding,
+    "angles": generate_angles,
+    "probability": generate_probability,
+    "diagrams": generate_diagrams,
 }
 
 
 def generate_questions(
-    category: str,
-    difficulty: str,
-    count: int,
-    operations: Optional[List[str]] = None,
+    category: str = None,
+    difficulty: str = "easy",
+    count: int = 15,
+    operations: List[str] = None,
     language: str = "sv"
 ) -> List[Dict[str, Any]]:
-    """Generate questions for a specific category and difficulty"""
+    """
+    Generate questions for the game.
     
-    range_config = DIFFICULTY_RANGES.get(difficulty, DIFFICULTY_RANGES["easy"])
-    min_val = range_config["min"]
-    max_val = range_config["max"]
+    Args:
+        category: Single category (deprecated, use operations)
+        difficulty: easy/medium/hard
+        count: Number of questions
+        operations: List of categories to mix
+        language: Language code (sv, en, etc.)
+    
+    Returns:
+        List of question dictionaries
+    """
+    range_cfg = DIFFICULTY_RANGES.get(difficulty, DIFFICULTY_RANGES["easy"])
+    min_val = range_cfg["min"]
+    max_val = range_cfg["max"]
+    
+    # Use operations list or fall back to category
+    cats = operations if operations else ([category] if category else ["addition"])
     
     questions = []
-    
-    if operations:
-        for _ in range(count):
-            op = random.choice(operations)
-            generator = CATEGORY_GENERATORS.get(op, generate_addition_question)
-            question = generator(min_val, max_val, language)
-            question["question_id"] = f"q_{random.randint(10000, 99999)}"
-            questions.append(question)
-    else:
-        generator = CATEGORY_GENERATORS.get(category, generate_addition_question)
-        for _ in range(count):
-            question = generator(min_val, max_val, language)
-            question["question_id"] = f"q_{random.randint(10000, 99999)}"
-            questions.append(question)
+    for i in range(count):
+        cat = random.choice(cats)
+        generator = GENERATORS.get(cat, generate_addition)
+        
+        q = generator(min_val, max_val, language)
+        q["question_id"] = f"q_{random.randint(10000, 99999)}"
+        q["operation"] = cat
+        
+        # Ensure answer is properly formatted
+        if "answer" not in q:
+            q["answer"] = 0
+        
+        # Convert answer to string for consistent handling
+        q["correct_answer"] = str(q["answer"])
+        
+        questions.append(q)
     
     return questions
