@@ -505,6 +505,7 @@ const styles = StyleSheet.create({
   },
   centeredWrapper: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   header: {
     flexDirection: 'row',

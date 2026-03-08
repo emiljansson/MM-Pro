@@ -686,7 +686,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 16,
     marginVertical: 12,
-    direction: 'ltr',
   },
   choiceButton: {
     paddingVertical: 16,
