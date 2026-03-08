@@ -58,13 +58,13 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const containerPadding = large ? 24 : 16;
 
   // Determine special key based on mode or individual props
+  // Always show decimal point by default
   const getSpecialKey = (): { value: string; icon?: string } | null => {
-    if (mode === 'decimal' || showDecimal) return { value: '.' };
     if (mode === 'fraction' || showFraction) return { value: '/' };
     if (mode === 'negative' || showNegative) return { value: '-' };
-    if (mode === 'mixed') return { value: '.' };
     if (showDivision) return { value: '÷' };
-    return null;
+    // Default to decimal point
+    return { value: '.' };
   };
 
   const specialKey = getSpecialKey();
@@ -162,25 +162,8 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
         {renderKey('9')}
       </View>
       <View style={[styles.row, { marginBottom: rowMargin }]}>
-        {specialKey ? (
-          renderKey(specialKey.value, false, specialKey.icon)
-        ) : (
-          mode === 'mixed' ? (
-            <TouchableOpacity
-              style={[
-                styles.key,
-                { backgroundColor: theme.card, height: keyHeight, opacity: disabled ? 0.5 : 1 },
-              ]}
-              onPress={() => handleKeyPress('-')}
-              activeOpacity={0.7}
-              disabled={disabled}
-            >
-              <Text style={[styles.keyText, { color: theme.primary, fontSize: keyFontSize, fontWeight: '700' }]}>±</Text>
-            </TouchableOpacity>
-          ) : (
-            <View style={[styles.key, { height: keyHeight, backgroundColor: 'transparent' }]} />
-          )
-        )}
+        {/* Always show special key (usually decimal point) */}
+        {renderKey(specialKey.value, false, specialKey.icon)}
         {renderKey('0')}
         <TouchableOpacity
           style={[
