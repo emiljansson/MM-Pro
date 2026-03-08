@@ -602,8 +602,9 @@ export default function GameScreen() {
               showFraction={currentQuestion.operation === 'fractions'}
               showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations' || currentQuestion.operation === 'graphs'}
               showPi={currentQuestion.input_type === 'text' && currentQuestion.operation === 'geometry'}
-              compact={isSmallScreen || isGraphQuestion(currentQuestion)}
+              compact={isSmallScreen && !isGraphQuestion(currentQuestion)}
               large={isLargeScreen && !isGraphQuestion(currentQuestion)}
+              graph={isGraphQuestion(currentQuestion)}
             />
           )}
         </View>
