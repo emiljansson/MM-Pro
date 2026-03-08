@@ -863,8 +863,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 5,
     paddingBottom: 0,
-    borderWidth: 2,
-    borderColor: 'red',
   },
   graphQuestionText: {
     fontSize: 18,
@@ -875,15 +873,11 @@ const styles = StyleSheet.create({
   questionAreaGraph: {
     paddingVertical: 0,
     paddingHorizontal: 8,
-    borderWidth: 2,
-    borderColor: 'blue',
   },
   questionCardGraph: {
     paddingTop: 5,
     paddingBottom: 4,
     paddingHorizontal: 8,
     justifyContent: 'flex-start',
-    borderWidth: 2,
-    borderColor: 'green',
   },
 });
