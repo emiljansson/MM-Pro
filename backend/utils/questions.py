@@ -2313,11 +2313,35 @@ def generate_questions(
     cats = operations if operations else ([category] if category else ["addition"])
     
     questions = []
+    recent_displays = []  # Track last 10 question displays to avoid duplicates
+    max_recent = 10
+    max_attempts = 50  # Prevent infinite loops
+    
     for i in range(count):
         cat = random.choice(cats)
         generator = GENERATORS.get(cat, generate_addition)
         
-        q = generator(min_val, max_val, language)
+        # Try to generate a unique question (not in recent 10)
+        q = None
+        for attempt in range(max_attempts):
+            candidate = generator(min_val, max_val, language)
+            display = candidate.get("display", "")
+            
+            # Check if this question was recently asked
+            if display not in recent_displays:
+                q = candidate
+                break
+        
+        # If all attempts failed, use the last candidate anyway
+        if q is None:
+            q = candidate
+        
+        # Update recent questions list
+        display = q.get("display", "")
+        recent_displays.append(display)
+        if len(recent_displays) > max_recent:
+            recent_displays.pop(0)  # Remove oldest
+        
         q["question_id"] = f"q_{random.randint(10000, 99999)}"
         q["operation"] = cat
         
