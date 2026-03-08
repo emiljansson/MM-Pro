@@ -250,7 +250,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'bottom']}>
       <StatusBar barStyle={effectiveTheme === 'dark' ? 'light-content' : 'dark-content'} />
       
       <View style={styles.centeredWrapper}>
