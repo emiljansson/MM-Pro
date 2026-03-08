@@ -46,16 +46,16 @@ legacy_router = APIRouter(prefix="/api")
 
 TRANSLATIONS = {
     "app_title_part1": {
-        "sv": "Math", "en": "Math", "ar": "Math",
-        "fi": "Math", "es": "Math", "so": "Math"
+        "sv": "Matematik", "en": "Math", "ar": "ماث",
+        "fi": "Matematiikka", "es": "Mate", "so": "Xisaab"
     },
     "app_title_part2": {
-        "sv": "Master Pro", "en": "Master Pro", "ar": "Master Pro",
-        "fi": "Master Pro", "es": "Master Pro", "so": "Master Pro"
+        "sv": "Mästaren Pro", "en": "Master Pro", "ar": "ماستر برو",
+        "fi": "Mestari Pro", "es": "Maestro Pro", "so": "Sare Pro"
     },
     "app_title": {
-        "sv": "MathMaster Pro", "en": "MathMaster Pro", "ar": "MathMaster Pro",
-        "fi": "MathMaster Pro", "es": "MathMaster Pro", "so": "MathMaster Pro"
+        "sv": "MatematikMästaren Pro", "en": "MathMaster Pro", "ar": "ماث ماستر برو",
+        "fi": "MatematiikkaMestari Pro", "es": "MateMaestro Pro", "so": "XisaabSare Pro"
     },
     "tagline": {
         "sv": "Bli trygg i matematik.", "en": "Become confident in math.",

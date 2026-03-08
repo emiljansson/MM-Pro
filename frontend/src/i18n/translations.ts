@@ -1,28 +1,28 @@
 // Fallback translations (used when API is not available)
 export const FALLBACK_TRANSLATIONS: Record<string, Record<string, string>> = {
   app_title_part1: {
-    sv: "Math",
+    sv: "Matematik",
     en: "Math",
     ar: "ماث",
-    fi: "Math",
-    es: "Math",
-    so: "Math"
+    fi: "Matematiikka",
+    es: "Mate",
+    so: "Xisaab"
   },
   app_title_part2: {
-    sv: "Master Pro",
+    sv: "Mästaren Pro",
     en: "Master Pro",
     ar: "ماستر برو",
-    fi: "Master Pro",
-    es: "Master Pro",
-    so: "Master Pro"
+    fi: "Mestari Pro",
+    es: "Maestro Pro",
+    so: "Sare Pro"
   },
   app_title: {
-    sv: "MathMaster Pro",
+    sv: "MatematikMästaren Pro",
     en: "MathMaster Pro",
     ar: "ماث ماستر برو",
-    fi: "MathMaster Pro",
-    es: "MathMaster Pro",
-    so: "MathMaster Pro"
+    fi: "MatematiikkaMestari Pro",
+    es: "MateMaestro Pro",
+    so: "XisaabSare Pro"
   },
   tagline: {
     sv: "Bli trygg i matematik.",
