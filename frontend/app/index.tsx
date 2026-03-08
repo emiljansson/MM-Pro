@@ -75,9 +75,9 @@ export default function HomeScreen() {
   const isLargeScreen = isTablet;
   const scale = isTablet ? 1.3 : 1;
 
-  // Calculate pages
+  // Calculate pages - use full width for scroll container
   const totalPages = Math.ceil(ALL_CATEGORIES.length / ITEMS_PER_PAGE);
-  const pageWidth = width - 32; // Account for padding
+  const pageWidth = width; // Full screen width for paging
 
   useEffect(() => {
     const init = async () => {
@@ -147,7 +147,8 @@ export default function HomeScreen() {
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
     const isLocked = category.pro && (!user || !user.is_pro);
-    const cardWidth = (pageWidth - 16) / 2 - 8;
+    // Calculate card width: (page width - 2*padding - gap) / 2
+    const cardWidth = (width - 32 - 12) / 2;
 
     return (
       <TouchableOpacity
@@ -489,10 +490,10 @@ const styles = StyleSheet.create({
     marginHorizontal: -16,
   },
   categoriesScrollContent: {
-    paddingHorizontal: 16,
+    // No padding here, handled by page
   },
   page: {
-    paddingHorizontal: 0,
+    paddingHorizontal: 16,
   },
   categoryGrid: {
     flexDirection: 'row',
