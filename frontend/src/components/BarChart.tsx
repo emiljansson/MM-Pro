@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   },
   barWrapper: {
     justifyContent: 'flex-end',
+    position: 'relative',
   },
   bar: {
     borderRadius: 6,
