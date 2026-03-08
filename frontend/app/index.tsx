@@ -145,7 +145,10 @@ export default function HomeScreen() {
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
     // Calculate card width: (page width - 2*padding - gap) / 2
-    const cardWidth = (width - 32 - 12) / 2;
+    const cardWidth = (width - 32 - 10) / 2;
+    // Use fixed height for tablets instead of aspectRatio to prevent oversized cards
+    const cardHeight = isTablet ? 100 : undefined;
+    const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
       <TouchableOpacity
@@ -154,6 +157,8 @@ export default function HomeScreen() {
           styles.categoryCard,
           {
             width: cardWidth,
+            height: cardHeight,
+            aspectRatio: cardAspectRatio,
             backgroundColor: isSelected ? category.color : theme.card,
             borderColor: isSelected ? category.color : theme.border,
           },
@@ -168,11 +173,20 @@ export default function HomeScreen() {
         )}
         <View style={[
           styles.categoryIconContainer,
-          { backgroundColor: isSelected ? 'rgba(255,255,255,0.3)' : category.color + '30' }
+          { 
+            backgroundColor: isSelected ? 'rgba(255,255,255,0.3)' : category.color + '30',
+            width: isTablet ? 36 : 48,
+            height: isTablet ? 36 : 48,
+            borderRadius: isTablet ? 18 : 24,
+            marginBottom: isTablet ? 4 : 8,
+          }
         ]}>
           <Text style={[
             styles.categorySymbol,
-            { color: isSelected ? '#FFFFFF' : category.color }
+            { 
+              color: isSelected ? '#FFFFFF' : category.color,
+              fontSize: isTablet ? 18 : 24,
+            }
           ]}>
             {category.symbol}
           </Text>
@@ -297,7 +311,7 @@ export default function HomeScreen() {
             {/* Navigation Arrows & Page Indicators */}
             <View style={[
               styles.navigationContainer,
-              isTablet && { marginTop: 4, marginBottom: 0 }
+              isTablet && { marginTop: -8, marginBottom: 0 }
             ]}>
               <TouchableOpacity
                 style={[
@@ -534,13 +548,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    gap: 12,
+    gap: 10,
   },
   categoryCard: {
     aspectRatio: 1.3,
     borderRadius: 16,
     borderWidth: 2,
-    padding: 12,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
