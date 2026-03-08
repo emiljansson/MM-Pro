@@ -148,11 +148,11 @@ export default function HomeScreen() {
   // Render a single category card
   const renderCategoryCard = (category: typeof ALL_CATEGORIES[0], index: number) => {
     const isSelected = settings.operations.includes(category.key);
-    // Calculate card width: (page width - 2*padding - gap) / 2
+    // Calculate card width: (page width - 2*padding - gap) / 2 - 5px smaller
     const cardGap = isTablet ? 6 : 10;
-    const cardWidth = (width - 32 - cardGap) / 2;
+    const cardWidth = (width - 32 - cardGap) / 2 - 5;
     // Use fixed height for tablets - for 5 rows
-    const cardHeight = isTablet ? 100 : undefined;
+    const cardHeight = isTablet ? 95 : undefined;
     const cardAspectRatio = isTablet ? undefined : 1.3;
 
     return (
