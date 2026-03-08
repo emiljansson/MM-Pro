@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
   container: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    justifyContent: 'flex-end',
   },
   row: {
     flexDirection: 'row',
