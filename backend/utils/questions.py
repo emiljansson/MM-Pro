@@ -341,16 +341,15 @@ def generate_percentage(min_val: int, max_val: int, lang: str = "sv") -> Dict[st
     Percentage:
     - What is 25% of 80?
     - 15 is what % of 60?
-    - Increase/decrease by %
     """
     texts = {
         "sv": {
-            "of": "{p}% av {n} = ?",
-            "find": "{part} är ? % av {whole}",
+            "of": "Hur mycket är {p}% av {n}?",
+            "find": "Hur många procent är {part} av {whole}?",
         },
         "en": {
-            "of": "{p}% of {n} = ?",
-            "find": "{part} is ? % of {whole}",
+            "of": "How much is {p}% of {n}?",
+            "find": "What percentage is {part} of {whole}?",
         }
     }
     t = texts.get(lang, texts["sv"])
@@ -389,24 +388,33 @@ def generate_percentage(min_val: int, max_val: int, lang: str = "sv") -> Dict[st
 
 def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Unit conversion:
-    - 3 m = ? cm
-    - 2500 g = ? kg
-    - 1.5 km = ? m
+    Unit conversion with natural language questions
     """
+    texts = {
+        "sv": {
+            "to_small": "Hur många {small} är {value} {big}?",
+            "to_big": "Hur många {big} är {value} {small}?",
+        },
+        "en": {
+            "to_small": "How many {small} is {value} {big}?",
+            "to_big": "How many {big} is {value} {small}?",
+        }
+    }
+    t = texts.get(lang, texts["sv"])
+    
     conversions = [
-        ("m", "cm", 100, "length"),
-        ("km", "m", 1000, "length"),
-        ("kg", "g", 1000, "mass"),
-        ("l", "ml", 1000, "volume"),
-        ("l", "dl", 10, "volume"),
-        ("m", "mm", 1000, "length"),
-        ("h", "min", 60, "time"),
-        ("min", "sek", 60, "time"),
+        ("m", "cm", 100, "meter", "centimeter"),
+        ("km", "m", 1000, "kilometer", "meter"),
+        ("kg", "g", 1000, "kilogram", "gram"),
+        ("l", "ml", 1000, "liter", "milliliter"),
+        ("l", "dl", 10, "liter", "deciliter"),
+        ("m", "mm", 1000, "meter", "millimeter"),
+        ("h", "min", 60, "timmar", "minuter"),
+        ("min", "sek", 60, "minuter", "sekunder"),
     ]
     
     conv = random.choice(conversions)
-    big_unit, small_unit, factor, _ = conv
+    big_unit, small_unit, factor, big_name, small_name = conv
     
     direction = random.choice(['to_small', 'to_big'])
     
@@ -415,7 +423,7 @@ def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, An
         answer = value * factor
         return {
             "type": "units",
-            "display": f"{value} {big_unit} = ? {small_unit}",
+            "display": t["to_small"].format(small=small_name, value=value, big=big_name),
             "answer": answer,
             "input_type": "number"
         }
@@ -424,7 +432,7 @@ def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, An
         answer = value // factor
         return {
             "type": "units",
-            "display": f"{value} {small_unit} = ? {big_unit}",
+            "display": t["to_big"].format(big=big_name, value=value, small=small_name),
             "answer": answer,
             "input_type": "number"
         }
@@ -432,23 +440,20 @@ def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, An
 
 def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Rounding:
-    - Round 7.4 to whole number
-    - Round 234 to nearest ten
-    - Round 3.456 to one decimal
+    Rounding with natural language questions
     """
     texts = {
         "sv": {
-            "whole": "Avrunda {n} till heltal",
-            "tens": "Avrunda {n} till tiotal",
-            "decimal": "Avrunda {n} till en decimal",
-            "hundreds": "Avrunda {n} till hundratal"
+            "whole": "Vad blir {n} avrundat till heltal?",
+            "tens": "Vad blir {n} avrundat till närmaste tiotal?",
+            "decimal": "Vad blir {n} avrundat till en decimal?",
+            "hundreds": "Vad blir {n} avrundat till närmaste hundratal?"
         },
         "en": {
-            "whole": "Round {n} to whole number",
-            "tens": "Round {n} to nearest ten",
-            "decimal": "Round {n} to one decimal",
-            "hundreds": "Round {n} to nearest hundred"
+            "whole": "What is {n} rounded to a whole number?",
+            "tens": "What is {n} rounded to the nearest ten?",
+            "decimal": "What is {n} rounded to one decimal?",
+            "hundreds": "What is {n} rounded to the nearest hundred?"
         }
     }
     t = texts.get(lang, texts["sv"])
@@ -495,14 +500,14 @@ def generate_angles(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, A
     """
     texts = {
         "sv": {
-            "complement": "Komplementvinkel till {a}° = ?",
-            "supplement": "Supplementvinkel till {a}° = ?",
-            "triangle": "Triangel: {a}° + {b}° + ? = 180°"
+            "complement": "Vad är komplementvinkeln till {a}°?",
+            "supplement": "Vad är supplementvinkeln till {a}°?",
+            "triangle": "En triangel har två vinklar på {a}° och {b}°. Hur stor är den tredje vinkeln?"
         },
         "en": {
-            "complement": "Complement to {a}° = ?",
-            "supplement": "Supplement to {a}° = ?",
-            "triangle": "Triangle: {a}° + {b}° + ? = 180°"
+            "complement": "What is the complement of {a}°?",
+            "supplement": "What is the supplement of {a}°?",
+            "triangle": "A triangle has two angles of {a}° and {b}°. What is the third angle?"
         }
     }
     t = texts.get(lang, texts["sv"])
@@ -541,21 +546,18 @@ def generate_angles(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, A
 
 def generate_probability(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
-    Probability:
-    - Dice: P(roll 4) = ?
-    - Coins: P(heads) = ?
-    - Marbles: 3 red, 5 blue. P(red) = ?
+    Probability with natural language questions
     """
     texts = {
         "sv": {
-            "dice": "Tärning: Sannolikhet för {n}?",
-            "coin": "Mynt: Sannolikhet för krona?",
-            "marble": "{r} röda, {b} blå kulor.\nSannolikhet för röd?"
+            "dice": "Hur stor är sannolikheten att slå en {n}:a med en tärning? Svara som bråk.",
+            "coin": "Hur stor är sannolikheten att få krona när man singlar slant? Svara som bråk.",
+            "marble": "I en påse finns {r} röda och {b} blå kulor. Hur stor är sannolikheten att dra en röd? Svara som bråk."
         },
         "en": {
-            "dice": "Dice: Probability of {n}?",
-            "coin": "Coin: Probability of heads?",
-            "marble": "{r} red, {b} blue marbles.\nProbability of red?"
+            "dice": "What is the probability of rolling a {n} with a dice? Answer as a fraction.",
+            "coin": "What is the probability of getting heads when flipping a coin? Answer as a fraction.",
+            "marble": "A bag contains {r} red and {b} blue marbles. What is the probability of drawing red? Answer as a fraction."
         }
     }
     t = texts.get(lang, texts["sv"])
