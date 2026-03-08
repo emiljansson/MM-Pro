@@ -2390,7 +2390,6 @@ GENERATORS = {
     "angles": generate_angles,
     "probability": generate_probability,
     "diagrams": generate_diagrams,
-    "graphs": generate_graphs,
 }
 
 

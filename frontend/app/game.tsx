@@ -15,7 +15,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { NumericKeyboard, FractionExpression, containsFraction, FractionKeyboard, Fraction, BarChart, isDiagramQuestion, extractChartData } from '../src/components';
-import { LineGraph, isGraphQuestion, extractGraphData } from '../src/components/LineGraph';
 import * as Haptics from 'expo-haptics';
 
 export default function GameScreen() {
@@ -348,35 +347,6 @@ export default function GameScreen() {
                     </Text>
                   )}
                 </View>
-              ) : isGraphQuestion(currentQuestion) ? (
-                <View style={styles.graphQuestionContainer}>
-                  {/* Render the line graph - large */}
-                  {(() => {
-                    const graphData = extractGraphData(currentQuestion);
-                    if (graphData) {
-                      return (
-                        <LineGraph
-                          points={graphData.points}
-                          xMin={graphData.xMin}
-                          xMax={graphData.xMax}
-                          yMin={graphData.yMin}
-                          yMax={graphData.yMax}
-                          size="large"
-                        />
-                      );
-                    }
-                    return null;
-                  })()}
-                  {/* Question text below graph */}
-                  <Text style={[
-                    styles.graphQuestionText,
-                    { color: theme.primary },
-                    isSmallScreen && { fontSize: 16 },
-                    isLargeScreen && { fontSize: 20 }
-                  ]}>
-                    {currentQuestion.display}
-                  </Text>
-                </View>
               ) : currentQuestion.display && containsFraction(currentQuestion.display) ? (
                 <View style={styles.fractionQuestionContainer}>
                   {/* Check if this is a comparison question (has ? between fractions) */}
@@ -600,11 +570,10 @@ export default function GameScreen() {
               }
               showDecimal={currentQuestion.operation === 'division' || currentQuestion.operation === 'percentage'}
               showFraction={currentQuestion.operation === 'fractions'}
-              showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations' || currentQuestion.operation === 'graphs'}
+              showNegative={currentQuestion.operation === 'subtraction' || currentQuestion.operation === 'equations'}
               showPi={currentQuestion.input_type === 'text' && currentQuestion.operation === 'geometry'}
-              compact={isSmallScreen && !isGraphQuestion(currentQuestion)}
-              large={isLargeScreen && !isGraphQuestion(currentQuestion)}
-              graph={isGraphQuestion(currentQuestion)}
+              compact={isSmallScreen}
+              large={isLargeScreen}
             />
           )}
         </View>
@@ -855,19 +824,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginTop: -4,
-    textAlign: 'center',
-  },
-  graphQuestionContainer: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 5,
-    paddingBottom: 0,
-  },
-  graphQuestionText: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginTop: 8,
     textAlign: 'center',
   },
 });
