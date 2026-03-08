@@ -63,7 +63,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const submitFontSize = graph ? 16 : (mini ? 14 : (large ? 22 : (compact ? 16 : 19)));
   const iconSize = graph ? 22 : (mini ? 18 : (large ? 32 : (compact ? 20 : 26)));
   const rowMargin = graph ? 5 : (mini ? 2 : (large ? 10 : (compact ? 4 : 8)));
-  const containerPadding = graph ? 16 : (mini ? 8 : (large ? 24 : 16));
+  const containerPadding = graph ? 10 : (mini ? 8 : (large ? 24 : 16));
 
   // Determine special key based on mode or individual props
   // Always show decimal point by default
