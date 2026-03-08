@@ -484,8 +484,13 @@ export default function AdminScreen() {
         <View style={styles.backButton} />
       </View>
 
-      {/* Tabs */}
-      <View style={[styles.tabs, { backgroundColor: theme.card, borderBottomColor: theme.border }]}>
+      {/* Tabs - Scrollable */}
+      <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false}
+        style={[styles.tabsContainer, { backgroundColor: theme.card, borderBottomColor: theme.border }]}
+        contentContainerStyle={styles.tabsContent}
+      >
         {tabs.map((tab) => (
           <TouchableOpacity
             key={tab.key}
@@ -508,7 +513,7 @@ export default function AdminScreen() {
             </Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </ScrollView>
 
       <ScrollView
         style={styles.content}
@@ -612,12 +617,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
   },
+  tabsContainer: {
+    borderBottomWidth: 1,
+    flexGrow: 0,
+  },
+  tabsContent: {
+    paddingHorizontal: 8,
+  },
   tab: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 14,
+    paddingHorizontal: 20,
+    marginHorizontal: 4,
     gap: 6,
   },
   tabText: { fontSize: 13, fontWeight: '600' },
