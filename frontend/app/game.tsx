@@ -870,11 +870,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   questionAreaGraph: {
-    flex: 0,
     paddingVertical: 4,
+    paddingHorizontal: 8,
   },
   questionCardGraph: {
-    paddingVertical: 12,
-    paddingHorizontal: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
   },
 });
