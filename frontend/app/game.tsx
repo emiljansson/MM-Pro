@@ -576,6 +576,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   keyboardContainer: {
+    paddingTop: 10,
     paddingBottom: 0,
     justifyContent: 'flex-end',
   },
