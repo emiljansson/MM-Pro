@@ -374,85 +374,151 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
           </View>
+
+          {/* Difficulty Section - In ScrollView for phone */}
+          {!isTablet && (
+            <View style={[
+              styles.section, 
+              isCompact && styles.sectionCompact
+            ]}>
+              <Text style={[
+                styles.sectionTitle, 
+                { color: theme.textMuted }, 
+                isCompact && styles.sectionTitleCompact
+              ]}>
+                {t('difficulty')}
+              </Text>
+              <DifficultySelector
+                options={difficultyOptions}
+                difficulty={settings.difficulty}
+                onSelect={(difficulty) => updateSettings({ difficulty })}
+                compact={isCompact}
+              />
+            </View>
+          )}
+
+          {/* Question Count Section - In ScrollView for phone */}
+          {!isTablet && (
+            <View style={[
+              styles.section, 
+              isCompact && styles.sectionCompact
+            ]}>
+              <Text style={[
+                styles.sectionTitle, 
+                { color: theme.textMuted }, 
+                isCompact && styles.sectionTitleCompact
+              ]}>
+                {t('question_count')}: {settings.questionCount}
+              </Text>
+              <QuestionCountSelector
+                options={QUESTION_COUNTS}
+                count={settings.questionCount}
+                onSelect={(count) => updateSettings({ questionCount: count })}
+                compact={isCompact}
+              />
+            </View>
+          )}
         </ScrollView>
 
-        {/* Fixed bottom section - Difficulty, Question Count & Start Button */}
-        <View style={[
-          styles.fixedBottomSection,
-          { backgroundColor: theme.background },
-          isTablet && { paddingHorizontal: 24 }
-        ]}>
-          {/* Difficulty Section */}
+        {/* Fixed bottom section for tablet - Difficulty, Question Count & Start Button */}
+        {isTablet && (
           <View style={[
-            styles.section, 
-            isCompact && styles.sectionCompact,
-            isTablet && { marginBottom: 8 }
+            styles.fixedBottomSection,
+            { backgroundColor: theme.background, paddingHorizontal: 24 }
           ]}>
-            <Text style={[
-              styles.sectionTitle, 
-              { color: theme.textMuted }, 
-              isCompact && styles.sectionTitleCompact,
-              isTablet && { fontSize: 12, marginBottom: 8 }
-            ]}>
-              {t('difficulty')}
-            </Text>
-            <DifficultySelector
-              options={difficultyOptions}
-              difficulty={settings.difficulty}
-              onSelect={(difficulty) => updateSettings({ difficulty })}
-              compact={isCompact}
-            />
-          </View>
+            {/* Difficulty Section */}
+            <View style={[styles.section, { marginBottom: 8 }]}>
+              <Text style={[
+                styles.sectionTitle, 
+                { color: theme.textMuted, fontSize: 12, marginBottom: 8 }
+              ]}>
+                {t('difficulty')}
+              </Text>
+              <DifficultySelector
+                options={difficultyOptions}
+                difficulty={settings.difficulty}
+                onSelect={(difficulty) => updateSettings({ difficulty })}
+                compact={isCompact}
+              />
+            </View>
 
-          {/* Question Count Section */}
+            {/* Question Count Section */}
+            <View style={[styles.section, { marginBottom: 20 }]}>
+              <Text style={[
+                styles.sectionTitle, 
+                { color: theme.textMuted, fontSize: 12, marginBottom: 8 }
+              ]}>
+                {t('question_count')}: {settings.questionCount}
+              </Text>
+              <QuestionCountSelector
+                options={QUESTION_COUNTS}
+                count={settings.questionCount}
+                onSelect={(count) => updateSettings({ questionCount: count })}
+                compact={isCompact}
+              />
+            </View>
+
+            {/* Start Button */}
+            <TouchableOpacity
+              style={[
+                styles.startButton,
+                { 
+                  backgroundColor: settings.operations.length > 0 ? theme.success : theme.textMuted,
+                  opacity: settings.operations.length > 0 ? 1 : 0.6,
+                }
+              ]}
+              onPress={handleStartGame}
+              disabled={isLoading || settings.operations.length === 0}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#FFFFFF" />
+              ) : (
+                <>
+                  <Ionicons name="play" size={24} color="#FFFFFF" />
+                  <Text style={styles.startButtonText}>
+                    {settings.operations.length > 0 
+                      ? t('start_game') 
+                      : t('select_category') || 'Välj kategori'}
+                  </Text>
+                </>
+              )}
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* Fixed Start Button for phone - same position as game keyboard */}
+        {!isTablet && (
           <View style={[
-            styles.section, 
-            isCompact && styles.sectionCompact,
-            { marginBottom: 20 }
+            styles.phoneStartButtonContainer,
+            { backgroundColor: theme.background }
           ]}>
-            <Text style={[
-              styles.sectionTitle, 
-              { color: theme.textMuted }, 
-              isCompact && styles.sectionTitleCompact,
-              isTablet && { fontSize: 12, marginBottom: 8 }
-            ]}>
-              {t('question_count')}: {settings.questionCount}
-            </Text>
-            <QuestionCountSelector
-              options={QUESTION_COUNTS}
-              count={settings.questionCount}
-              onSelect={(count) => updateSettings({ questionCount: count })}
-              compact={isCompact}
-            />
+            <TouchableOpacity
+              style={[
+                styles.startButton,
+                { 
+                  backgroundColor: settings.operations.length > 0 ? theme.success : theme.textMuted,
+                  opacity: settings.operations.length > 0 ? 1 : 0.6,
+                },
+                isCompact && styles.startButtonCompact
+              ]}
+              onPress={handleStartGame}
+              disabled={isLoading || settings.operations.length === 0}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#FFFFFF" />
+              ) : (
+                <>
+                  <Ionicons name="play" size={isCompact ? 20 : 24} color="#FFFFFF" />
+                  <Text style={[styles.startButtonText, isCompact && styles.startButtonTextCompact]}>
+                    {settings.operations.length > 0 
+                      ? t('start_game') 
+                      : t('select_category') || 'Välj kategori'}
+                  </Text>
+                </>
+              )}
+            </TouchableOpacity>
           </View>
-
-          {/* Start Button */}
-          <TouchableOpacity
-            style={[
-              styles.startButton,
-              { 
-                backgroundColor: settings.operations.length > 0 ? theme.success : theme.textMuted,
-                opacity: settings.operations.length > 0 ? 1 : 0.6,
-              },
-              isCompact && styles.startButtonCompact
-            ]}
-            onPress={handleStartGame}
-            disabled={isLoading || settings.operations.length === 0}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <>
-                <Ionicons name="play" size={isCompact ? 20 : 24} color="#FFFFFF" />
-                <Text style={[styles.startButtonText, isCompact && styles.startButtonTextCompact]}>
-                  {settings.operations.length > 0 
-                    ? t('start_game') 
-                    : t('select_category') || 'Välj kategori'}
-                </Text>
-              </>
-            )}
-          </TouchableOpacity>
-        </View>
+        )}
       </View>
 
       {/* Language Selector Modal */}
@@ -638,6 +704,11 @@ const styles = StyleSheet.create({
   fixedBottomSection: {
     paddingHorizontal: 16,
     paddingTop: 12,
+    paddingBottom: 24,
+  },
+  phoneStartButtonContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     paddingBottom: 24,
   },
   startButton: {
