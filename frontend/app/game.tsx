@@ -390,7 +390,7 @@ export default function GameScreen() {
                     isVerySmallScreen && styles.questionTextVeryCompact,
                     isLargeScreen && { fontSize: 52, marginBottom: 24 }
                   ]}
-                  numberOfLines={2}
+                  numberOfLines={3}
                   adjustsFontSizeToFit
                   minimumFontScale={0.5}
                 >
