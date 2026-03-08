@@ -46,7 +46,7 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const insets = useSafeAreaInsets();
   
   // Calculate bottom padding: safe area inset for navigation bar
-  const bottomPadding = Math.max(12, insets.bottom) + 8;
+  const bottomPadding = Math.max(12, insets.bottom);
   
   // Dynamic sizes based on screen size
   const keyHeight = large ? 60 : (compact ? 40 : 52);
