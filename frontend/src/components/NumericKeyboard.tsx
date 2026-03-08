@@ -57,13 +57,13 @@ export const NumericKeyboard: React.FC<NumericKeyboardProps> = ({
   const bottomPadding = mini ? 4 : Math.max(12, insets.bottom);
   
   // Dynamic sizes based on screen size
-  const keyHeight = graph ? 45 : (mini ? 36 : (large ? 60 : (compact ? 40 : 52)));
-  const keyFontSize = graph ? 22 : (mini ? 18 : (large ? 32 : (compact ? 20 : 24)));
-  const submitHeight = graph ? 45 : (mini ? 38 : (large ? 64 : (compact ? 42 : 54)));
+  const keyHeight = graph ? 47 : (mini ? 36 : (large ? 60 : (compact ? 40 : 52)));
+  const keyFontSize = graph ? 25 : (mini ? 18 : (large ? 32 : (compact ? 20 : 24)));
+  const submitHeight = graph ? 49 : (mini ? 38 : (large ? 64 : (compact ? 42 : 54)));
   const submitFontSize = graph ? 16 : (mini ? 14 : (large ? 22 : (compact ? 16 : 19)));
   const iconSize = graph ? 22 : (mini ? 18 : (large ? 32 : (compact ? 20 : 26)));
   const rowMargin = graph ? 5 : (mini ? 2 : (large ? 10 : (compact ? 4 : 8)));
-  const containerPadding = graph ? 10 : (mini ? 8 : (large ? 24 : 16));
+  const containerPadding = graph ? 16 : (mini ? 8 : (large ? 24 : 16));
 
   // Determine special key based on mode or individual props
   // Always show decimal point by default
