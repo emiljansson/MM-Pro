@@ -438,9 +438,21 @@ def generate_units(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, An
         }
 
 
+import math
+
+def math_round(value: float, decimals: int = 0) -> float:
+    """
+    Standard mathematical rounding where .5 always rounds up.
+    Python's round() uses banker's rounding (rounds .5 to nearest even).
+    """
+    multiplier = 10 ** decimals
+    return math.floor(value * multiplier + 0.5) / multiplier
+
+
 def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str, Any]:
     """
     Rounding with natural language questions
+    Uses standard mathematical rounding (5 and above rounds up)
     """
     texts = {
         "sv": {
@@ -461,8 +473,9 @@ def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
     round_type = random.choice(['whole', 'tens', 'decimal'])
     
     if round_type == 'whole':
+        # Generate number with one decimal
         num = round(random.uniform(0.1, max_val) + random.random(), 1)
-        answer = round(num)
+        answer = int(math_round(num, 0))
         return {
             "type": "rounding",
             "display": t["whole"].format(n=num),
@@ -472,17 +485,19 @@ def generate_rounding(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
     
     elif round_type == 'tens':
         num = random.randint(min_val, max_val * 10)
-        answer = round(num, -1)
+        # Round to nearest 10: divide by 10, round, multiply by 10
+        answer = int(math_round(num / 10, 0) * 10)
         return {
             "type": "rounding",
             "display": t["tens"].format(n=num),
-            "answer": int(answer),
+            "answer": answer,
             "input_type": "number"
         }
     
     else:  # decimal
+        # Generate number with two decimals
         num = round(random.uniform(0.01, max_val) + random.random(), 2)
-        answer = round(num, 1)
+        answer = math_round(num, 1)
         return {
             "type": "rounding",
             "display": t["decimal"].format(n=num),
