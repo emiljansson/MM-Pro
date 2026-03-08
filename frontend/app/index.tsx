@@ -72,7 +72,16 @@ export default function HomeScreen() {
   const isTablet = width > 600;
   const isCompact = availableHeight < 700 && !isTablet;
   const isLargeScreen = isTablet;
-  const scale = isTablet ? 1.3 : 1;
+  
+  // Scale factor for different screen sizes
+  const scale = isTablet ? Math.min(1.4, width / 600) : 1;
+  
+  // Dynamic spacing based on available height
+  const dynamicSpacing = {
+    sectionMargin: isTablet ? Math.min(8, availableHeight * 0.01) : (isCompact ? 8 : 12),
+    titleMargin: isTablet ? Math.min(16, availableHeight * 0.02) : (isCompact ? 12 : 20),
+    contentPadding: isTablet ? 24 : 16,
+  };
 
   // Calculate pages - use full width for scroll container
   const totalPages = Math.ceil(ALL_CATEGORIES.length / ITEMS_PER_PAGE);
@@ -225,23 +234,49 @@ export default function HomeScreen() {
         {/* Main Content */}
         <ScrollView 
           style={styles.mainScroll}
-          contentContainerStyle={styles.mainScrollContent}
+          contentContainerStyle={[
+            styles.mainScrollContent,
+            isTablet && { paddingHorizontal: dynamicSpacing.contentPadding }
+          ]}
           showsVerticalScrollIndicator={false}
         >
           {/* Title */}
-          <View style={[styles.titleContainer, isCompact && styles.titleContainerCompact]}>
-            <Text style={[styles.title, { color: theme.primary }, isCompact && styles.titleCompact]}>
+          <View style={[
+            styles.titleContainer, 
+            isCompact && styles.titleContainerCompact,
+            isTablet && { marginBottom: dynamicSpacing.titleMargin }
+          ]}>
+            <Text style={[
+              styles.title, 
+              { color: theme.primary }, 
+              isCompact && styles.titleCompact,
+              isTablet && { fontSize: 32 * scale }
+            ]}>
               <Text style={{ fontWeight: '400' }}>{t('app_title_part1')}</Text>
               <Text style={{ fontWeight: '800' }}>{t('app_title_part2')}</Text>
             </Text>
-            <Text style={[styles.tagline, { color: theme.textSecondary }, isCompact && styles.taglineCompact]}>
+            <Text style={[
+              styles.tagline, 
+              { color: theme.textSecondary }, 
+              isCompact && styles.taglineCompact,
+              isTablet && { fontSize: 14 * scale }
+            ]}>
               {t('tagline')}
             </Text>
           </View>
 
           {/* Categories Section */}
-          <View style={[styles.section, isCompact && styles.sectionCompact]}>
-            <Text style={[styles.sectionTitle, { color: theme.textMuted }, isCompact && styles.sectionTitleCompact]}>
+          <View style={[
+            styles.section, 
+            isCompact && styles.sectionCompact,
+            isTablet && { marginBottom: dynamicSpacing.sectionMargin }
+          ]}>
+            <Text style={[
+              styles.sectionTitle, 
+              { color: theme.textMuted }, 
+              isCompact && styles.sectionTitleCompact,
+              isTablet && { fontSize: 12, marginBottom: 8 }
+            ]}>
               {t('select_operation')}
             </Text>
             
@@ -260,19 +295,23 @@ export default function HomeScreen() {
             </ScrollView>
 
             {/* Navigation Arrows & Page Indicators */}
-            <View style={styles.navigationContainer}>
+            <View style={[
+              styles.navigationContainer,
+              isTablet && { marginTop: 4, marginBottom: 0 }
+            ]}>
               <TouchableOpacity
                 style={[
                   styles.navArrow,
                   { backgroundColor: theme.card },
-                  currentPage === 0 && styles.navArrowDisabled
+                  currentPage === 0 && styles.navArrowDisabled,
+                  isTablet && { width: 44, height: 44, borderRadius: 22 }
                 ]}
                 onPress={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 0}
               >
                 <Ionicons 
                   name="chevron-back" 
-                  size={24} 
+                  size={isTablet ? 28 : 24} 
                   color={currentPage === 0 ? theme.textMuted : theme.primary} 
                 />
               </TouchableOpacity>
@@ -284,7 +323,8 @@ export default function HomeScreen() {
                     onPress={() => goToPage(idx)}
                     style={[
                       styles.pageIndicator,
-                      { backgroundColor: idx === currentPage ? theme.primary : theme.border }
+                      { backgroundColor: idx === currentPage ? theme.primary : theme.border },
+                      isTablet && { width: 10, height: 10, marginHorizontal: 5 }
                     ]}
                   />
                 ))}
@@ -294,14 +334,15 @@ export default function HomeScreen() {
                 style={[
                   styles.navArrow,
                   { backgroundColor: theme.card },
-                  currentPage === totalPages - 1 && styles.navArrowDisabled
+                  currentPage === totalPages - 1 && styles.navArrowDisabled,
+                  isTablet && { width: 44, height: 44, borderRadius: 22 }
                 ]}
                 onPress={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages - 1}
               >
                 <Ionicons 
                   name="chevron-forward" 
-                  size={24} 
+                  size={isTablet ? 28 : 24} 
                   color={currentPage === totalPages - 1 ? theme.textMuted : theme.primary} 
                 />
               </TouchableOpacity>
@@ -309,8 +350,17 @@ export default function HomeScreen() {
           </View>
 
           {/* Difficulty Section */}
-          <View style={[styles.section, isCompact && styles.sectionCompact]}>
-            <Text style={[styles.sectionTitle, { color: theme.textMuted }, isCompact && styles.sectionTitleCompact]}>
+          <View style={[
+            styles.section, 
+            isCompact && styles.sectionCompact,
+            isTablet && { marginBottom: dynamicSpacing.sectionMargin }
+          ]}>
+            <Text style={[
+              styles.sectionTitle, 
+              { color: theme.textMuted }, 
+              isCompact && styles.sectionTitleCompact,
+              isTablet && { fontSize: 12, marginBottom: 8 }
+            ]}>
               {t('difficulty')}
             </Text>
             <DifficultySelector
@@ -322,8 +372,17 @@ export default function HomeScreen() {
           </View>
 
           {/* Question Count Section */}
-          <View style={[styles.section, isCompact && styles.sectionCompact]}>
-            <Text style={[styles.sectionTitle, { color: theme.textMuted }, isCompact && styles.sectionTitleCompact]}>
+          <View style={[
+            styles.section, 
+            isCompact && styles.sectionCompact,
+            isTablet && { marginBottom: dynamicSpacing.sectionMargin }
+          ]}>
+            <Text style={[
+              styles.sectionTitle, 
+              { color: theme.textMuted }, 
+              isCompact && styles.sectionTitleCompact,
+              isTablet && { fontSize: 12, marginBottom: 8 }
+            ]}>
               {t('question_count')}: {settings.questionCount}
             </Text>
             <QuestionCountSelector
