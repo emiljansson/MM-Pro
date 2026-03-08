@@ -382,13 +382,18 @@ export default function GameScreen() {
                   )}
                 </View>
               ) : (
-                <Text style={[
-                  styles.questionText, 
-                  { color: theme.text, textAlign: 'center' },
-                  isSmallScreen && styles.questionTextCompact,
-                  isVerySmallScreen && styles.questionTextVeryCompact,
-                  isLargeScreen && { fontSize: 52, marginBottom: 24 }
-                ]}>
+                <Text 
+                  style={[
+                    styles.questionText, 
+                    { color: theme.text, textAlign: 'center' },
+                    isSmallScreen && styles.questionTextCompact,
+                    isVerySmallScreen && styles.questionTextVeryCompact,
+                    isLargeScreen && { fontSize: 52, marginBottom: 24 }
+                  ]}
+                  numberOfLines={2}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.5}
+                >
                   {currentQuestion.display 
                     ? currentQuestion.display.replace('= ?', '=').replace(' ?', '') 
                     : '?'}
