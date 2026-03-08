@@ -287,6 +287,263 @@ export const FALLBACK_TRANSLATIONS: Record<string, Record<string, string>> = {
     fi: "Anna vastaus",
     es: "Ingresa una respuesta",
     so: "Geli jawaab"
+  },
+  // Auth translations
+  login: {
+    sv: "Logga in",
+    en: "Login",
+    ar: "تسجيل الدخول",
+    fi: "Kirjaudu",
+    es: "Iniciar sesión",
+    so: "Gal"
+  },
+  login_subtitle: {
+    sv: "Välkommen tillbaka!",
+    en: "Welcome back!",
+    ar: "مرحبًا بعودتك!",
+    fi: "Tervetuloa takaisin!",
+    es: "¡Bienvenido de nuevo!",
+    so: "Ku soo dhawoow!"
+  },
+  register: {
+    sv: "Registrera",
+    en: "Register",
+    ar: "تسجيل",
+    fi: "Rekisteröidy",
+    es: "Registrarse",
+    so: "Isdiiwaangeli"
+  },
+  register_subtitle: {
+    sv: "Skapa ditt konto",
+    en: "Create your account",
+    ar: "أنشئ حسابك",
+    fi: "Luo tilisi",
+    es: "Crea tu cuenta",
+    so: "Samee akoonkaaga"
+  },
+  logout: {
+    sv: "Logga ut",
+    en: "Logout",
+    ar: "تسجيل الخروج",
+    fi: "Kirjaudu ulos",
+    es: "Cerrar sesión",
+    so: "Ka bax"
+  },
+  email: {
+    sv: "E-post",
+    en: "Email",
+    ar: "البريد الإلكتروني",
+    fi: "Sähköposti",
+    es: "Correo electrónico",
+    so: "Iimaylka"
+  },
+  email_placeholder: {
+    sv: "Ange din e-post",
+    en: "Enter your email",
+    ar: "أدخل بريدك الإلكتروني",
+    fi: "Syötä sähköpostisi",
+    es: "Introduce tu correo",
+    so: "Geli iimaylkaaga"
+  },
+  password: {
+    sv: "Lösenord",
+    en: "Password",
+    ar: "كلمة المرور",
+    fi: "Salasana",
+    es: "Contraseña",
+    so: "Erayga sirta ah"
+  },
+  password_placeholder: {
+    sv: "Ange ditt lösenord",
+    en: "Enter your password",
+    ar: "أدخل كلمة المرور",
+    fi: "Syötä salasanasi",
+    es: "Introduce tu contraseña",
+    so: "Geli eraygaaga sirta ah"
+  },
+  display_name: {
+    sv: "Visningsnamn",
+    en: "Display name",
+    ar: "اسم العرض",
+    fi: "Näyttönimi",
+    es: "Nombre para mostrar",
+    so: "Magaca muuqda"
+  },
+  display_name_placeholder: {
+    sv: "Ange ditt namn",
+    en: "Enter your name",
+    ar: "أدخل اسمك",
+    fi: "Syötä nimesi",
+    es: "Introduce tu nombre",
+    so: "Geli magacaaga"
+  },
+  confirm_password: {
+    sv: "Bekräfta lösenord",
+    en: "Confirm password",
+    ar: "تأكيد كلمة المرور",
+    fi: "Vahvista salasana",
+    es: "Confirmar contraseña",
+    so: "Xaqiiji erayga sirta ah"
+  },
+  confirm_password_placeholder: {
+    sv: "Bekräfta ditt lösenord",
+    en: "Confirm your password",
+    ar: "أكد كلمة المرور",
+    fi: "Vahvista salasanasi",
+    es: "Confirma tu contraseña",
+    so: "Xaqiiji eraygaaga sirta ah"
+  },
+  forgot_password: {
+    sv: "Glömt lösenord?",
+    en: "Forgot password?",
+    ar: "نسيت كلمة المرور؟",
+    fi: "Unohditko salasanan?",
+    es: "¿Olvidaste la contraseña?",
+    so: "Ma ilowday erayga sirta ah?"
+  },
+  continue_with_google: {
+    sv: "Fortsätt med Google",
+    en: "Continue with Google",
+    ar: "المتابعة مع Google",
+    fi: "Jatka Googlella",
+    es: "Continuar con Google",
+    so: "Ku sii wad Google"
+  },
+  or: {
+    sv: "eller",
+    en: "or",
+    ar: "أو",
+    fi: "tai",
+    es: "o",
+    so: "ama"
+  },
+  no_account: {
+    sv: "Har du inget konto?",
+    en: "Don't have an account?",
+    ar: "ليس لديك حساب؟",
+    fi: "Eikö sinulla ole tiliä?",
+    es: "¿No tienes cuenta?",
+    so: "Ma haysatid akoon?"
+  },
+  have_account: {
+    sv: "Har du redan ett konto?",
+    en: "Already have an account?",
+    ar: "لديك حساب بالفعل؟",
+    fi: "Onko sinulla jo tili?",
+    es: "¿Ya tienes cuenta?",
+    so: "Ma haysataa akoon?"
+  },
+  profile: {
+    sv: "Profil",
+    en: "Profile",
+    ar: "الملف الشخصي",
+    fi: "Profiili",
+    es: "Perfil",
+    so: "Astaanta"
+  },
+  history: {
+    sv: "Historik",
+    en: "History",
+    ar: "السجل",
+    fi: "Historia",
+    es: "Historial",
+    so: "Taariikhda"
+  },
+  groups: {
+    sv: "Grupper",
+    en: "Groups",
+    ar: "المجموعات",
+    fi: "Ryhmät",
+    es: "Grupos",
+    so: "Kooxaha"
+  },
+  leaderboard: {
+    sv: "Topplista",
+    en: "Leaderboard",
+    ar: "لوحة المتصدرين",
+    fi: "Tulostaulukko",
+    es: "Clasificación",
+    so: "Liiska hogaamiyaha"
+  },
+  achievements: {
+    sv: "Prestationer",
+    en: "Achievements",
+    ar: "الإنجازات",
+    fi: "Saavutukset",
+    es: "Logros",
+    so: "Guulaha"
+  },
+  statistics: {
+    sv: "Statistik",
+    en: "Statistics",
+    ar: "الإحصائيات",
+    fi: "Tilastot",
+    es: "Estadísticas",
+    so: "Tirakoobka"
+  },
+  games_played: {
+    sv: "Spel spelade",
+    en: "Games played",
+    ar: "الألعاب التي لعبتها",
+    fi: "Pelatut pelit",
+    es: "Juegos jugados",
+    so: "Ciyaarooyinka la ciyaaray"
+  },
+  correct_answers: {
+    sv: "Rätta svar",
+    en: "Correct answers",
+    ar: "الإجابات الصحيحة",
+    fi: "Oikeat vastaukset",
+    es: "Respuestas correctas",
+    so: "Jawaabaha saxda ah"
+  },
+  accuracy: {
+    sv: "Träffsäkerhet",
+    en: "Accuracy",
+    ar: "الدقة",
+    fi: "Tarkkuus",
+    es: "Precisión",
+    so: "Saxnaanta"
+  },
+  best_streak: {
+    sv: "Bästa svit",
+    en: "Best streak",
+    ar: "أفضل سلسلة",
+    fi: "Paras putki",
+    es: "Mejor racha",
+    so: "Isku xigxigga ugu fiican"
+  },
+  cancel: {
+    sv: "Avbryt",
+    en: "Cancel",
+    ar: "إلغاء",
+    fi: "Peruuta",
+    es: "Cancelar",
+    so: "Jooji"
+  },
+  logout_confirm: {
+    sv: "Är du säker på att du vill logga ut?",
+    en: "Are you sure you want to logout?",
+    ar: "هل أنت متأكد من تسجيل الخروج؟",
+    fi: "Haluatko varmasti kirjautua ulos?",
+    es: "¿Seguro que quieres cerrar sesión?",
+    so: "Ma hubtaa inaad rabto inaad ka baxdo?"
+  },
+  upgrade_to_pro: {
+    sv: "Uppgradera till Pro",
+    en: "Upgrade to Pro",
+    ar: "الترقية إلى Pro",
+    fi: "Päivitä Pro-versioon",
+    es: "Actualizar a Pro",
+    so: "U kor u qaad Pro"
+  },
+  pro_features_desc: {
+    sv: "Lås upp alla matematikkategorier",
+    en: "Unlock all math categories",
+    ar: "افتح جميع فئات الرياضيات",
+    fi: "Avaa kaikki matematiikkakategoriat",
+    es: "Desbloquea todas las categorías",
+    so: "Fur dhammaan qaybaha xisaabta"
   }
 };
 

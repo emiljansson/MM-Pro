@@ -9,12 +9,14 @@ import {
   Platform,
   Alert,
   useWindowDimensions,
+  Image,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
+import { useAuth } from '../src/contexts';
 import {
   OperationCard,
   DifficultySelector,
@@ -37,6 +39,7 @@ export default function HomeScreen() {
   const { t, language } = useTranslation();
   const { height, width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const {
     settings,
     updateSettings,
@@ -143,6 +146,33 @@ export default function HomeScreen() {
             onPress={() => setShowLanguageSelector(true)}
           >
             <Ionicons name="language" size={isLargeScreen ? 28 : (isCompact ? 20 : 24)} color={theme.primary} />
+          </TouchableOpacity>
+
+          {/* Profile/Login Button */}
+          <TouchableOpacity
+            style={[
+              styles.iconButton, 
+              { backgroundColor: theme.card },
+              isCompact && styles.iconButtonCompact,
+              isLargeScreen && { width: 48, height: 48, borderRadius: 24 }
+            ]}
+            onPress={() => isAuthenticated ? router.push('/profile') : router.push('/login')}
+          >
+            {isAuthenticated && user?.picture ? (
+              <Image
+                source={{ uri: user.picture }}
+                style={[
+                  styles.profileImage,
+                  isLargeScreen && { width: 32, height: 32, borderRadius: 16 }
+                ]}
+              />
+            ) : (
+              <Ionicons 
+                name={isAuthenticated ? 'person' : 'log-in-outline'} 
+                size={isLargeScreen ? 28 : (isCompact ? 20 : 24)} 
+                color={theme.primary} 
+              />
+            )}
           </TouchableOpacity>
         </View>
 
@@ -411,5 +441,10 @@ const styles = StyleSheet.create({
   },
   startButtonTextCompact: {
     fontSize: 15,
+  },
+  profileImage: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
   },
 });

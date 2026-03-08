@@ -25,6 +25,10 @@ export interface ThemeColors {
   successLight: string;
   error: string;
   errorLight: string;
+  warning: string;
+  warningLight: string;
+  info: string;
+  infoLight: string;
   
   // UI elements
   border: string;
@@ -65,6 +69,10 @@ export const lightTheme: ThemeColors = {
   successLight: '#B9F6CA',
   error: '#FF5252',
   errorLight: '#FFCDD2',
+  warning: '#FFC107',
+  warningLight: '#FFF9C4',
+  info: '#2196F3',
+  infoLight: '#BBDEFB',
   
   // UI elements
   border: '#E0E0E0',
@@ -105,6 +113,10 @@ export const darkTheme: ThemeColors = {
   successLight: '#00C853',
   error: '#FF8A80',
   errorLight: '#FF5252',
+  warning: '#FFD54F',
+  warningLight: '#FFC107',
+  info: '#64B5F6',
+  infoLight: '#2196F3',
   
   // UI elements
   border: '#37474F',
