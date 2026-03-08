@@ -660,7 +660,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    zIndex: 999,
   },
   feedbackIcon: {
     width: 120,
