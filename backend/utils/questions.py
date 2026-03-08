@@ -619,7 +619,19 @@ def generate_diagrams(min_val: int, max_val: int, lang: str = "sv") -> Dict[str,
     t = texts.get(lang, texts["sv"])
     
     days = t["days"]
-    values = [random.randint(min_val, max_val) for _ in days]
+    
+    # Generate unique values for each bar
+    # Ensure we have enough range for 5 unique values
+    range_size = max_val - min_val + 1
+    if range_size < 5:
+        # Expand range if needed
+        min_val = 1
+        max_val = max(10, max_val)
+    
+    # Generate 5 unique random values
+    available_values = list(range(min_val, max_val + 1))
+    random.shuffle(available_values)
+    values = available_values[:5]
     
     q_type = random.choice(['max', 'min', 'sum', 'diff'])
     
