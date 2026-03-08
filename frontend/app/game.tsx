@@ -652,7 +652,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 16,
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   questionCardCompact: {
     paddingVertical: 12,
