@@ -681,6 +681,151 @@ export const FALLBACK_TRANSLATIONS: Record<string, Record<string, string>> = {
     fi: "pistettä",
     es: "puntos",
     so: "dhibco"
+  },
+  // Password reset translations
+  forgot_password_title: {
+    sv: "Återställ lösenord",
+    en: "Reset Password",
+    ar: "إعادة تعيين كلمة المرور",
+    fi: "Palauta salasana",
+    es: "Restablecer contraseña",
+    so: "Dib u deji erayga sirta ah"
+  },
+  forgot_password_desc: {
+    sv: "Ange din e-post för att få en återställningskod",
+    en: "Enter your email to receive a reset code",
+    ar: "أدخل بريدك الإلكتروني للحصول على رمز إعادة التعيين",
+    fi: "Syötä sähköpostisi saadaksesi palautuskoodin",
+    es: "Introduce tu email para recibir un código de restablecimiento",
+    so: "Geli iimaylkaaga si aad u hesho koodhka dib-u-dejinta"
+  },
+  send_code: {
+    sv: "Skicka återställningskod",
+    en: "Send Reset Code",
+    ar: "إرسال رمز إعادة التعيين",
+    fi: "Lähetä palautuskoodi",
+    es: "Enviar código de restablecimiento",
+    so: "Dir koodhka dib-u-dejinta"
+  },
+  enter_code_title: {
+    sv: "Ange kod",
+    en: "Enter Code",
+    ar: "أدخل الرمز",
+    fi: "Syötä koodi",
+    es: "Introduce el código",
+    so: "Geli koodhka"
+  },
+  enter_code_desc: {
+    sv: "Vi skickade en kod till din e-post. Ange den nedan.",
+    en: "We sent a code to your email. Enter it below.",
+    ar: "أرسلنا رمزًا إلى بريدك الإلكتروني. أدخله أدناه.",
+    fi: "Lähetimme koodin sähköpostiisi. Syötä se alle.",
+    es: "Enviamos un código a tu email. Introdúcelo abajo.",
+    so: "Waxaan ku dirnay koodh iimaylkaaga. Geli hoos."
+  },
+  reset_code: {
+    sv: "Återställningskod",
+    en: "Reset Code",
+    ar: "رمز إعادة التعيين",
+    fi: "Palautuskoodi",
+    es: "Código de restablecimiento",
+    so: "Koodhka dib-u-dejinta"
+  },
+  enter_code: {
+    sv: "Ange återställningskod",
+    en: "Enter reset code",
+    ar: "أدخل رمز إعادة التعيين",
+    fi: "Syötä palautuskoodi",
+    es: "Introduce el código de restablecimiento",
+    so: "Geli koodhka dib-u-dejinta"
+  },
+  verify: {
+    sv: "Verifiera",
+    en: "Verify",
+    ar: "تحقق",
+    fi: "Vahvista",
+    es: "Verificar",
+    so: "Xaqiiji"
+  },
+  resend_code: {
+    sv: "Skicka kod igen",
+    en: "Resend code",
+    ar: "إعادة إرسال الرمز",
+    fi: "Lähetä koodi uudelleen",
+    es: "Reenviar código",
+    so: "Dib u dir koodhka"
+  },
+  new_password_title: {
+    sv: "Nytt lösenord",
+    en: "New Password",
+    ar: "كلمة مرور جديدة",
+    fi: "Uusi salasana",
+    es: "Nueva contraseña",
+    so: "Eray sir ah cusub"
+  },
+  new_password_desc: {
+    sv: "Ange ditt nya lösenord",
+    en: "Enter your new password",
+    ar: "أدخل كلمة المرور الجديدة",
+    fi: "Syötä uusi salasanasi",
+    es: "Introduce tu nueva contraseña",
+    so: "Geli eraygaaga sirta ah ee cusub"
+  },
+  new_password: {
+    sv: "Nytt lösenord",
+    en: "New Password",
+    ar: "كلمة مرور جديدة",
+    fi: "Uusi salasana",
+    es: "Nueva contraseña",
+    so: "Eray sir ah cusub"
+  },
+  enter_new_password: {
+    sv: "Ange nytt lösenord",
+    en: "Enter new password",
+    ar: "أدخل كلمة المرور الجديدة",
+    fi: "Syötä uusi salasana",
+    es: "Introduce nueva contraseña",
+    so: "Geli erayga sirta ah ee cusub"
+  },
+  reset_password: {
+    sv: "Återställ lösenord",
+    en: "Reset Password",
+    ar: "إعادة تعيين كلمة المرور",
+    fi: "Palauta salasana",
+    es: "Restablecer contraseña",
+    so: "Dib u deji erayga sirta ah"
+  },
+  password_reset_success_title: {
+    sv: "Lösenord återställt!",
+    en: "Password Reset!",
+    ar: "تم إعادة تعيين كلمة المرور!",
+    fi: "Salasana palautettu!",
+    es: "¡Contraseña restablecida!",
+    so: "Erayga sirta ah waa la dib u dejiyay!"
+  },
+  password_reset_success_desc: {
+    sv: "Ditt lösenord har återställts. Du kan nu logga in.",
+    en: "Your password has been reset. You can now log in.",
+    ar: "تم إعادة تعيين كلمة المرور الخاصة بك. يمكنك الآن تسجيل الدخول.",
+    fi: "Salasanasi on palautettu. Voit nyt kirjautua sisään.",
+    es: "Tu contraseña ha sido restablecida. Ya puedes iniciar sesión.",
+    so: "Eraygaaga sirta ah waa la dib u dejiyay. Hadda waxaad geli kartaa."
+  },
+  go_to_login: {
+    sv: "Gå till inloggning",
+    en: "Go to Login",
+    ar: "الذهاب لتسجيل الدخول",
+    fi: "Siirry kirjautumiseen",
+    es: "Ir a iniciar sesión",
+    so: "Aad galitaanka"
+  },
+  enter_email: {
+    sv: "Ange din e-post",
+    en: "Enter your email",
+    ar: "أدخل بريدك الإلكتروني",
+    fi: "Syötä sähköpostisi",
+    es: "Introduce tu email",
+    so: "Geli iimaylkaaga"
   }
 };
 
