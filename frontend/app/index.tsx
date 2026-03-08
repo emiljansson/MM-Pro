@@ -219,7 +219,7 @@ export default function HomeScreen() {
       <View key={pageIndex} style={[
         styles.page, 
         { width: pageWidth },
-        !isTablet && { paddingLeft: 21 }
+        isTablet ? { paddingHorizontal: 16 } : { paddingLeft: 21, paddingRight: 16 }
       ]}>
         <View style={[
           styles.categoryGrid,
@@ -568,7 +568,6 @@ const styles = StyleSheet.create({
     // No padding here, handled by page
   },
   page: {
-    paddingHorizontal: 16,
     alignItems: 'flex-start',
   },
   categoryGrid: {
