@@ -624,7 +624,7 @@ const styles = StyleSheet.create({
   },
   centeredWrapper: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   keyboardContainer: {
     paddingTop: 10,
