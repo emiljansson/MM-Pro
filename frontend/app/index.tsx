@@ -160,7 +160,7 @@ export default function HomeScreen() {
     const cardWidth = (width - 32 - cardGap) / 2 - 5;
     // Use fixed height for tablets - for 5 rows
     const cardHeight = isTablet ? 95 : undefined;
-    const cardAspectRatio = isTablet ? undefined : 1.3;
+    const cardAspectRatio = isTablet ? undefined : 1.7;
 
     return (
       <TouchableOpacity
