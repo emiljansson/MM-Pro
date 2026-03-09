@@ -9,14 +9,14 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import { useGameStore } from '../src/stores/gameStore';
 import { ThemeMode } from '../src/types';
 
-// Get version from app.json
-const appVersion = Constants.expoConfig?.version || '2.0.0';
+// Get version directly from app.json
+import appJson from '../app.json';
+const appVersion = appJson.expo.version;
 
 // Theme selector button component
 const ThemeButton = ({
