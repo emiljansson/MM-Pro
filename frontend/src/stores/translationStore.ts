@@ -4,7 +4,9 @@ import * as Localization from 'expo-localization';
 import { FALLBACK_TRANSLATIONS, SUPPORTED_LANGUAGES } from '../i18n/translations';
 import { STORAGE_KEYS, SUPPORTED_LANGUAGE_CODES } from '../constants';
 
-const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || '';
+// Production URL as fallback
+const PRODUCTION_API = 'https://mm-pro-production.up.railway.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
 // Helper function for safe storage operations
 const safeGetItem = async (key: string): Promise<string | null> => {
