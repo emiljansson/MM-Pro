@@ -228,9 +228,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
     
     // Save game session to backend
     try {
-      fetch(`${API_URL}/api/game-session`, {
+      const token = await AsyncStorage.getItem('session_token');
+      fetch(`${API_URL}/api/games/sessions`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           operations: settings.operations,
           difficulty: settings.difficulty,
