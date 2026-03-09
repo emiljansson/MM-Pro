@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
@@ -19,6 +19,13 @@ import * as Haptics from 'expo-haptics';
 
 export default function GameScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams<{
+    challengeId?: string;
+    groupId?: string;
+    categories?: string;
+    difficulty?: string;
+    questionCount?: string;
+  }>();
   const theme = useTheme();
   const { t } = useTranslation();
   const { height, width } = useWindowDimensions();
@@ -29,6 +36,7 @@ export default function GameScreen() {
     submitAnswer,
     isPlaying,
     answers,
+    startGame,
   } = useGameStore();
 
   const [userInput, setUserInput] = useState('');
@@ -37,6 +45,7 @@ export default function GameScreen() {
   const [choiceAnswer, setChoiceAnswer] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState(false);
+  const [challengeStarted, setChallengeStarted] = useState(false);
 
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const feedbackOpacity = useRef(new Animated.Value(0)).current;
@@ -49,15 +58,29 @@ export default function GameScreen() {
   const isSmallScreen = availableHeight < 700 && !isTablet;
   const isVerySmallScreen = availableHeight < 650;
 
+  // Start game from challenge params if provided
   useEffect(() => {
-    if (!isPlaying && questions.length === 0) {
+    if (params.challengeId && params.categories && !challengeStarted) {
+      const categories = params.categories.split(',');
+      const difficulty = params.difficulty || 'medium';
+      const questionCount = parseInt(params.questionCount || '15', 10);
+      
+      // Start the game with challenge settings
+      startGame(categories, difficulty as 'easy' | 'medium' | 'hard', questionCount);
+      setChallengeStarted(true);
+    }
+  }, [params.challengeId, params.categories, challengeStarted]);
+
+  useEffect(() => {
+    if (!isPlaying && questions.length === 0 && !params.challengeId) {
       // Use setTimeout to avoid navigation during render
+      // Don't redirect if we're waiting for challenge to start
       const timeout = setTimeout(() => {
         router.replace('/');
       }, 100);
       return () => clearTimeout(timeout);
     }
-  }, [isPlaying, questions]);
+  }, [isPlaying, questions, params.challengeId]);
 
   useEffect(() => {
     if (currentQuestionIndex >= questions.length && questions.length > 0) {
