@@ -674,13 +674,13 @@ const styles = StyleSheet.create({
     gap: 16,
     ...Platform.select({
       ios: {
-        marginTop: -20,
+        marginTop: -10,
       },
       android: {
-        marginTop: 8,
+        marginTop: 33,
       },
       default: {
-        marginTop: -12,
+        marginTop: 38,
       },
     }),
   },
