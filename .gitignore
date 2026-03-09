@@ -129,3 +129,6 @@ android-sdk/ -e
 # Environment files
 *.env
 *.env.*
+
+# Ignore auto-generated requirements
+backend/requirements.txt
