@@ -325,6 +325,9 @@ export default function HomeScreen() {
             </Text>
           </View>
 
+          {/* Spacer to push categories down */}
+          <View style={{ flex: 1, minHeight: 20 }} />
+
           {/* Categories Section */}
           <View style={[
             styles.section, 
