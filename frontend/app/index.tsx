@@ -327,7 +327,7 @@ export default function HomeScreen() {
           </View>
 
           {/* Spacer to push categories down */}
-          <View style={{ height: Platform.OS === 'android' ? 5 : 20 }} />
+          <View style={{ height: Platform.OS === 'android' ? 5 : Platform.OS === 'ios' ? 5 : 20 }} />
 
           {/* Categories Section */}
           <View style={[
@@ -585,6 +585,11 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 12,
+    ...Platform.select({
+      ios: {
+        marginBottom: 4,
+      },
+    }),
   },
   sectionCompact: {
     marginBottom: 8,
