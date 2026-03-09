@@ -214,7 +214,6 @@ export default function GroupDetailScreen() {
       await Share.share({
         message: message,
         title: `MathMaster Utmaning: ${challenge.name}`,
-        url: challengeUrl, // iOS will use this as the shareable link
       });
     } catch (error) {
       console.error('Error sharing challenge:', error);
