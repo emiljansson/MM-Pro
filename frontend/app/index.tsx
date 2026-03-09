@@ -677,7 +677,7 @@ const styles = StyleSheet.create({
         marginTop: -10,
       },
       android: {
-        marginTop: 10,
+        marginTop: 33,
       },
       default: {
         marginTop: 20,
