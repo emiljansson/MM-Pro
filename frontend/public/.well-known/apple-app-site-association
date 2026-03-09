@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["TEAM_ID.com.mathmaster.pro"],
+        "paths": ["/challenge/*", "/group/*", "/invite/*"]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["TEAM_ID.com.mathmaster.pro"]
+  }
+}
