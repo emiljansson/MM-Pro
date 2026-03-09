@@ -680,7 +680,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
       },
       default: {
-        marginTop: 38,
+        marginTop: 20,
       },
     }),
   },
