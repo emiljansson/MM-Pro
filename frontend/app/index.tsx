@@ -601,7 +601,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   categoriesScroll: {
-    marginHorizontal: -16,
+    marginHorizontal: -12,
   },
   categoriesScrollContent: {
     // No padding here, handled by page
