@@ -33,9 +33,10 @@ class EmailService:
             settings = await self.db.settings.find_one({"key": "email_settings"})
             logger.info(f"Database settings found: {settings is not None}")
             if settings and settings.get("api_key"):
-                self._api_key = settings.get("api_key")
-                self._sender_email = settings.get("sender_email", "onboarding@resend.dev")
-                self._sender_name = settings.get("sender_name", "MathMaster Pro")
+                # Clean API key from BOM and whitespace
+                self._api_key = self._clean_string(settings.get("api_key"))
+                self._sender_email = self._clean_string(settings.get("sender_email", "onboarding@resend.dev"))
+                self._sender_name = self._clean_string(settings.get("sender_name", "MathMaster Pro"))
                 self._initialized = True
                 resend.api_key = self._api_key
                 logger.info(f"Email service initialized from database settings (key: {self._api_key[:10]}...)")
@@ -51,6 +52,7 @@ class EmailService:
         self._sender_name = os.environ.get("SENDER_NAME", "MathMaster Pro")
         
         if self._api_key:
+            self._api_key = self._clean_string(self._api_key)
             resend.api_key = self._api_key
             self._initialized = True
             logger.info("Email service initialized from environment variables")
