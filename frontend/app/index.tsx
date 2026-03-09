@@ -675,6 +675,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    ...Platform.select({
+      android: {
+        marginTop: 10,
+      },
+    }),
   },
   navArrowDisabled: {
     opacity: 0.5,
