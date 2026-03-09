@@ -550,6 +550,8 @@ const styles = StyleSheet.create({
   mainScrollContent: {
     paddingHorizontal: 16,
     paddingBottom: 8,
+    flexGrow: 1,
+    justifyContent: 'flex-end',
   },
   titleContainer: {
     alignItems: 'center',
