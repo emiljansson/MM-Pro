@@ -671,13 +671,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 8,
+    marginTop: 0,
     gap: 16,
-    ...Platform.select({
-      ios: {
-        marginTop: -7,
-      },
-    }),
   },
   navArrow: {
     width: 40,
