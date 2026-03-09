@@ -60,6 +60,13 @@ class EmailService:
         """Check if email service is properly configured"""
         return bool(self._api_key)
     
+    def _clean_string(self, text: str) -> str:
+        """Remove BOM and other problematic characters from string"""
+        if not text:
+            return text
+        # Remove BOM (Byte Order Mark) and other zero-width characters
+        return text.replace('\ufeff', '').replace('\ufffe', '').replace('\u200b', '').strip()
+    
     async def send_email(
         self,
         to_email: str,
@@ -85,17 +92,24 @@ class EmailService:
             logger.error("Email service not configured")
             return {"status": "error", "message": "Email service not configured"}
         
-        from_address = f"{self._sender_name} <{self._sender_email}>"
+        # Clean all strings to remove BOM and problematic characters
+        clean_sender_name = self._clean_string(self._sender_name)
+        clean_sender_email = self._clean_string(self._sender_email)
+        clean_to_email = self._clean_string(to_email)
+        clean_subject = self._clean_string(subject)
+        clean_html = self._clean_string(html_content)
+        
+        from_address = f"{clean_sender_name} <{clean_sender_email}>"
         
         params = {
             "from": from_address,
-            "to": [to_email],
-            "subject": subject,
-            "html": html_content,
+            "to": [clean_to_email],
+            "subject": clean_subject,
+            "html": clean_html,
         }
         
         if text_content:
-            params["text"] = text_content
+            params["text"] = self._clean_string(text_content)
         
         try:
             # Run sync SDK in thread to keep FastAPI non-blocking
