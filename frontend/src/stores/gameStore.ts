@@ -5,7 +5,9 @@ import { Question, GameSettings, GameResult, AnswerRecord, ThemeMode } from '../
 import { FALLBACK_TRANSLATIONS, SUPPORTED_LANGUAGES } from '../i18n/translations';
 import * as Localization from 'expo-localization';
 
-const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || '';
+// Production URL as fallback
+const PRODUCTION_API = 'https://mm-pro-production.up.railway.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
 // Helper function for safe storage operations
 const safeGetItem = async (key: string): Promise<string | null> => {
