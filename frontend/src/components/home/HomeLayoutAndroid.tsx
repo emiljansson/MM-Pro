@@ -92,6 +92,11 @@ export const HomeLayoutAndroid: React.FC<HomeLayoutAndroidProps> = ({
   
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
+      {/* DEBUG: OS Indicator - Remove before production */}
+      <View style={styles.osIndicator}>
+        <Text style={styles.osIndicatorText}>Android Telefon</Text>
+      </View>
+
       {/* Header - Android style with status bar padding */}
       <View style={[
         styles.header,
@@ -487,6 +492,21 @@ const styles = StyleSheet.create({
   pageIndicator: {
     height: 8,
     borderRadius: 4,
+  },
+  osIndicator: {
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    zIndex: 9999,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 8,
+    alignItems: 'center',
+  },
+  osIndicatorText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 14,
   },
   fixedBottomSection: {
     paddingHorizontal: 16,

@@ -92,6 +92,11 @@ export const HomeLayoutIOS: React.FC<HomeLayoutIOSProps> = ({
   
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
+      {/* DEBUG: OS Indicator - Remove before production */}
+      <View style={styles.osIndicator}>
+        <Text style={styles.osIndicatorText}>iOS Telefon</Text>
+      </View>
+
       {/* Header */}
       <View style={[
         styles.header,
@@ -483,6 +488,21 @@ const styles = StyleSheet.create({
   pageIndicator: {
     height: 8,
     borderRadius: 4,
+  },
+  osIndicator: {
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    zIndex: 9999,
+    backgroundColor: '#007AFF',
+    paddingVertical: 8,
+    alignItems: 'center',
+  },
+  osIndicatorText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 14,
   },
   fixedBottomSection: {
     paddingHorizontal: 16,
