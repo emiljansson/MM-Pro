@@ -201,6 +201,27 @@ export default function GroupDetailScreen() {
     }
   };
 
+  const shareChallenge = async (challenge: Challenge) => {
+    try {
+      // Deep link URL for the challenge
+      const challengeUrl = `https://mathmaster.app/challenge/${challenge.challenge_id}`;
+      
+      const message = `🏆 Utmaning: ${challenge.name}\n\nJag utmanar dig i matte!\n\n📊 ${challenge.question_count} frågor\n⚡ ${
+        challenge.difficulty === 'easy' ? 'Lätt' :
+        challenge.difficulty === 'medium' ? 'Medel' : 'Svår'
+      } svårighetsgrad\n\nKlicka för att acceptera:\n${challengeUrl}`;
+      
+      await Share.share({
+        message: message,
+        title: `MathMaster Utmaning: ${challenge.name}`,
+        url: challengeUrl, // iOS will use this as the shareable link
+      });
+    } catch (error) {
+      console.error('Error sharing challenge:', error);
+      Alert.alert('Delningsfel', 'Kunde inte dela utmaningen');
+    }
+  };
+
   const createChallenge = async () => {
     if (!challengeName.trim()) {
       Alert.alert('Fel', 'Ange ett namn för utmaningen');
@@ -446,6 +467,19 @@ export default function GroupDetailScreen() {
                       onPress={() => joinChallenge(challenge.challenge_id)}
                     >
                       <Text style={styles.joinChallengeButtonText}>Gå med i utmaningen</Text>
+                    </TouchableOpacity>
+                  )}
+
+                  {/* Share Challenge Button */}
+                  {!isExpired && (
+                    <TouchableOpacity
+                      style={[styles.shareChallengeButton, { borderColor: theme.primary }]}
+                      onPress={() => shareChallenge(challenge)}
+                    >
+                      <Ionicons name="share-social-outline" size={18} color={theme.primary} />
+                      <Text style={[styles.shareChallengeButtonText, { color: theme.primary }]}>
+                        Dela utmaning via SMS
+                      </Text>
                     </TouchableOpacity>
                   )}
                 </View>
@@ -820,6 +854,20 @@ const styles = StyleSheet.create({
   },
   joinChallengeButtonText: {
     color: '#FFFFFF',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  shareChallengeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    marginTop: 8,
+    gap: 6,
+  },
+  shareChallengeButtonText: {
     fontWeight: '600',
     fontSize: 14,
   },
