@@ -6,7 +6,7 @@
  */
 
 // Production API URL - UPDATE THIS before building for production
-const PRODUCTION_URL = 'https://your-api.railway.app'; // <- CHANGE THIS
+const PRODUCTION_URL = 'https://mm-pro-production.up.railway.app';
 
 // Get API URL based on environment
 const getApiUrl = (): string => {
