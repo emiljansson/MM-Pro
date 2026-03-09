@@ -64,11 +64,19 @@ interface Group {
 }
 
 const CATEGORIES = [
-  { key: 'addition', label: 'Addition', icon: 'add' },
-  { key: 'subtraction', label: 'Subtraktion', icon: 'remove' },
-  { key: 'multiplication', label: 'Multiplikation', icon: 'close' },
-  { key: 'division', label: 'Division', icon: 'git-compare' },
-  { key: 'mixed', label: 'Blandat', icon: 'shuffle' },
+  { key: 'addition', label: 'Addition', icon: 'add-circle', color: '#81D4FA' },
+  { key: 'subtraction', label: 'Subtraktion', icon: 'remove-circle', color: '#FFB74D' },
+  { key: 'multiplication', label: 'Multiplikation', icon: 'close-circle', color: '#CE93D8' },
+  { key: 'division', label: 'Division', icon: 'git-compare', color: '#A5D6A7' },
+  { key: 'fractions', label: 'Bråk', icon: 'pie-chart', color: '#F48FB1' },
+  { key: 'equations', label: 'Ekvationer', icon: 'code-working', color: '#90CAF9' },
+  { key: 'geometry', label: 'Geometri', icon: 'shapes', color: '#B39DDB' },
+  { key: 'percentage', label: 'Procent', icon: 'analytics', color: '#FFCC80' },
+  { key: 'units', label: 'Enheter', icon: 'resize', color: '#80DEEA' },
+  { key: 'rounding', label: 'Avrundning', icon: 'swap-horizontal', color: '#BCAAA4' },
+  { key: 'angles', label: 'Vinklar', icon: 'compass', color: '#EF9A9A' },
+  { key: 'probability', label: 'Sannolikhet', icon: 'dice', color: '#C5E1A5' },
+  { key: 'diagrams', label: 'Diagram', icon: 'bar-chart', color: '#FFF59D' },
 ];
 
 const DIFFICULTIES = [
@@ -534,9 +542,9 @@ export default function GroupDetailScreen() {
                       styles.categoryChip,
                       { 
                         backgroundColor: selectedCategories.includes(cat.key) 
-                          ? theme.primary 
+                          ? cat.color 
                           : theme.background,
-                        borderColor: theme.border,
+                        borderColor: selectedCategories.includes(cat.key) ? cat.color : theme.border,
                       }
                     ]}
                     onPress={() => toggleCategory(cat.key)}
@@ -544,11 +552,11 @@ export default function GroupDetailScreen() {
                     <Ionicons 
                       name={cat.icon as any} 
                       size={16} 
-                      color={selectedCategories.includes(cat.key) ? '#FFFFFF' : theme.text} 
+                      color={selectedCategories.includes(cat.key) ? '#333' : theme.text} 
                     />
                     <Text style={[
                       styles.categoryChipText,
-                      { color: selectedCategories.includes(cat.key) ? '#FFFFFF' : theme.text }
+                      { color: selectedCategories.includes(cat.key) ? '#333' : theme.text }
                     ]}>
                       {cat.label}
                     </Text>
