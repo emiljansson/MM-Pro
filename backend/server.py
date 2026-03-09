@@ -544,6 +544,247 @@ TRANSLATIONS = {
         "sv": "Spela alla 13 kategorier", "en": "Play all 13 categories", "ar": "العب جميع الفئات الـ 13",
         "fi": "Pelaa kaikki 13 kategoriaa", "es": "Juega todas las 13 categorías", "so": "Ciyaar dhammaan 13 qaybood"
     },
+    # New achievements
+    "ach_fifty_games": {
+        "sv": "Femtio spel", "en": "Fifty Games", "ar": "خمسون لعبة",
+        "fi": "Viisikymmentä peliä", "es": "Cincuenta juegos", "so": "Konton ciyaarood"
+    },
+    "ach_fifty_games_desc": {
+        "sv": "Spela 50 spel", "en": "Play 50 games", "ar": "العب 50 لعبة",
+        "fi": "Pelaa 50 peliä", "es": "Juega 50 juegos", "so": "Ciyaar 50 ciyaarood"
+    },
+    "ach_five_hundred_games": {
+        "sv": "Femhundra spel", "en": "Five Hundred Games", "ar": "خمسمئة لعبة",
+        "fi": "Viisisataa peliä", "es": "Quinientos juegos", "so": "Shan boqol ciyaarood"
+    },
+    "ach_five_hundred_games_desc": {
+        "sv": "Spela 500 spel", "en": "Play 500 games", "ar": "العب 500 لعبة",
+        "fi": "Pelaa 500 peliä", "es": "Juega 500 juegos", "so": "Ciyaar 500 ciyaarood"
+    },
+    "ach_thousand_games": {
+        "sv": "Tusen spel", "en": "Thousand Games", "ar": "ألف لعبة",
+        "fi": "Tuhat peliä", "es": "Mil juegos", "so": "Kun ciyaarood"
+    },
+    "ach_thousand_games_desc": {
+        "sv": "Spela 1000 spel", "en": "Play 1000 games", "ar": "العب 1000 لعبة",
+        "fi": "Pelaa 1000 peliä", "es": "Juega 1000 juegos", "so": "Ciyaar 1000 ciyaarood"
+    },
+    "ach_hundred_correct": {
+        "sv": "Hundra rätt", "en": "Hundred Correct", "ar": "مئة صحيحة",
+        "fi": "Sata oikein", "es": "Cien correctas", "so": "Boqol sax ah"
+    },
+    "ach_hundred_correct_desc": {
+        "sv": "Svara rätt på 100 frågor", "en": "Answer 100 questions correctly", "ar": "أجب على 100 سؤال بشكل صحيح",
+        "fi": "Vastaa 100 kysymykseen oikein", "es": "Responde 100 preguntas correctamente", "so": "Ka jawaab 100 su'aalood si sax ah"
+    },
+    "ach_five_hundred_correct": {
+        "sv": "Femhundra rätt", "en": "Five Hundred Correct", "ar": "خمسمئة صحيحة",
+        "fi": "Viisisataa oikein", "es": "Quinientas correctas", "so": "Shan boqol sax ah"
+    },
+    "ach_five_hundred_correct_desc": {
+        "sv": "Svara rätt på 500 frågor", "en": "Answer 500 questions correctly", "ar": "أجب على 500 سؤال بشكل صحيح",
+        "fi": "Vastaa 500 kysymykseen oikein", "es": "Responde 500 preguntas correctamente", "so": "Ka jawaab 500 su'aalood si sax ah"
+    },
+    "ach_thousand_correct": {
+        "sv": "Tusen rätt", "en": "Thousand Correct", "ar": "ألف صحيحة",
+        "fi": "Tuhat oikein", "es": "Mil correctas", "so": "Kun sax ah"
+    },
+    "ach_thousand_correct_desc": {
+        "sv": "Svara rätt på 1000 frågor", "en": "Answer 1000 questions correctly", "ar": "أجب على 1000 سؤال بشكل صحيح",
+        "fi": "Vastaa 1000 kysymykseen oikein", "es": "Responde 1000 preguntas correctamente", "so": "Ka jawaab 1000 su'aalood si sax ah"
+    },
+    "ach_five_thousand_correct": {
+        "sv": "Femtusen rätt", "en": "Five Thousand Correct", "ar": "خمسة آلاف صحيحة",
+        "fi": "Viisituhatta oikein", "es": "Cinco mil correctas", "so": "Shan kun sax ah"
+    },
+    "ach_five_thousand_correct_desc": {
+        "sv": "Svara rätt på 5000 frågor", "en": "Answer 5000 questions correctly", "ar": "أجب على 5000 سؤال بشكل صحيح",
+        "fi": "Vastaa 5000 kysymykseen oikein", "es": "Responde 5000 preguntas correctamente", "so": "Ka jawaab 5000 su'aalood si sax ah"
+    },
+    "ach_five_perfect": {
+        "sv": "Fem perfekta", "en": "Five Perfect", "ar": "خمسة مثالية",
+        "fi": "Viisi täydellistä", "es": "Cinco perfectos", "so": "Shan qumman"
+    },
+    "ach_five_perfect_desc": {
+        "sv": "Få 100% rätt i 5 spel", "en": "Get 100% correct in 5 games", "ar": "احصل على 100% صحيح في 5 ألعاب",
+        "fi": "Saa 100% oikein 5 pelissä", "es": "Obtén 100% correcto en 5 juegos", "so": "Hel 100% sax 5 ciyaarood"
+    },
+    "ach_ten_perfect": {
+        "sv": "Tio perfekta", "en": "Ten Perfect", "ar": "عشرة مثالية",
+        "fi": "Kymmenen täydellistä", "es": "Diez perfectos", "so": "Toban qumman"
+    },
+    "ach_ten_perfect_desc": {
+        "sv": "Få 100% rätt i 10 spel", "en": "Get 100% correct in 10 games", "ar": "احصل على 100% صحيح في 10 ألعاب",
+        "fi": "Saa 100% oikein 10 pelissä", "es": "Obtén 100% correcto en 10 juegos", "so": "Hel 100% sax 10 ciyaarood"
+    },
+    "ach_streak_20": {
+        "sv": "20 i rad", "en": "20 in a Row", "ar": "20 على التوالي",
+        "fi": "20 peräkkäin", "es": "20 seguidos", "so": "20 isku xiga"
+    },
+    "ach_streak_20_desc": {
+        "sv": "Svara rätt på 20 frågor i rad", "en": "Answer 20 questions correctly in a row", "ar": "أجب على 20 سؤال صحيح على التوالي",
+        "fi": "Vastaa 20 kysymykseen oikein peräkkäin", "es": "Responde 20 preguntas correctamente seguidas", "so": "Ka jawaab 20 su'aalood si sax ah isku xigta"
+    },
+    "ach_streak_50": {
+        "sv": "50 i rad", "en": "50 in a Row", "ar": "50 على التوالي",
+        "fi": "50 peräkkäin", "es": "50 seguidos", "so": "50 isku xiga"
+    },
+    "ach_streak_50_desc": {
+        "sv": "Svara rätt på 50 frågor i rad", "en": "Answer 50 questions correctly in a row", "ar": "أجب على 50 سؤال صحيح على التوالي",
+        "fi": "Vastaa 50 kysymykseen oikein peräkkäin", "es": "Responde 50 preguntas correctamente seguidas", "so": "Ka jawaab 50 su'aalood si sax ah isku xigta"
+    },
+    "ach_addition_master": {
+        "sv": "Additionsmästare", "en": "Addition Master", "ar": "سيد الجمع",
+        "fi": "Yhteenlaskun mestari", "es": "Maestro de suma", "so": "Sayidka isku-darka"
+    },
+    "ach_addition_master_desc": {
+        "sv": "Svara rätt på 200 additionsfrågor", "en": "Answer 200 addition questions correctly", "ar": "أجب على 200 سؤال جمع بشكل صحيح",
+        "fi": "Vastaa 200 yhteenlaskukysymykseen oikein", "es": "Responde 200 preguntas de suma correctamente", "so": "Ka jawaab 200 su'aalood isku-dar si sax ah"
+    },
+    "ach_subtraction_master": {
+        "sv": "Subtraktionsmästare", "en": "Subtraction Master", "ar": "سيد الطرح",
+        "fi": "Vähennyslaskun mestari", "es": "Maestro de resta", "so": "Sayidka ka-jarka"
+    },
+    "ach_subtraction_master_desc": {
+        "sv": "Svara rätt på 200 subtraktionsfrågor", "en": "Answer 200 subtraction questions correctly", "ar": "أجب على 200 سؤال طرح بشكل صحيح",
+        "fi": "Vastaa 200 vähennyslaskukysymykseen oikein", "es": "Responde 200 preguntas de resta correctamente", "so": "Ka jawaab 200 su'aalood ka-jar si sax ah"
+    },
+    "ach_multiplication_master": {
+        "sv": "Multiplikationsmästare", "en": "Multiplication Master", "ar": "سيد الضرب",
+        "fi": "Kertolaskun mestari", "es": "Maestro de multiplicación", "so": "Sayidka isku-dhufashada"
+    },
+    "ach_multiplication_master_desc": {
+        "sv": "Svara rätt på 200 multiplikationsfrågor", "en": "Answer 200 multiplication questions correctly", "ar": "أجب على 200 سؤال ضرب بشكل صحيح",
+        "fi": "Vastaa 200 kertolaskukysymykseen oikein", "es": "Responde 200 preguntas de multiplicación correctamente", "so": "Ka jawaab 200 su'aalood isku-dhufasho si sax ah"
+    },
+    "ach_division_master": {
+        "sv": "Divisionsmästare", "en": "Division Master", "ar": "سيد القسمة",
+        "fi": "Jakolaskun mestari", "es": "Maestro de división", "so": "Sayidka qeybinta"
+    },
+    "ach_division_master_desc": {
+        "sv": "Svara rätt på 200 divisionsfrågor", "en": "Answer 200 division questions correctly", "ar": "أجب على 200 سؤال قسمة بشكل صحيح",
+        "fi": "Vastaa 200 jakolaskukysymykseen oikein", "es": "Responde 200 preguntas de división correctamente", "so": "Ka jawaab 200 su'aalood qeybinta si sax ah"
+    },
+    "ach_fractions_master": {
+        "sv": "Bråkmästare", "en": "Fractions Master", "ar": "سيد الكسور",
+        "fi": "Murtolukujen mestari", "es": "Maestro de fracciones", "so": "Sayidka jajabka"
+    },
+    "ach_fractions_master_desc": {
+        "sv": "Svara rätt på 200 bråkfrågor", "en": "Answer 200 fraction questions correctly", "ar": "أجب على 200 سؤال كسور بشكل صحيح",
+        "fi": "Vastaa 200 murtolukukysymykseen oikein", "es": "Responde 200 preguntas de fracciones correctamente", "so": "Ka jawaab 200 su'aalood jajab si sax ah"
+    },
+    "ach_geometry_master": {
+        "sv": "Geometrimästare", "en": "Geometry Master", "ar": "سيد الهندسة",
+        "fi": "Geometrian mestari", "es": "Maestro de geometría", "so": "Sayidka joomitriga"
+    },
+    "ach_geometry_master_desc": {
+        "sv": "Svara rätt på 200 geometrifrågor", "en": "Answer 200 geometry questions correctly", "ar": "أجب على 200 سؤال هندسة بشكل صحيح",
+        "fi": "Vastaa 200 geometriakysymykseen oikein", "es": "Responde 200 preguntas de geometría correctamente", "so": "Ka jawaab 200 su'aalood joomitri si sax ah"
+    },
+    "ach_equations_master": {
+        "sv": "Ekvationsmästare", "en": "Equations Master", "ar": "سيد المعادلات",
+        "fi": "Yhtälöiden mestari", "es": "Maestro de ecuaciones", "so": "Sayidka isleegyada"
+    },
+    "ach_equations_master_desc": {
+        "sv": "Svara rätt på 200 ekvationsfrågor", "en": "Answer 200 equation questions correctly", "ar": "أجب على 200 سؤال معادلات بشكل صحيح",
+        "fi": "Vastaa 200 yhtälökysymykseen oikein", "es": "Responde 200 preguntas de ecuaciones correctamente", "so": "Ka jawaab 200 su'aalood isleeg si sax ah"
+    },
+    "ach_speed_demon": {
+        "sv": "Blixtsnabb", "en": "Speed Demon", "ar": "شيطان السرعة",
+        "fi": "Salamannopea", "es": "Demonio de velocidad", "so": "Shaydhaan xawaare"
+    },
+    "ach_speed_demon_desc": {
+        "sv": "Svara rätt på under 3 sekunder", "en": "Answer correctly in under 3 seconds", "ar": "أجب بشكل صحيح في أقل من 3 ثواني",
+        "fi": "Vastaa oikein alle 3 sekunnissa", "es": "Responde correctamente en menos de 3 segundos", "so": "Ka jawaab si sax ah ka yar 3 ilbiriqsi"
+    },
+    "ach_lightning_fast": {
+        "sv": "Snabb som blixten", "en": "Lightning Fast", "ar": "سريع كالبرق",
+        "fi": "Salamannopea", "es": "Rápido como el rayo", "so": "Dhakhso sida hillaaca"
+    },
+    "ach_lightning_fast_desc": {
+        "sv": "Klara ett spel på under 60 sekunder", "en": "Complete a game in under 60 seconds", "ar": "أكمل لعبة في أقل من 60 ثانية",
+        "fi": "Suorita peli alle 60 sekunnissa", "es": "Completa un juego en menos de 60 segundos", "so": "Dhamee ciyaar ka yar 60 ilbiriqsi"
+    },
+    "ach_first_challenge": {
+        "sv": "Första utmaningen", "en": "First Challenge", "ar": "التحدي الأول",
+        "fi": "Ensimmäinen haaste", "es": "Primer desafío", "so": "Caqabadka koowaad"
+    },
+    "ach_first_challenge_desc": {
+        "sv": "Slutför din första utmaning", "en": "Complete your first challenge", "ar": "أكمل تحديك الأول",
+        "fi": "Suorita ensimmäinen haasteesi", "es": "Completa tu primer desafío", "so": "Dhamee caqabadkaaga koowaad"
+    },
+    "ach_challenge_winner": {
+        "sv": "Utmaningsvinnare", "en": "Challenge Winner", "ar": "الفائز بالتحدي",
+        "fi": "Haasteen voittaja", "es": "Ganador del desafío", "so": "Guulaysataha caqabadka"
+    },
+    "ach_challenge_winner_desc": {
+        "sv": "Vinn en utmaning", "en": "Win a challenge", "ar": "اربح تحدي",
+        "fi": "Voita haaste", "es": "Gana un desafío", "so": "Ku guuleyso caqabad"
+    },
+    "ach_five_challenges": {
+        "sv": "Fem utmaningar", "en": "Five Challenges", "ar": "خمسة تحديات",
+        "fi": "Viisi haastetta", "es": "Cinco desafíos", "so": "Shan caqabadood"
+    },
+    "ach_five_challenges_desc": {
+        "sv": "Slutför 5 utmaningar", "en": "Complete 5 challenges", "ar": "أكمل 5 تحديات",
+        "fi": "Suorita 5 haastetta", "es": "Completa 5 desafíos", "so": "Dhamee 5 caqabadood"
+    },
+    "ach_easy_champion": {
+        "sv": "Lätt mästare", "en": "Easy Champion", "ar": "بطل السهل",
+        "fi": "Helpon mestari", "es": "Campeón fácil", "so": "Badanka fudud"
+    },
+    "ach_easy_champion_desc": {
+        "sv": "Spela 50 spel på lätt nivå", "en": "Play 50 games on easy difficulty", "ar": "العب 50 لعبة على المستوى السهل",
+        "fi": "Pelaa 50 peliä helpolla tasolla", "es": "Juega 50 juegos en dificultad fácil", "so": "Ciyaar 50 ciyaarood heerka fudud"
+    },
+    "ach_medium_warrior": {
+        "sv": "Medel krigare", "en": "Medium Warrior", "ar": "محارب المتوسط",
+        "fi": "Keskitason soturi", "es": "Guerrero medio", "so": "Dagaalyahanka dhexe"
+    },
+    "ach_medium_warrior_desc": {
+        "sv": "Spela 50 spel på medel nivå", "en": "Play 50 games on medium difficulty", "ar": "العب 50 لعبة على المستوى المتوسط",
+        "fi": "Pelaa 50 peliä keskitasolla", "es": "Juega 50 juegos en dificultad media", "so": "Ciyaar 50 ciyaarood heerka dhexe"
+    },
+    "ach_hard_hero": {
+        "sv": "Svår hjälte", "en": "Hard Hero", "ar": "بطل الصعب",
+        "fi": "Vaikean sankari", "es": "Héroe difícil", "so": "Geesiga adag"
+    },
+    "ach_hard_hero_desc": {
+        "sv": "Spela 50 spel på svår nivå", "en": "Play 50 games on hard difficulty", "ar": "العب 50 لعبة على المستوى الصعب",
+        "fi": "Pelaa 50 peliä vaikealla tasolla", "es": "Juega 50 juegos en dificultad difícil", "so": "Ciyaar 50 ciyaarood heerka adag"
+    },
+    "ach_night_owl": {
+        "sv": "Nattuggla", "en": "Night Owl", "ar": "بومة الليل",
+        "fi": "Yökyöpeli", "es": "Búho nocturno", "so": "Guumaysta habeenkii"
+    },
+    "ach_night_owl_desc": {
+        "sv": "Spela ett spel efter midnatt", "en": "Play a game after midnight", "ar": "العب لعبة بعد منتصف الليل",
+        "fi": "Pelaa peli keskiyön jälkeen", "es": "Juega un juego después de medianoche", "so": "Ciyaar ciyaar ka dib badhtamaha habeenkii"
+    },
+    "ach_early_bird": {
+        "sv": "Morgonfågel", "en": "Early Bird", "ar": "الطائر المبكر",
+        "fi": "Aikainen lintu", "es": "Madrugador", "so": "Shimbirta hore"
+    },
+    "ach_early_bird_desc": {
+        "sv": "Spela ett spel före kl 6", "en": "Play a game before 6 AM", "ar": "العب لعبة قبل الساعة 6 صباحاً",
+        "fi": "Pelaa peli ennen klo 6", "es": "Juega un juego antes de las 6 AM", "so": "Ciyaar ciyaar ka hor 6 subax"
+    },
+    "ach_weekend_warrior": {
+        "sv": "Helgkrigare", "en": "Weekend Warrior", "ar": "محارب نهاية الأسبوع",
+        "fi": "Viikonloppusoturi", "es": "Guerrero de fin de semana", "so": "Dagaalyahanka dhamaadka usbuuca"
+    },
+    "ach_weekend_warrior_desc": {
+        "sv": "Spela 10 spel på helgen", "en": "Play 10 games on the weekend", "ar": "العب 10 ألعاب في عطلة نهاية الأسبوع",
+        "fi": "Pelaa 10 peliä viikonloppuna", "es": "Juega 10 juegos el fin de semana", "so": "Ciyaar 10 ciyaarood dhamaadka usbuuca"
+    },
+    "ach_group_leader": {
+        "sv": "Gruppledare", "en": "Group Leader", "ar": "قائد المجموعة",
+        "fi": "Ryhmän johtaja", "es": "Líder de grupo", "so": "Hogaamiyaha kooxda"
+    },
+    "ach_group_leader_desc": {
+        "sv": "Skapa en grupp", "en": "Create a group", "ar": "أنشئ مجموعة",
+        "fi": "Luo ryhmä", "es": "Crea un grupo", "so": "Samee koox"
+    },
     "earned": {
         "sv": "Uppnått", "en": "Earned", "ar": "تم الحصول عليها",
         "fi": "Ansaittu", "es": "Obtenido", "so": "La helay"
