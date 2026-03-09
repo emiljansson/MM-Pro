@@ -485,7 +485,8 @@ export default function HomeScreen() {
                 backgroundColor: settings.operations.length > 0 ? theme.success : theme.textMuted,
                 opacity: settings.operations.length > 0 ? 1 : 0.6,
               },
-              isCompact && styles.startButtonCompact
+              isCompact && styles.startButtonCompact,
+              Platform.OS === 'android' && { marginTop: 'auto' }
             ]}
             onPress={handleStartGame}
             disabled={isLoading || settings.operations.length === 0}
@@ -743,6 +744,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         marginTop: 25,
+        flex: 1,
       },
     }),
   },
