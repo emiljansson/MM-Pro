@@ -697,7 +697,7 @@ const styles = StyleSheet.create({
   },
   fixedBottomSection: {
     paddingHorizontal: 16,
-    paddingTop: 28,
+    paddingTop: 18,
     paddingBottom: 24,
   },
   startButton: {
