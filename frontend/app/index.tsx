@@ -532,6 +532,8 @@ const styles = StyleSheet.create({
   centeredWrapper: {
     flex: 1,
     justifyContent: 'space-between',
+    borderWidth: 2,
+    borderColor: 'purple',
   },
   header: {
     flexDirection: 'row',
@@ -580,6 +582,8 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     flexGrow: 1,
     justifyContent: 'flex-end',
+    borderWidth: 2,
+    borderColor: 'green',
   },
   titleContainer: {
     alignItems: 'center',
@@ -608,6 +612,8 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 12,
+    borderWidth: 2,
+    borderColor: 'blue',
   },
   sectionCompact: {
     marginBottom: 8,
@@ -732,6 +738,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 18,
     paddingBottom: 24,
+    borderWidth: 3,
+    borderColor: 'red',
     ...Platform.select({
       android: {
         marginTop: 25,
