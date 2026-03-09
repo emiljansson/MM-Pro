@@ -22,7 +22,8 @@
         "resourceClass": "m1-medium"
       },
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "credentialsSource": "local"
       },
       "env": {
         "EAS_NO_VCS": "1"
