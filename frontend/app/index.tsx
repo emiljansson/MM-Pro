@@ -732,6 +732,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 18,
     paddingBottom: 24,
+    ...Platform.select({
+      android: {
+        marginTop: 25,
+      },
+    }),
   },
   startButton: {
     flexDirection: 'row',
