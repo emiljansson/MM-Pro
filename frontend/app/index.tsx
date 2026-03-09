@@ -671,8 +671,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: -12,
     gap: 16,
+    ...Platform.select({
+      ios: {
+        marginTop: -20,
+      },
+      android: {
+        marginTop: 8,
+      },
+      default: {
+        marginTop: -12,
+      },
+    }),
   },
   navArrow: {
     width: 40,
