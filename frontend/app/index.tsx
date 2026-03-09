@@ -328,7 +328,6 @@ export default function HomeScreen() {
           {/* Categories Section */}
           <View style={[
             styles.section, 
-            { borderColor: 'green' },
             isCompact && styles.sectionCompact,
             isTablet && { marginBottom: dynamicSpacing.sectionMargin }
           ]}>
@@ -423,7 +422,6 @@ export default function HomeScreen() {
           {/* Difficulty Section */}
           <View style={[
             styles.section, 
-            { borderColor: 'orange' },
             isCompact && styles.sectionCompact,
             { marginBottom: isTablet ? 8 : 6 }
           ]}>
@@ -447,7 +445,6 @@ export default function HomeScreen() {
           {/* Question Count Section */}
           <View style={[
             styles.section, 
-            { borderColor: 'purple' },
             isCompact && styles.sectionCompact,
             { marginBottom: isTablet ? 20 : 12 }
           ]}>
@@ -581,10 +578,6 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 12,
-    borderWidth: 2,
-    borderRadius: 16,
-    padding: 12,
-    borderColor: 'red',
   },
   sectionCompact: {
     marginBottom: 8,
@@ -601,7 +594,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   categoriesScroll: {
-    marginHorizontal: -12,
+    marginHorizontal: -16,
   },
   categoriesScrollContent: {
     // No padding here, handled by page
@@ -704,8 +697,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 28,
     paddingBottom: 24,
-    borderTopWidth: 2,
-    borderTopColor: 'blue',
   },
   startButton: {
     flexDirection: 'row',
