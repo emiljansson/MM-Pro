@@ -673,6 +673,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 8,
     gap: 16,
+    ...Platform.select({
+      ios: {
+        marginTop: -7,
+      },
+    }),
   },
   navArrow: {
     width: 40,
