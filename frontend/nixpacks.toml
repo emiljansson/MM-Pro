@@ -1,8 +1,8 @@
 [phases.install]
-cmds = ["yarn install"]
+cmds = ["npm install"]
 
 [phases.build]
-cmds = ["yarn build:web"]
+cmds = ["npx expo export -p web"]
 
 [start]
-cmd = "yarn serve"
+cmd = "npx serve dist -l $PORT"
