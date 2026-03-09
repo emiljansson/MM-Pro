@@ -181,7 +181,7 @@ export default function GroupsScreen() {
                 </Text>
               </View>
               <View style={styles.groupMeta}>
-                <View style={[styles.codeBadge, { backgroundColor: theme.primaryLight }]}>
+                <View style={[styles.codeBadge, { backgroundColor: theme.primary + '20' }]}>
                   <Text style={[styles.codeText, { color: theme.primary }]}>
                     {group.invite_code}
                   </Text>
