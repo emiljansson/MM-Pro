@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../src/hooks/useTheme';
 import { useAuth } from '../../src/contexts';
 
-const PRODUCTION_API = 'https://mm-pro-production.up.railway.app';
+const PRODUCTION_API = 'https://api.mathematicsmaster.app';
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
 // App Store / Play Store URLs
