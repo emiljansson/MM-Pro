@@ -260,6 +260,16 @@ export default function HomeScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'bottom']}>
       <StatusBar barStyle={effectiveTheme === 'dark' ? 'light-content' : 'dark-content'} />
       
+      {/* DEBUG: OS Indicator - Remove before production */}
+      <View style={[
+        styles.osIndicator,
+        { backgroundColor: Platform.OS === 'ios' ? '#007AFF' : Platform.OS === 'android' ? '#4CAF50' : '#FF9800' }
+      ]}>
+        <Text style={styles.osIndicatorText}>
+          {Platform.OS === 'ios' ? 'iOS Telefon' : Platform.OS === 'android' ? 'Android Telefon' : 'Webb'}
+        </Text>
+      </View>
+
       <View style={styles.centeredWrapper}>
         {/* Header */}
         <View style={[styles.header, isCompact && styles.headerCompact]}>
@@ -546,6 +556,21 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
+  },
+  osIndicator: {
+    position: 'absolute',
+    top: 100,
+    left: 20,
+    right: 20,
+    zIndex: 9999,
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  osIndicatorText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 16,
   },
   mainScroll: {
     flex: 1,
