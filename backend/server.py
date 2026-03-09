@@ -996,3 +996,43 @@ async def health_check():
             "database": "disconnected",
             "error": str(e)
         }
+
+
+# Sync translations endpoint - updates database with all hardcoded translations
+@app.post("/api/admin/sync-translations")
+async def sync_translations(secret: str = ""):
+    """Sync all hardcoded translations to database (one-time setup)"""
+    # Simple secret protection for one-time use
+    if secret != "mathmaster2024sync":
+        raise HTTPException(status_code=403, detail="Invalid secret")
+    
+    updated = 0
+    inserted = 0
+    
+    for key, lang_dict in TRANSLATIONS.items():
+        for lang_code, text in lang_dict.items():
+            result = await db.translations.update_one(
+                {"key": key, "language_code": lang_code},
+                {
+                    "$set": {
+                        "text": text,
+                        "category": "ui",
+                        "updated_at": datetime.now(timezone.utc)
+                    },
+                    "$setOnInsert": {
+                        "translation_id": f"trans_{key}_{lang_code}"
+                    }
+                },
+                upsert=True
+            )
+            if result.upserted_id:
+                inserted += 1
+            elif result.modified_count > 0:
+                updated += 1
+    
+    return {
+        "message": "Translations synced successfully",
+        "inserted": inserted,
+        "updated": updated,
+        "total_keys": len(TRANSLATIONS)
+    }
