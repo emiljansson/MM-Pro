@@ -227,8 +227,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const score = Math.round((correctAnswers / answers.length) * 100);
     
     // Save game session to backend
-    try {
-      const token = await AsyncStorage.getItem('session_token');
+    AsyncStorage.getItem('session_token').then(token => {
+      const category = settings.operations.length > 0 ? settings.operations[0] : 'mixed';
+      
       fetch(`${API_URL}/api/games/sessions`, {
         method: 'POST',
         headers: { 
@@ -236,18 +237,26 @@ export const useGameStore = create<GameStore>((set, get) => ({
           ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({
-          operations: settings.operations,
+          category: category,
           difficulty: settings.difficulty,
           question_count: settings.questionCount,
           score,
           correct_answers: correctAnswers,
           total_time: totalTime,
-          language: get().language,
+          answers: answers.map(a => ({
+            question: a.question,
+            userAnswer: a.userAnswer,
+            correctAnswer: a.correctAnswer,
+            isCorrect: a.isCorrect,
+            timeTaken: a.timeTaken,
+          })),
         }),
+      }).catch(error => {
+        console.error('Error saving game session:', error);
       });
-    } catch (error) {
-      console.error('Error saving game session:', error);
-    }
+    }).catch(error => {
+      console.error('Error getting token:', error);
+    });
     
     return {
       score,
