@@ -671,7 +671,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: -12,
+    marginTop: 8,
     gap: 16,
   },
   navArrow: {
