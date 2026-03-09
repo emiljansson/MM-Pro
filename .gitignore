@@ -28,11 +28,6 @@ next-env.d.ts
 # Production builds
 /build
 dist/
-dist
-
-# Environment files (comprehensive coverage)
-*token.json*
-*credentials.json*
 
 # Logs and debug files
 npm-debug.log*
@@ -91,7 +86,3 @@ web-build/
 # Android credentials (keep local)
 android-creds/
 credentials.json
--e 
-# Environment files
-*.env
-*.env.*
