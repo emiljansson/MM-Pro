@@ -353,14 +353,18 @@ async def test_email(request: Request):
     from services.email_service import get_email_service
     email_svc = get_email_service()
     email_svc.db = db
+    
+    # Force reload settings to get latest from database
+    email_svc._initialized = False
     await email_svc.initialize()
     
     if not email_svc.is_configured():
-        raise HTTPException(status_code=400, detail="Email service not configured. Please add API key first.")
+        raise HTTPException(status_code=400, detail="E-posttjänsten är inte konfigurerad. Lägg till API-nyckel först.")
     
     result = await email_svc.send_test_email(to_email)
     
     if result["status"] == "error":
-        raise HTTPException(status_code=500, detail=result["message"])
+        error_detail = result.get("details", result.get("message", "Okänt fel"))
+        raise HTTPException(status_code=500, detail=f"{result['message']}\n\n{error_detail}")
     
     return result

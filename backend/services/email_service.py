@@ -29,15 +29,21 @@ class EmailService:
         
         # Try to load from database first
         if self.db is not None:
+            logger.info(f"Attempting to load email settings from database...")
             settings = await self.db.settings.find_one({"key": "email_settings"})
+            logger.info(f"Database settings found: {settings is not None}")
             if settings and settings.get("api_key"):
                 self._api_key = settings.get("api_key")
                 self._sender_email = settings.get("sender_email", "onboarding@resend.dev")
                 self._sender_name = settings.get("sender_name", "MathMaster Pro")
                 self._initialized = True
                 resend.api_key = self._api_key
-                logger.info("Email service initialized from database settings")
+                logger.info(f"Email service initialized from database settings (key: {self._api_key[:10]}...)")
                 return
+            else:
+                logger.warning(f"No API key in settings: {settings}")
+        else:
+            logger.warning("No database connection available for email service")
         
         # Fall back to environment variables
         self._api_key = os.environ.get("RESEND_API_KEY")
@@ -129,14 +135,23 @@ class EmailService:
                 "message": error_msg,
                 "details": "Kontrollera att e-postadressen är giltig och att alla fält är korrekt ifyllda."
             }
-        except resend.exceptions.AuthenticationError as e:
+        except resend.exceptions.InvalidApiKeyError as e:
             error_msg = "Autentiseringsfel: Ogiltig API-nyckel"
-            logger.error(f"Authentication error: {str(e)}")
+            logger.error(f"Invalid API key error: {str(e)}")
             return {
                 "status": "error",
                 "error_code": "AUTH_ERROR",
                 "message": error_msg,
-                "details": "API-nyckeln är ogiltig eller har utgått. Kontrollera dina Resend-inställningar."
+                "details": "API-nyckeln är ogiltig. Kontrollera dina Resend-inställningar."
+            }
+        except resend.exceptions.MissingApiKeyError as e:
+            error_msg = "Autentiseringsfel: API-nyckel saknas"
+            logger.error(f"Missing API key error: {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "AUTH_ERROR",
+                "message": error_msg,
+                "details": "Ingen API-nyckel konfigurerad. Lägg till en i inställningarna."
             }
         except resend.exceptions.RateLimitError as e:
             error_msg = "För många förfrågningar"
@@ -146,6 +161,15 @@ class EmailService:
                 "error_code": "RATE_LIMIT",
                 "message": error_msg,
                 "details": "Du har skickat för många e-postmeddelanden. Vänta en stund och försök igen."
+            }
+        except resend.exceptions.ResendError as e:
+            error_msg = f"Resend-fel: {str(e)}"
+            logger.error(f"Resend error sending email to {to_email}: {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "RESEND_ERROR",
+                "message": error_msg,
+                "details": "Ett fel uppstod med e-posttjänsten. Försök igen senare."
             }
         except UnicodeEncodeError as e:
             error_msg = f"Kodningsfel: {str(e)}"
