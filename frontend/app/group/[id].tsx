@@ -19,7 +19,7 @@ import * as Clipboard from 'expo-clipboard';
 import { useTheme, useTranslation } from '../../src/hooks/useTheme';
 import { useAuth } from '../../src/contexts';
 
-const PRODUCTION_API = 'https://mm-pro-production.up.railway.app';
+const PRODUCTION_API = 'https://api.mathematicsmaster.app';
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
 interface GroupMember {
@@ -204,7 +204,7 @@ export default function GroupDetailScreen() {
   const shareChallenge = async (challenge: Challenge) => {
     try {
       // Deep link URL for the challenge
-      const challengeUrl = `https://mm-pro-production.up.railway.app/challenge/${challenge.challenge_id}`;
+      const challengeUrl = `https://api.mathematicsmaster.app/challenge/${challenge.challenge_id}`;
       
       const message = `🏆 Utmaning: ${challenge.name}\n\nJag utmanar dig i matte!\n\n📊 ${challenge.question_count} frågor\n⚡ ${
         challenge.difficulty === 'easy' ? 'Lätt' :
