@@ -754,7 +754,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
+    gap: 0,
   },
   startButtonCompact: {
     height: 44,
