@@ -1,0 +1,6 @@
+# Ignore for EAS builds
+node_modules/
+.expo/
+dist/
+.metro-cache/
+*.log
