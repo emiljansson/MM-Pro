@@ -814,27 +814,25 @@ async def get_all_translations():
 @legacy_router.get("/translations/{language}")
 async def get_translations_by_language(language: str):
     """Get translations for a specific language (legacy endpoint)"""
-    # First try to get from database
-    translations = await db.translations.find(
-        {"language_code": language},
-        {"_id": 0}
-    ).to_list(5000)
-    
-    if translations:
-        result = {}
-        for trans in translations:
-            result[trans["key"]] = trans["text"]
-        return result
-    
-    # Fallback to hardcoded translations
+    # Start with hardcoded translations as base (fallback)
     result = {}
     for key, trans_dict in TRANSLATIONS.items():
         if language in trans_dict:
             result[key] = trans_dict[language]
         elif "en" in trans_dict:
-            result[key] = trans_dict["en"]
+            result[key] = trans_dict["en"]  # Fallback to English
         else:
-            result[key] = key
+            result[key] = key  # Last resort: show the key
+    
+    # Then override/merge with database translations (takes priority)
+    db_translations = await db.translations.find(
+        {"language_code": language},
+        {"_id": 0}
+    ).to_list(5000)
+    
+    for trans in db_translations:
+        result[trans["key"]] = trans["text"]
+    
     return result
 
 
