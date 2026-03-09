@@ -743,8 +743,9 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     ...Platform.select({
       android: {
-        marginTop: 25,
-        flex: 1,
+        marginTop: 0,
+        paddingTop: 8,
+        paddingBottom: 12,
       },
     }),
   },
