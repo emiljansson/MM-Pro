@@ -580,7 +580,6 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 12,
-    marginTop: 10,
   },
   sectionCompact: {
     marginBottom: 8,
