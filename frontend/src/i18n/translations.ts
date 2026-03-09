@@ -1,5 +1,13 @@
 // Fallback translations (used when API is not available)
 export const FALLBACK_TRANSLATIONS: Record<string, Record<string, string>> = {
+  no_internet: {
+    sv: "Ingen internetanslutning",
+    en: "No internet connection",
+    ar: "لا يوجد اتصال بالإنترنت",
+    fi: "Ei internet-yhteyttä",
+    es: "Sin conexión a internet",
+    so: "Ma jiro xiriir internet"
+  },
   app_title_part1: {
     sv: "Matematik",
     en: "Math",
