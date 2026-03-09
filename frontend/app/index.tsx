@@ -160,7 +160,8 @@ export default function HomeScreen() {
     const cardWidth = (width - 32 - cardGap) / 2 - 5;
     // Use fixed height for tablets - for 5 rows
     const cardHeight = isTablet ? 95 : undefined;
-    const cardAspectRatio = isTablet ? undefined : 1.7;
+    // Android: smaller aspect ratio for more compact cards
+    const cardAspectRatio = isTablet ? undefined : Platform.OS === 'android' ? 2.0 : 1.7;
 
     return (
       <TouchableOpacity
@@ -173,7 +174,7 @@ export default function HomeScreen() {
             aspectRatio: cardAspectRatio,
             backgroundColor: isSelected ? category.color : theme.card,
             borderColor: isSelected ? category.color : theme.border,
-            padding: isTablet ? 6 : 10,
+            padding: Platform.OS === 'android' ? 6 : (isTablet ? 6 : 10),
           },
         ]}
         onPress={() => toggleOperation(category.key)}
@@ -335,8 +336,8 @@ export default function HomeScreen() {
             </Text>
           </View>
 
-          {/* Spacer to push categories down */}
-          <View style={{ height: 20 }} />
+          {/* Spacer to push categories down - not on Android */}
+          {Platform.OS !== 'android' && <View style={{ height: 20 }} />}
 
           {/* Categories Section */}
           <View style={[
@@ -598,6 +599,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         borderWidth: 0,
+        justifyContent: 'flex-start',
       },
     }),
   },
