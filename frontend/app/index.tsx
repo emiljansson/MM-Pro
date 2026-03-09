@@ -612,7 +612,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   section: {
-    marginBottom: 12,
+    marginBottom: 8,
     borderWidth: 2,
     borderColor: 'blue',
   },
