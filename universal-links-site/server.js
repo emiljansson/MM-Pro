@@ -1,0 +1,234 @@
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Apple App Site Association (iOS Universal Links)
+const appleAppSiteAssociation = {
+  applinks: {
+    apps: [],
+    details: [
+      {
+        appIDs: ["X49K463P2S.com.mathmaster.pro"],
+        paths: ["/challenge/*", "/group/*", "/invite/*"]
+      }
+    ]
+  },
+  webcredentials: {
+    apps: ["X49K463P2S.com.mathmaster.pro"]
+  }
+};
+
+// Android Asset Links
+const assetLinks = [
+  {
+    relation: ["delegate_permission/common.handle_all_urls"],
+    target: {
+      namespace: "android_app",
+      package_name: "com.mathmaster.pro",
+      sha256_cert_fingerprints: ["SHA256_FINGERPRINT_HERE"]
+    }
+  }
+];
+
+// Serve apple-app-site-association (no .json extension!)
+app.get('/.well-known/apple-app-site-association', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.json(appleAppSiteAssociation);
+});
+
+// Also serve at root for some iOS versions
+app.get('/apple-app-site-association', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.json(appleAppSiteAssociation);
+});
+
+// Android Asset Links
+app.get('/.well-known/assetlinks.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.json(assetLinks);
+});
+
+// Challenge redirect page
+app.get('/challenge/:id', (req, res) => {
+  const challengeId = req.params.id;
+  res.send(getChallengeHTML(challengeId));
+});
+
+// Home page
+app.get('/', (req, res) => {
+  res.send(getHomeHTML());
+});
+
+function getChallengeHTML(challengeId) {
+  return `<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathMaster Pro - Utmaning</title>
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID, app-argument=mathmaster://challenge/${challengeId}">
+    <meta property="og:title" content="MathMaster Pro - Du har blivit utmanad!">
+    <meta property="og:description" content="Acceptera utmaningen och tävla i matte!">
+    <meta property="og:image" content="https://pro.mathematicsmaster.app/og-image.png">
+    <meta property="og:type" content="website">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+        .container { text-align: center; max-width: 400px; }
+        .icon { font-size: 80px; margin-bottom: 24px; }
+        h1 { font-size: 28px; margin-bottom: 12px; color: #4ecdc4; }
+        p { font-size: 16px; opacity: 0.8; margin-bottom: 32px; line-height: 1.5; }
+        .buttons { display: flex; flex-direction: column; gap: 12px; }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn:hover { transform: scale(1.02); opacity: 0.9; }
+        .btn-ios { background: #007AFF; color: white; }
+        .btn-android { background: #34A853; color: white; }
+        .loading { margin-top: 24px; font-size: 14px; opacity: 0.6; }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🏆</div>
+        <h1>Du har blivit utmanad!</h1>
+        <p>Ladda ner MathMaster Pro för att acceptera utmaningen och tävla i matte med dina vänner.</p>
+        
+        <div class="buttons">
+            <a href="https://apps.apple.com/app/mathmaster-pro/id123456789" class="btn btn-ios" id="ios-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                App Store
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.mathmaster.pro" class="btn btn-android" id="android-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                </svg>
+                Google Play
+            </a>
+        </div>
+        
+        <p class="loading">
+            <span class="spinner"></span>
+            Försöker öppna appen...
+        </p>
+    </div>
+
+    <script>
+        const challengeId = '${challengeId}';
+        const deepLink = 'mathmaster://challenge/' + challengeId;
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+        
+        function tryOpenApp() {
+            const start = Date.now();
+            window.location.href = deepLink;
+            
+            setTimeout(function() {
+                if (Date.now() - start < 2500) return;
+                if (isIOS) {
+                    window.location.href = 'https://apps.apple.com/app/mathmaster-pro/id123456789';
+                } else if (isAndroid) {
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.mathmaster.pro';
+                }
+            }, 2000);
+        }
+        
+        setTimeout(tryOpenApp, 500);
+        
+        if (isIOS) document.getElementById('android-btn').style.display = 'none';
+        else if (isAndroid) document.getElementById('ios-btn').style.display = 'none';
+    </script>
+</body>
+</html>`;
+}
+
+function getHomeHTML() {
+  return `<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathMaster Pro</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+        .container { text-align: center; max-width: 400px; }
+        .icon { font-size: 80px; margin-bottom: 24px; }
+        h1 { font-size: 32px; margin-bottom: 16px; color: #4ecdc4; }
+        p { font-size: 18px; opacity: 0.8; margin-bottom: 32px; line-height: 1.6; }
+        .buttons { display: flex; flex-direction: column; gap: 12px; }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .btn-ios { background: #007AFF; color: white; }
+        .btn-android { background: #34A853; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🧮</div>
+        <h1>MathMaster Pro</h1>
+        <p>Träna matematik på ett roligt sätt! Utmana vänner och förbättra dina kunskaper.</p>
+        <div class="buttons">
+            <a href="https://apps.apple.com/app/mathmaster-pro/id123456789" class="btn btn-ios">Ladda ner för iOS</a>
+            <a href="https://play.google.com/store/apps/details?id=com.mathmaster.pro" class="btn btn-android">Ladda ner för Android</a>
+        </div>
+    </div>
+</body>
+</html>`;
+}
+
+app.listen(PORT, () => {
+  console.log(`MathMaster Universal Links server running on port ${PORT}`);
+});
