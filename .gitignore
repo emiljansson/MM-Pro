@@ -91,3 +91,7 @@ web-build/
 # Android credentials (keep local)
 android-creds/
 credentials.json
+-e 
+# Environment files
+*.env
+*.env.*
