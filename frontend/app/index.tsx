@@ -557,6 +557,12 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     flexGrow: 1,
     justifyContent: 'flex-end',
+    ...Platform.select({
+      ios: {
+        justifyContent: 'flex-start',
+        paddingTop: 0,
+      },
+    }),
   },
   titleContainer: {
     alignItems: 'center',
