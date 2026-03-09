@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Request
+from fastapi.responses import HTMLResponse, JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -26,6 +27,123 @@ app = FastAPI(
 
 # Store db in app state for access in routes
 app.state.db = db
+
+# ==================== UNIVERSAL LINKS ====================
+
+# Apple App Site Association (iOS Universal Links)
+APPLE_APP_SITE_ASSOCIATION = {
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appIDs": ["X49K463P2S.com.mathmaster.pro"],
+                "paths": ["/challenge/*", "/group/*", "/invite/*"]
+            }
+        ]
+    },
+    "webcredentials": {
+        "apps": ["X49K463P2S.com.mathmaster.pro"]
+    }
+}
+
+# Android Asset Links
+ASSET_LINKS = [
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.mathmaster.pro",
+            "sha256_cert_fingerprints": ["SHA256_FINGERPRINT_HERE"]
+        }
+    }
+]
+
+@app.get("/.well-known/apple-app-site-association")
+async def apple_app_site_association():
+    return JSONResponse(content=APPLE_APP_SITE_ASSOCIATION)
+
+@app.get("/apple-app-site-association")
+async def apple_app_site_association_root():
+    return JSONResponse(content=APPLE_APP_SITE_ASSOCIATION)
+
+@app.get("/.well-known/assetlinks.json")
+async def asset_links():
+    return JSONResponse(content=ASSET_LINKS)
+
+@app.get("/challenge/{challenge_id}", response_class=HTMLResponse)
+async def challenge_redirect(challenge_id: str):
+    """Redirect page for challenge deep links"""
+    html = f'''<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathMaster Pro - Utmaning</title>
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID, app-argument=mathmaster://challenge/{challenge_id}">
+    <meta property="og:title" content="MathMaster Pro - Du har blivit utmanad!">
+    <meta property="og:description" content="Acceptera utmaningen och tävla i matte!">
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }}
+        .container {{ text-align: center; max-width: 400px; }}
+        .icon {{ font-size: 80px; margin-bottom: 24px; }}
+        h1 {{ font-size: 28px; margin-bottom: 12px; color: #4ecdc4; }}
+        p {{ font-size: 16px; opacity: 0.8; margin-bottom: 32px; line-height: 1.5; }}
+        .buttons {{ display: flex; flex-direction: column; gap: 12px; }}
+        .btn {{
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 16px 24px; border-radius: 12px; text-decoration: none;
+            font-weight: 600; font-size: 16px;
+        }}
+        .btn-ios {{ background: #007AFF; color: white; }}
+        .btn-android {{ background: #34A853; color: white; }}
+        .loading {{ margin-top: 24px; font-size: 14px; opacity: 0.6; }}
+        .spinner {{
+            display: inline-block; width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+            border-radius: 50%; animation: spin 1s linear infinite;
+            margin-right: 8px; vertical-align: middle;
+        }}
+        @keyframes spin {{ to {{ transform: rotate(360deg); }} }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🏆</div>
+        <h1>Du har blivit utmanad!</h1>
+        <p>Ladda ner MathMaster Pro för att acceptera utmaningen och tävla i matte med dina vänner.</p>
+        <div class="buttons">
+            <a href="https://apps.apple.com/app/mathmaster-pro/id123456789" class="btn btn-ios" id="ios-btn">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=com.mathmaster.pro" class="btn btn-android" id="android-btn">Google Play</a>
+        </div>
+        <p class="loading"><span class="spinner"></span>Försöker öppna appen...</p>
+    </div>
+    <script>
+        const deepLink = 'mathmaster://challenge/{challenge_id}';
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+        setTimeout(() => {{ window.location.href = deepLink; }}, 500);
+        setTimeout(() => {{
+            if (isIOS) window.location.href = 'https://apps.apple.com/app/mathmaster-pro/id123456789';
+            else if (isAndroid) window.location.href = 'https://play.google.com/store/apps/details?id=com.mathmaster.pro';
+        }}, 2500);
+        if (isIOS) document.getElementById('android-btn').style.display = 'none';
+        else if (isAndroid) document.getElementById('ios-btn').style.display = 'none';
+    </script>
+</body>
+</html>'''
+    return HTMLResponse(content=html)
+
+# ==================== END UNIVERSAL LINKS ====================
 
 # Import routes
 from routes import auth_router, languages_router, games_router, groups_router, leaderboard_router, challenges_router
