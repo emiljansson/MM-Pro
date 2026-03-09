@@ -335,3 +335,43 @@ async def join_challenge(request: Request, group_id: str, challenge_id: str):
     )
     
     return await db.challenges.find_one({"challenge_id": challenge_id}, {"_id": 0})
+
+
+# Delete challenge (creator only)
+@router.delete("/{group_id}/challenges/{challenge_id}")
+async def delete_challenge(request: Request, group_id: str, challenge_id: str):
+    user = await require_auth(request)
+    db = request.app.state.db
+    
+    # Check if user is the challenge creator
+    challenge = await db.challenges.find_one({"challenge_id": challenge_id, "group_id": group_id})
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    
+    if challenge.get("creator_id") != user.user_id:
+        raise HTTPException(status_code=403, detail="Only the creator can delete this challenge")
+    
+    await db.challenges.delete_one({"challenge_id": challenge_id})
+    return {"message": "Challenge deleted"}
+
+
+# Delete group (creator only)
+@router.delete("/{group_id}")
+async def delete_group(request: Request, group_id: str):
+    user = await require_auth(request)
+    db = request.app.state.db
+    
+    # Check if user is the group creator
+    group = await db.groups.find_one({"group_id": group_id})
+    if not group:
+        raise HTTPException(status_code=404, detail="Group not found")
+    
+    if group.get("creator_id") != user.user_id:
+        raise HTTPException(status_code=403, detail="Only the creator can delete this group")
+    
+    # Delete all challenges in the group
+    await db.challenges.delete_many({"group_id": group_id})
+    
+    # Delete the group
+    await db.groups.delete_one({"group_id": group_id})
+    return {"message": "Group deleted"}

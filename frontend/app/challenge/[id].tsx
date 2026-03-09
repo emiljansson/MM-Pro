@@ -149,17 +149,12 @@ export default function ChallengeAcceptScreen() {
       );
 
       if (joinChallengeResponse.ok || joinChallengeResponse.status === 400) {
-        // Success! Now start the game with challenge settings
-        router.replace({
-          pathname: '/game',
-          params: {
-            challengeId: challenge.challenge_id,
-            groupId: group.group_id,
-            categories: challenge.categories.join(','),
-            difficulty: challenge.difficulty,
-            questionCount: challenge.question_count.toString(),
-          }
-        });
+        // Success! Go to group page to see the challenge in the list
+        Alert.alert(
+          'Utmaning accepterad!',
+          'Du har gått med i utmaningen. Du hittar den i gruppsidan och kan spela när du vill.',
+          [{ text: 'OK', onPress: () => router.replace(`/group/${group.group_id}`) }]
+        );
       } else {
         throw new Error('Kunde inte gå med i utmaningen');
       }

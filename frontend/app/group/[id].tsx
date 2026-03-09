@@ -221,6 +221,84 @@ export default function GroupDetailScreen() {
     }
   };
 
+  const playChallenge = (challenge: Challenge) => {
+    router.push({
+      pathname: '/game',
+      params: {
+        challengeId: challenge.challenge_id,
+        groupId: group?.group_id,
+        categories: challenge.categories.join(','),
+        difficulty: challenge.difficulty,
+        questionCount: challenge.question_count.toString(),
+      }
+    });
+  };
+
+  const deleteChallenge = async (challengeId: string) => {
+    Alert.alert(
+      'Ta bort utmaning',
+      'Är du säker på att du vill ta bort denna utmaning?',
+      [
+        { text: 'Avbryt', style: 'cancel' },
+        {
+          text: 'Ta bort',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const response = await fetch(`${API_URL}/api/groups/${id}/challenges/${challengeId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${sessionToken}` },
+              });
+              if (response.ok) {
+                loadChallenges();
+              } else {
+                Alert.alert('Fel', 'Kunde inte ta bort utmaningen');
+              }
+            } catch (error) {
+              console.error('Error deleting challenge:', error);
+              Alert.alert('Fel', 'Kunde inte ta bort utmaningen');
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const deleteGroup = async () => {
+    Alert.alert(
+      'Ta bort grupp',
+      `Är du säker på att du vill ta bort "${group?.name}"? Detta kan inte ångras.`,
+      [
+        { text: 'Avbryt', style: 'cancel' },
+        {
+          text: 'Ta bort',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const response = await fetch(`${API_URL}/api/groups/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${sessionToken}` },
+              });
+              if (response.ok) {
+                router.replace('/groups');
+              } else {
+                Alert.alert('Fel', 'Kunde inte ta bort gruppen');
+              }
+            } catch (error) {
+              console.error('Error deleting group:', error);
+              Alert.alert('Fel', 'Kunde inte ta bort gruppen');
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const getCategoryLabel = (key: string) => {
+    const cat = CATEGORIES.find(c => c.key === key);
+    return cat?.label || key;
+  };
+
   const createChallenge = async () => {
     if (!challengeName.trim()) {
       Alert.alert('Fel', 'Ange ett namn för utmaningen');
@@ -400,6 +478,7 @@ export default function GroupDetailScreen() {
           ) : (
             challenges.map((challenge) => {
               const isParticipant = challenge.participants?.some(p => p.user_id === user?.user_id);
+              const isCreator = challenge.creator_id === user?.user_id;
               const endDate = new Date(challenge.end_date);
               const isExpired = endDate < new Date();
               
@@ -412,15 +491,34 @@ export default function GroupDetailScreen() {
                     <Text style={[styles.challengeName, { color: theme.text }]}>
                       {challenge.name}
                     </Text>
-                    {isExpired ? (
-                      <View style={[styles.statusBadge, { backgroundColor: theme.textMuted + '30' }]}>
-                        <Text style={[styles.statusText, { color: theme.textMuted }]}>Avslutad</Text>
+                    <View style={styles.challengeHeaderRight}>
+                      {isExpired ? (
+                        <View style={[styles.statusBadge, { backgroundColor: theme.textMuted + '30' }]}>
+                          <Text style={[styles.statusText, { color: theme.textMuted }]}>Avslutad</Text>
+                        </View>
+                      ) : (
+                        <View style={[styles.statusBadge, { backgroundColor: theme.success + '30' }]}>
+                          <Text style={[styles.statusText, { color: theme.success }]}>Aktiv</Text>
+                        </View>
+                      )}
+                      {isCreator && (
+                        <TouchableOpacity
+                          style={styles.deleteButton}
+                          onPress={() => deleteChallenge(challenge.challenge_id)}
+                        >
+                          <Ionicons name="trash-outline" size={18} color={theme.error} />
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                  </View>
+
+                  {/* Categories */}
+                  <View style={styles.categoriesRow}>
+                    {challenge.categories.map(cat => (
+                      <View key={cat} style={[styles.categoryTag, { backgroundColor: CATEGORIES.find(c => c.key === cat)?.color || theme.primary }]}>
+                        <Text style={styles.categoryTagText}>{getCategoryLabel(cat)}</Text>
                       </View>
-                    ) : (
-                      <View style={[styles.statusBadge, { backgroundColor: theme.success + '30' }]}>
-                        <Text style={[styles.statusText, { color: theme.success }]}>Aktiv</Text>
-                      </View>
-                    )}
+                    ))}
                   </View>
                   
                   <View style={styles.challengeDetails}>
@@ -460,27 +558,36 @@ export default function GroupDetailScreen() {
                     </View>
                   )}
 
-                  {!isParticipant && !isExpired && (
-                    <TouchableOpacity
-                      style={[styles.joinChallengeButton, { backgroundColor: theme.success }]}
-                      onPress={() => joinChallenge(challenge.challenge_id)}
-                    >
-                      <Text style={styles.joinChallengeButtonText}>Gå med i utmaningen</Text>
-                    </TouchableOpacity>
-                  )}
+                  {/* Action buttons */}
+                  <View style={styles.challengeActions}>
+                    {isParticipant && !isExpired && (
+                      <TouchableOpacity
+                        style={[styles.playChallengeButton, { backgroundColor: theme.primary }]}
+                        onPress={() => playChallenge(challenge)}
+                      >
+                        <Ionicons name="play" size={18} color="#FFFFFF" />
+                        <Text style={styles.playChallengeButtonText}>Spela</Text>
+                      </TouchableOpacity>
+                    )}
+                    
+                    {!isParticipant && !isExpired && (
+                      <TouchableOpacity
+                        style={[styles.joinChallengeButton, { backgroundColor: theme.success }]}
+                        onPress={() => joinChallenge(challenge.challenge_id)}
+                      >
+                        <Text style={styles.joinChallengeButtonText}>Gå med</Text>
+                      </TouchableOpacity>
+                    )}
 
-                  {/* Share Challenge Button */}
-                  {!isExpired && (
-                    <TouchableOpacity
-                      style={[styles.shareChallengeButton, { borderColor: theme.primary }]}
-                      onPress={() => shareChallenge(challenge)}
-                    >
-                      <Ionicons name="share-social-outline" size={18} color={theme.primary} />
-                      <Text style={[styles.shareChallengeButtonText, { color: theme.primary }]}>
-                        Dela utmaning via SMS
-                      </Text>
-                    </TouchableOpacity>
-                  )}
+                    {!isExpired && (
+                      <TouchableOpacity
+                        style={[styles.shareChallengeButton, { borderColor: theme.primary }]}
+                        onPress={() => shareChallenge(challenge)}
+                      >
+                        <Ionicons name="share-social-outline" size={18} color={theme.primary} />
+                      </TouchableOpacity>
+                    )}
+                  </View>
                 </View>
               );
             })
@@ -531,14 +638,22 @@ export default function GroupDetailScreen() {
           })}
         </View>
 
-        {/* Leave Group Button */}
-        {!isOwner && (
+        {/* Leave/Delete Group Buttons */}
+        {!isOwner ? (
           <TouchableOpacity
             style={[styles.leaveButton, { borderColor: theme.error }]}
             onPress={leaveGroup}
           >
             <Ionicons name="exit-outline" size={20} color={theme.error} />
             <Text style={[styles.leaveButtonText, { color: theme.error }]}>Lämna grupp</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={[styles.leaveButton, { borderColor: theme.error }]}
+            onPress={deleteGroup}
+          >
+            <Ionicons name="trash-outline" size={20} color={theme.error} />
+            <Text style={[styles.leaveButtonText, { color: theme.error }]}>Ta bort grupp</Text>
           </TouchableOpacity>
         )}
       </ScrollView>
@@ -822,6 +937,49 @@ const styles = StyleSheet.create({
   challengeDetail: {
     fontSize: 13,
   },
+  challengeHeaderRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  deleteButton: {
+    padding: 4,
+  },
+  categoriesRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginBottom: 10,
+  },
+  categoryTag: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  categoryTagText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#333',
+  },
+  challengeActions: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 10,
+  },
+  playChallengeButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 8,
+    gap: 6,
+  },
+  playChallengeButtonText: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+    fontSize: 14,
+  },
   leaderboardPreview: {
     marginTop: 8,
     paddingTop: 8,
@@ -846,10 +1004,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   joinChallengeButton: {
+    flex: 1,
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 8,
   },
   joinChallengeButtonText: {
     color: '#FFFFFF',
@@ -857,18 +1015,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   shareChallengeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
-    marginTop: 8,
-    gap: 6,
-  },
-  shareChallengeButtonText: {
-    fontWeight: '600',
-    fontSize: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   // Members
   memberRow: {
