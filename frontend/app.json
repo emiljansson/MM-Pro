@@ -2,7 +2,7 @@
   "expo": {
     "name": "MathMaster Pro",
     "slug": "mathmaster-pro",
-    "version": "2.0.117",
+    "version": "2.0.118",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "mathmaster",
@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mathmaster.pro",
-      "associatedDomains": ["applinks:mathematicsmaster.app", "applinks:www.mathematicsmaster.app"]
+      "associatedDomains": ["applinks:pro.mathematicsmaster.app", "applinks:www.pro.mathematicsmaster.app"]
     },
     "android": {
       "adaptiveIcon": {
@@ -27,12 +27,12 @@
           "data": [
             {
               "scheme": "https",
-              "host": "mathematicsmaster.app",
+              "host": "pro.mathematicsmaster.app",
               "pathPrefix": "/challenge"
             },
             {
               "scheme": "https",
-              "host": "www.mathematicsmaster.app",
+              "host": "www.pro.mathematicsmaster.app",
               "pathPrefix": "/challenge"
             }
           ],

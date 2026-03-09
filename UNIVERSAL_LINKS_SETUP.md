@@ -1,9 +1,9 @@
 # MathMaster Pro - Universal Links Setup
 
 ## Översikt
-Detta dokument beskriver hur du konfigurerar mathematicsmaster.app för att hantera deep links.
+Detta dokument beskriver hur du konfigurerar pro.mathematicsmaster.app för att hantera deep links.
 
-## Filer som behöver laddas upp till mathematicsmaster.app
+## Filer som behöver laddas upp till pro.mathematicsmaster.app
 
 ### 1. Apple App Site Association (iOS)
 **Fil:** `/.well-known/apple-app-site-association`
@@ -60,7 +60,7 @@ Kopiera innehållet från `frontend/public/challenge.html`
 ```nginx
 server {
     listen 443 ssl;
-    server_name mathematicsmaster.app www.mathematicsmaster.app;
+    server_name pro.mathematicsmaster.app www.pro.mathematicsmaster.app;
     
     # SSL-certifikat
     ssl_certificate /path/to/cert.pem;
@@ -131,18 +131,18 @@ keytool -list -v -keystore your-release-key.keystore
 ### iOS:
 1. Bygg appen med EAS Build
 2. Installera på en riktig enhet
-3. Skicka en länk via SMS: `https://mathematicsmaster.app/challenge/test123`
+3. Skicka en länk via SMS: `https://pro.mathematicsmaster.app/challenge/test123`
 4. Klicka på länken - appen ska öppnas
 
 ### Android:
 1. Bygg appen med EAS Build
 2. Installera på en riktig enhet
-3. Öppna länken: `https://mathematicsmaster.app/challenge/test123`
+3. Öppna länken: `https://pro.mathematicsmaster.app/challenge/test123`
 4. Android ska fråga om du vill öppna i appen
 
 ### Debug:
 - iOS: Använd Apples validator: https://search.developer.apple.com/appsearch-validation-tool/
-- Android: `adb shell am start -W -a android.intent.action.VIEW -d "https://mathematicsmaster.app/challenge/test123"`
+- Android: `adb shell am start -W -a android.intent.action.VIEW -d "https://pro.mathematicsmaster.app/challenge/test123"`
 
 ---
 
@@ -151,7 +151,7 @@ keytool -list -v -keystore your-release-key.keystore
 ```
 SMS med länk
     ↓
-https://mathematicsmaster.app/challenge/chal_abc123
+https://pro.mathematicsmaster.app/challenge/chal_abc123
     ↓
 ┌─────────────────────────────────────┐
 │  App installerad?                    │
@@ -175,7 +175,7 @@ https://mathematicsmaster.app/challenge/chal_abc123
 
 ## Checklist
 
-- [ ] Köp/konfigurera domänen mathematicsmaster.app
+- [ ] Köp/konfigurera domänen pro.mathematicsmaster.app
 - [ ] Ladda upp `.well-known/apple-app-site-association`
 - [ ] Ladda upp `.well-known/assetlinks.json`
 - [ ] Ladda upp redirect-sidan `challenge.html`
