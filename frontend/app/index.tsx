@@ -681,7 +681,7 @@ const styles = StyleSheet.create({
     gap: 16,
     ...Platform.select({
       ios: {
-        marginTop: -10,
+        marginTop: -30,
       },
       android: {
         marginTop: 0,
