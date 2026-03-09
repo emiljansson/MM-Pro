@@ -260,16 +260,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'bottom']}>
       <StatusBar barStyle={effectiveTheme === 'dark' ? 'light-content' : 'dark-content'} />
-      
-      {/* DEBUG: OS Indicator - Remove before production */}
-      <View style={[
-        styles.osIndicator,
-        { backgroundColor: Platform.OS === 'ios' ? '#007AFF' : Platform.OS === 'android' ? '#4CAF50' : '#FF9800' }
-      ]}>
-        <Text style={styles.osIndicatorText}>
-          {Platform.OS === 'ios' ? 'iOS Telefon' : Platform.OS === 'android' ? 'Android Telefon' : 'Webb'}
-        </Text>
-      </View>
 
       <View style={styles.centeredWrapper}>
         {/* Header */}
@@ -534,13 +524,6 @@ const styles = StyleSheet.create({
   centeredWrapper: {
     flex: 1,
     justifyContent: 'space-between',
-    borderWidth: 2,
-    borderColor: 'purple',
-    ...Platform.select({
-      android: {
-        borderWidth: 0,
-      },
-    }),
   },
   header: {
     flexDirection: 'row',
@@ -566,26 +549,6 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 14,
   },
-  osIndicator: {
-    position: 'absolute',
-    top: 100,
-    left: 20,
-    right: 20,
-    zIndex: 9999,
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-    ...Platform.select({
-      android: {
-        display: 'none',
-      },
-    }),
-  },
-  osIndicatorText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-    fontSize: 16,
-  },
   mainScroll: {
     flex: 1,
   },
@@ -594,13 +557,6 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     flexGrow: 1,
     justifyContent: 'flex-end',
-    borderWidth: 2,
-    borderColor: 'green',
-    ...Platform.select({
-      android: {
-        borderWidth: 0,
-      },
-    }),
   },
   titleContainer: {
     alignItems: 'center',
@@ -629,13 +585,6 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 12,
-    borderWidth: 2,
-    borderColor: 'blue',
-    ...Platform.select({
-      android: {
-        borderWidth: 0,
-      },
-    }),
   },
   sectionCompact: {
     marginBottom: 8,
@@ -760,14 +709,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 18,
     paddingBottom: 24,
-    borderWidth: 3,
-    borderColor: 'red',
     ...Platform.select({
       android: {
         marginTop: 0,
         paddingTop: 8,
         paddingBottom: 12,
-        borderWidth: 0,
       },
     }),
   },
