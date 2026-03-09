@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
 // Production URL as fallback
-const PRODUCTION_API = 'https://mm-pro-production.up.railway.app';
+const PRODUCTION_API = 'https://api.mathematicsmaster.app';
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
 export interface User {
