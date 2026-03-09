@@ -9,10 +9,14 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import { useGameStore } from '../src/stores/gameStore';
 import { ThemeMode } from '../src/types';
+
+// Get version from app.json
+const appVersion = Constants.expoConfig?.version || '2.0.0';
 
 // Theme selector button component
 const ThemeButton = ({
@@ -210,7 +214,7 @@ export default function SettingsScreen() {
         {/* App Info */}
         <View style={styles.appInfo}>
           <Text style={[styles.appName, { color: theme.primary }]}>MathMaster Pro</Text>
-          <Text style={[styles.appVersion, { color: theme.textMuted }]}>Version 2.0.0</Text>
+          <Text style={[styles.appVersion, { color: theme.textMuted }]}>Version {appVersion}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
