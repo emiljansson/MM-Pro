@@ -535,11 +535,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: 2,
     borderColor: 'purple',
-    ...Platform.select({
-      android: {
-        borderWidth: 0,
-      },
-    }),
   },
   header: {
     flexDirection: 'row',
@@ -574,11 +569,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
-    ...Platform.select({
-      android: {
-        display: 'none',
-      },
-    }),
   },
   osIndicatorText: {
     color: '#FFFFFF',
@@ -595,11 +585,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     borderWidth: 2,
     borderColor: 'green',
-    ...Platform.select({
-      android: {
-        borderWidth: 0,
-      },
-    }),
   },
   titleContainer: {
     alignItems: 'center',
@@ -630,11 +615,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 2,
     borderColor: 'blue',
-    ...Platform.select({
-      android: {
-        borderWidth: 0,
-      },
-    }),
   },
   sectionCompact: {
     marginBottom: 8,
@@ -766,7 +746,6 @@ const styles = StyleSheet.create({
         marginTop: 0,
         paddingTop: 8,
         paddingBottom: 12,
-        borderWidth: 0,
       },
     }),
   },
