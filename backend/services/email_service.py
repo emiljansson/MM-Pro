@@ -120,11 +120,60 @@ class EmailService:
                 "message": f"Email sent to {to_email}",
                 "email_id": email.get("id")
             }
-        except Exception as e:
-            logger.error(f"Failed to send email to {to_email}: {str(e)}")
+        except resend.exceptions.ValidationError as e:
+            error_msg = f"Valideringsfel: {str(e)}"
+            logger.error(f"Validation error sending email to {to_email}: {str(e)}")
             return {
                 "status": "error",
-                "message": str(e)
+                "error_code": "VALIDATION_ERROR",
+                "message": error_msg,
+                "details": "Kontrollera att e-postadressen är giltig och att alla fält är korrekt ifyllda."
+            }
+        except resend.exceptions.AuthenticationError as e:
+            error_msg = "Autentiseringsfel: Ogiltig API-nyckel"
+            logger.error(f"Authentication error: {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "AUTH_ERROR",
+                "message": error_msg,
+                "details": "API-nyckeln är ogiltig eller har utgått. Kontrollera dina Resend-inställningar."
+            }
+        except resend.exceptions.RateLimitError as e:
+            error_msg = "För många förfrågningar"
+            logger.error(f"Rate limit error: {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "RATE_LIMIT",
+                "message": error_msg,
+                "details": "Du har skickat för många e-postmeddelanden. Vänta en stund och försök igen."
+            }
+        except UnicodeEncodeError as e:
+            error_msg = f"Kodningsfel: {str(e)}"
+            logger.error(f"Encoding error sending email to {to_email}: {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "ENCODING_ERROR",
+                "message": error_msg,
+                "details": "Det finns ogiltiga tecken i e-postinnehållet. Kontrollera att inga specialtecken används."
+            }
+        except ConnectionError as e:
+            error_msg = "Kunde inte ansluta till e-postservern"
+            logger.error(f"Connection error: {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "CONNECTION_ERROR",
+                "message": error_msg,
+                "details": "Kontrollera din internetanslutning och försök igen."
+            }
+        except Exception as e:
+            error_type = type(e).__name__
+            error_msg = f"Oväntat fel ({error_type}): {str(e)}"
+            logger.error(f"Failed to send email to {to_email}: {error_type} - {str(e)}")
+            return {
+                "status": "error",
+                "error_code": "UNKNOWN_ERROR",
+                "message": error_msg,
+                "details": "Ett oväntat fel uppstod. Kontakta support om problemet kvarstår."
             }
     
     async def send_password_reset_email(
