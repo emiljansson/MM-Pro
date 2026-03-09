@@ -666,7 +666,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   categoryCard: {
-    aspectRatio: 1.5,
+    aspectRatio: 1.7,
     borderRadius: 16,
     borderWidth: 2,
     padding: 10,
