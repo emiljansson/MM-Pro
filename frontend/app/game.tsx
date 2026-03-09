@@ -542,8 +542,30 @@ export default function GameScreen() {
         {/* Keyboard Container */}
         <View style={styles.keyboardContainer}>
           {currentQuestion.input_type === 'choice' ? (
-            // Choice questions don't need keyboard, just the buttons above
-            null
+            // Choice questions need a submit button
+            <View style={styles.choiceSubmitContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.choiceSubmitButton,
+                  { 
+                    backgroundColor: choiceAnswer ? theme.primary : theme.surface,
+                    borderColor: theme.primary,
+                    opacity: choiceAnswer ? 1 : 0.5,
+                  },
+                  isLargeScreen && { paddingVertical: 18, paddingHorizontal: 48 }
+                ]}
+                onPress={handleSubmit}
+                disabled={!choiceAnswer}
+              >
+                <Text style={[
+                  styles.choiceSubmitText,
+                  { color: choiceAnswer ? '#FFFFFF' : theme.textMuted },
+                  isLargeScreen && { fontSize: 22 }
+                ]}>
+                  {t('submit')}
+                </Text>
+              </TouchableOpacity>
+            </View>
           ) : currentQuestion.input_type === 'fraction' ? (
             <FractionKeyboard
               onNumeratorKey={(key) => handleFractionKeyPress('numerator', key)}
@@ -730,6 +752,24 @@ const styles = StyleSheet.create({
   },
   choiceButtonText: {
     fontSize: 36,
+    fontWeight: '700',
+  },
+  choiceSubmitContainer: {
+    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+  },
+  choiceSubmitButton: {
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    borderRadius: 12,
+    borderWidth: 2,
+    minWidth: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  choiceSubmitText: {
+    fontSize: 18,
     fontWeight: '700',
   },
   answerBox: {
