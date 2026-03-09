@@ -2,6 +2,9 @@ FROM node:22-alpine
 
 WORKDIR /app
 
+# Set environment variable for production backend
+ENV EXPO_PUBLIC_BACKEND_URL=https://mm-pro-production.up.railway.app
+
 # Copy package files
 COPY package.json ./
 
