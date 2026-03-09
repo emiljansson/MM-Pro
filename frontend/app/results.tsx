@@ -14,7 +14,20 @@ import { Ionicons } from '@expo/vector-icons';
 import { useGameStore } from '../src/stores/gameStore';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { GameResult } from '../src/types';
+import { AchievementPopup } from '../src/components';
+import { useAuth } from '../src/contexts';
 import * as Haptics from 'expo-haptics';
+
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || 'https://api.mathematicsmaster.app';
+
+interface NewAchievement {
+  key: string;
+  name: string;
+  description: string;
+  icon: string;
+  tier: string;
+  points: number;
+}
 
 export default function ResultsScreen() {
   const router = useRouter();
@@ -22,11 +35,54 @@ export default function ResultsScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { endGame, resetGame, startGame, settings, questions } = useGameStore();
+  const { sessionToken, isAuthenticated } = useAuth();
 
   const [result, setResult] = useState<GameResult | null>(null);
+  const [newAchievements, setNewAchievements] = useState<NewAchievement[]>([]);
+  const [currentAchievement, setCurrentAchievement] = useState<NewAchievement | null>(null);
+  const [showAchievementPopup, setShowAchievementPopup] = useState(false);
 
   const scoreScale = useRef(new Animated.Value(0)).current;
   const statsOpacity = useRef(new Animated.Value(0)).current;
+
+  const checkAchievements = async () => {
+    if (!isAuthenticated || !sessionToken) return;
+    
+    try {
+      const response = await fetch(`${API_URL}/api/achievements/check`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sessionToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.new_achievements && data.new_achievements.length > 0) {
+          // Translate achievement names
+          const translated = data.new_achievements.map((ach: NewAchievement) => ({
+            ...ach,
+            name: t(ach.name) || ach.name,
+            description: t(ach.description) || ach.description,
+          }));
+          setNewAchievements(translated);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking achievements:', error);
+    }
+  };
+
+  // Show achievements one by one
+  useEffect(() => {
+    if (newAchievements.length > 0 && !showAchievementPopup) {
+      const [next, ...rest] = newAchievements;
+      setCurrentAchievement(next);
+      setShowAchievementPopup(true);
+      setNewAchievements(rest);
+    }
+  }, [newAchievements, showAchievementPopup]);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -58,6 +114,11 @@ export default function ResultsScreen() {
           useNativeDriver: true,
         }),
       ]).start();
+      
+      // Check for new achievements after a short delay
+      setTimeout(() => {
+        checkAchievements();
+      }, 1500);
     } else {
       router.replace('/');
     }
@@ -238,6 +299,13 @@ export default function ResultsScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      
+      {/* Achievement Popup */}
+      <AchievementPopup
+        achievement={currentAchievement}
+        visible={showAchievementPopup}
+        onClose={() => setShowAchievementPopup(false)}
+      />
     </SafeAreaView>
   );
 }

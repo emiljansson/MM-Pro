@@ -9,4 +9,5 @@ export { StartButton } from './StartButton';
 export { Fraction, FractionExpression, containsFraction, extractFractionParts } from './FractionDisplay';
 export { FractionInput, FractionKeyboard } from './FractionInput';
 export { BarChart, isDiagramQuestion, extractChartData } from './BarChart';
+export { default as AchievementPopup } from './AchievementPopup';
 export * from './admin';
