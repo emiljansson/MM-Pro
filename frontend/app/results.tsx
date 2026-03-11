@@ -236,44 +236,56 @@ export default function ResultsScreen() {
           <Text style={[styles.reviewTitle, { color: theme.textSecondary }]}>
             {t('results')}
           </Text>
-          {result.answers.map((answer, index) => (
-            <View
-              key={index}
-              style={[
-                styles.answerRow,
-                {
-                  backgroundColor: theme.card,
-                  borderLeftColor: answer.isCorrect ? theme.success : theme.error,
-                },
-              ]}
-            >
-              <View style={styles.answerContent}>
-                {/* Question + Correct Answer */}
-                <Text style={[styles.answerQuestion, { color: theme.text }]}>
-                  {answer.question.num1} {answer.question.symbol} {answer.question.num2} = {answer.question.correct_answer}
-                </Text>
-                {/* User's Answer */}
-                <View style={styles.answerDetails}>
-                  <Text style={[styles.yourAnswerLabel, { color: theme.textSecondary }]}>
-                    {t('your_answer') || 'Ditt svar'}:
+          {result.answers.map((answer, index) => {
+            // Use display field if available (for geometry, equations, etc.)
+            // Otherwise build from num1, symbol, num2
+            const questionText = answer.question.display 
+              ? answer.question.display
+              : `${answer.question.num1} ${answer.question.symbol} ${answer.question.num2}`;
+            
+            return (
+              <View
+                key={index}
+                style={[
+                  styles.answerRow,
+                  {
+                    backgroundColor: theme.card,
+                    borderLeftColor: answer.isCorrect ? theme.success : theme.error,
+                  },
+                ]}
+              >
+                <View style={styles.answerContent}>
+                  {/* Question */}
+                  <Text style={[styles.answerQuestion, { color: theme.text }]}>
+                    {questionText}
                   </Text>
-                  <Text
-                    style={[
-                      styles.answerValue,
-                      { color: answer.isCorrect ? theme.success : theme.error },
-                    ]}
-                  >
-                    {answer.userAnswer !== null ? answer.userAnswer : '-'}
+                  {/* Correct Answer */}
+                  <Text style={[styles.correctAnswerText, { color: theme.textSecondary }]}>
+                    {t('correct_answer') || 'Rätt svar'}: {answer.question.correct_answer}
                   </Text>
+                  {/* User's Answer */}
+                  <View style={styles.answerDetails}>
+                    <Text style={[styles.yourAnswerLabel, { color: theme.textSecondary }]}>
+                      {t('your_answer') || 'Ditt svar'}:
+                    </Text>
+                    <Text
+                      style={[
+                        styles.answerValue,
+                        { color: answer.isCorrect ? theme.success : theme.error },
+                      ]}
+                    >
+                      {answer.userAnswer !== null ? answer.userAnswer : '-'}
+                    </Text>
+                  </View>
                 </View>
+                <Ionicons
+                  name={answer.isCorrect ? 'checkmark-circle' : 'close-circle'}
+                  size={28}
+                  color={answer.isCorrect ? theme.success : theme.error}
+                />
               </View>
-              <Ionicons
-                name={answer.isCorrect ? 'checkmark-circle' : 'close-circle'}
-                size={28}
-                color={answer.isCorrect ? theme.success : theme.error}
-              />
-            </View>
-          ))}
+            );
+          })}
         </View>
 
         {/* Action Buttons */}
@@ -409,8 +421,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   answerQuestion: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
+    marginBottom: 4,
+  },
+  correctAnswerText: {
+    fontSize: 13,
+    fontWeight: '500',
+    marginBottom: 4,
   },
   answerDetails: {
     flexDirection: 'row',
