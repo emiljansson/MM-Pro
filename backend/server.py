@@ -805,6 +805,14 @@ TRANSLATIONS = {
         "sv": "Rätt svar", "en": "Correct answer", "ar": "الإجابة الصحيحة",
         "fi": "Oikea vastaus", "es": "Respuesta correcta", "so": "Jawaabta saxda ah"
     },
+    "correct_answer_feedback": {
+        "sv": "Rätt!", "en": "Correct!", "ar": "صحيح!",
+        "fi": "Oikein!", "es": "¡Correcto!", "so": "Sax!"
+    },
+    "wrong_answer_feedback": {
+        "sv": "Fel", "en": "Wrong", "ar": "خطأ",
+        "fi": "Väärin", "es": "Incorrecto", "so": "Khalad"
+    },
 }
 
 

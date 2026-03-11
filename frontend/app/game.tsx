@@ -556,7 +556,7 @@ export default function GameScreen() {
                 styles.feedbackText,
                 { color: lastAnswerCorrect ? theme.success : theme.error }
               ]}>
-                {lastAnswerCorrect ? '✓ Rätt!' : '✗ Fel'}
+                {lastAnswerCorrect ? `✓ ${t('correct_answer_feedback') || 'Rätt!'}` : `✗ ${t('wrong_answer_feedback') || 'Fel'}`}
               </Text>
             </Animated.View>
           )}
