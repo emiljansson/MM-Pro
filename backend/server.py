@@ -797,6 +797,14 @@ TRANSLATIONS = {
         "sv": "poäng", "en": "points", "ar": "نقاط",
         "fi": "pistettä", "es": "puntos", "so": "dhibco"
     },
+    "your_answer": {
+        "sv": "Ditt svar", "en": "Your answer", "ar": "إجابتك",
+        "fi": "Vastauksesi", "es": "Tu respuesta", "so": "Jawaabtaada"
+    },
+    "correct_answer": {
+        "sv": "Rätt svar", "en": "Correct answer", "ar": "الإجابة الصحيحة",
+        "fi": "Oikea vastaus", "es": "Respuesta correcta", "so": "Jawaabta saxda ah"
+    },
 }
 
 

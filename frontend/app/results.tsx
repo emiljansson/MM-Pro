@@ -248,10 +248,15 @@ export default function ResultsScreen() {
               ]}
             >
               <View style={styles.answerContent}>
+                {/* Question + Correct Answer */}
                 <Text style={[styles.answerQuestion, { color: theme.text }]}>
-                  {answer.question.num1} {answer.question.symbol} {answer.question.num2}
+                  {answer.question.num1} {answer.question.symbol} {answer.question.num2} = {answer.question.correct_answer}
                 </Text>
+                {/* User's Answer */}
                 <View style={styles.answerDetails}>
+                  <Text style={[styles.yourAnswerLabel, { color: theme.textSecondary }]}>
+                    {t('your_answer') || 'Ditt svar'}:
+                  </Text>
                   <Text
                     style={[
                       styles.answerValue,
@@ -260,16 +265,11 @@ export default function ResultsScreen() {
                   >
                     {answer.userAnswer !== null ? answer.userAnswer : '-'}
                   </Text>
-                  {!answer.isCorrect && (
-                    <Text style={[styles.correctAnswer, { color: theme.textSecondary }]}>
-                      ({answer.question.correct_answer})
-                    </Text>
-                  )}
                 </View>
               </View>
               <Ionicons
                 name={answer.isCorrect ? 'checkmark-circle' : 'close-circle'}
-                size={24}
+                size={28}
                 color={answer.isCorrect ? theme.success : theme.error}
               />
             </View>
@@ -415,12 +415,16 @@ const styles = StyleSheet.create({
   answerDetails: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: 6,
     gap: 8,
   },
+  yourAnswerLabel: {
+    fontSize: 13,
+    fontWeight: '500',
+  },
   answerValue: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '700',
   },
   correctAnswer: {
     fontSize: 14,
