@@ -12,13 +12,14 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme, useTranslation } from '../src/hooks/useTheme';
+import { useTheme, useTranslation, useEffectiveTheme } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import { apiService } from '../src/services';
 
 export default function ProfileScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const effectiveTheme = useEffectiveTheme();
   const { t } = useTranslation();
   const { user, isAuthenticated, logout, sessionToken } = useAuth();
 
@@ -234,8 +235,8 @@ export default function ProfileScreen() {
           style={[styles.logoutButton, { backgroundColor: theme.errorLight }]}
           onPress={handleLogout}
         >
-          <Ionicons name="log-out-outline" size={20} color={theme.error} />
-          <Text style={[styles.logoutButtonText, { color: theme.error }]}>
+          <Ionicons name="log-out-outline" size={20} color={effectiveTheme === 'dark' ? '#FFFFFF' : theme.error} />
+          <Text style={[styles.logoutButtonText, { color: effectiveTheme === 'dark' ? '#FFFFFF' : theme.error }]}>
             {t('logout')}
           </Text>
         </TouchableOpacity>
