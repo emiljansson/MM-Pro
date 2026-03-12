@@ -97,7 +97,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   isLoading: false,
   
   // Theme
-  theme: 'light',
+  theme: 'auto',
   
   // Language
   language: 'sv',
@@ -346,13 +346,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
       
       // Load saved theme
       const savedTheme = await safeGetItem('theme') as ThemeMode | null;
-      const theme = savedTheme || 'light';
+      const theme = savedTheme || 'auto';
       
       set({ language, theme });
       await get().loadTranslations();
     } catch (error) {
       console.error('Error initializing store:', error);
-      set({ language: 'sv', theme: 'light' });
+      set({ language: 'sv', theme: 'auto' });
       await get().loadTranslations();
     }
   },
