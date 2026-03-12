@@ -304,17 +304,19 @@ export default function HomeScreen() {
           ]}>
             <Text 
               style={[
-                styles.title, 
-                { color: theme.primary }, 
-                isCompact && styles.titleCompact,
+                { 
+                  fontSize: isCompact ? 24 : 28,
+                  fontWeight: '800',
+                  letterSpacing: -0.5,
+                },
                 isTablet && { fontSize: 32 * scale }
               ]}
               numberOfLines={1}
               adjustsFontSizeToFit
               minimumFontScale={0.5}
             >
-              <Text style={{ fontWeight: '400', color: '#9B59B6' }}>{t('app_title_part1')}</Text>
-              <Text style={{ fontWeight: '800', color: '#D8BFD8' }}>{t('app_title_part2')}</Text>
+              <Text style={{ color: theme.text }}>{t('app_title_part1')}</Text>
+              <Text style={{ color: theme.secondary }}>{t('app_title_part2')}</Text>
             </Text>
             <Text style={[
               styles.tagline, 
