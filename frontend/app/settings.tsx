@@ -215,7 +215,7 @@ export default function SettingsScreen() {
         {/* App Info */}
         <View style={styles.appInfo}>
           <Text style={{ fontSize: 24, fontWeight: '800', letterSpacing: -0.5 }}>
-            <Text style={{ color: effectiveTheme === 'dark' ? '#FFFFFF' : '#2D3436' }}>Matematik</Text>
+            <Text style={{ color: effectiveTheme === 'dark' ? '#FFFFFF' : '#9B59B6' }}>Matematik</Text>
             <Text style={{ color: effectiveTheme === 'dark' ? '#FF8A80' : '#FF6B9D' }}>Mästaren Pro</Text>
           </Text>
           <Text style={[styles.appVersion, { color: theme.textMuted }]}>Version {appVersion}</Text>
