@@ -9,7 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme, useTranslation } from '../src/hooks/useTheme';
+import { useTheme, useTranslation, useEffectiveTheme } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import { useGameStore } from '../src/stores/gameStore';
 import { ThemeMode } from '../src/types';
@@ -67,6 +67,7 @@ const ThemeButton = ({
 export default function SettingsScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const effectiveTheme = useEffectiveTheme();
   const { t } = useTranslation();
   const { user, isAuthenticated, logout } = useAuth();
   const { theme: themeMode, setTheme, setLanguage } = useGameStore();
@@ -214,8 +215,8 @@ export default function SettingsScreen() {
         {/* App Info */}
         <View style={styles.appInfo}>
           <Text style={{ fontSize: 24, fontWeight: '800', letterSpacing: -0.5 }}>
-            <Text style={{ color: '#9B59B6' }}>Matematik</Text>
-            <Text style={{ color: '#D8BFD8' }}>Mästaren Pro</Text>
+            <Text style={{ color: effectiveTheme === 'dark' ? '#FFFFFF' : '#2D3436' }}>Matematik</Text>
+            <Text style={{ color: effectiveTheme === 'dark' ? '#FF8A80' : '#FF6B9D' }}>Mästaren Pro</Text>
           </Text>
           <Text style={[styles.appVersion, { color: theme.textMuted }]}>Version {appVersion}</Text>
         </View>
