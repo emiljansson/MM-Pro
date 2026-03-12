@@ -213,7 +213,10 @@ export default function SettingsScreen() {
 
         {/* App Info */}
         <View style={styles.appInfo}>
-          <Text style={[styles.appName, { color: theme.primary }]}>MathMaster Pro</Text>
+          <Text style={styles.appName}>
+            <Text style={{ color: theme.text }}>Matematik</Text>
+            <Text style={{ color: theme.primary }}>Mästaren Pro</Text>
+          </Text>
           <Text style={[styles.appVersion, { color: theme.textMuted }]}>Version {appVersion}</Text>
         </View>
       </ScrollView>
