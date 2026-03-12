@@ -6,6 +6,36 @@ import { Platform } from 'react-native';
 const PRODUCTION_API = 'https://api.mathematicsmaster.app';
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
+// Unique storage prefix for this app (MM-Pro)
+// This prevents data collision with MM-Free which uses '@mmfree_'
+const STORAGE_PREFIX = '@mmpro_';
+
+// Helper function for safe storage operations
+const safeGetItem = async (key: string): Promise<string | null> => {
+  try {
+    return await AsyncStorage.getItem(STORAGE_PREFIX + key);
+  } catch (error) {
+    console.warn('AsyncStorage getItem error:', error);
+    return null;
+  }
+};
+
+const safeSetItem = async (key: string, value: string): Promise<void> => {
+  try {
+    await AsyncStorage.setItem(STORAGE_PREFIX + key, value);
+  } catch (error) {
+    console.warn('AsyncStorage setItem error:', error);
+  }
+};
+
+const safeRemoveItem = async (key: string): Promise<void> => {
+  try {
+    await AsyncStorage.removeItem(STORAGE_PREFIX + key);
+  } catch (error) {
+    console.warn('AsyncStorage removeItem error:', error);
+  }
+};
+
 export interface User {
   user_id: string;
   email: string;
@@ -66,7 +96,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkAuthStatus = async () => {
     try {
-      const token = await AsyncStorage.getItem('session_token');
+      const token = await safeGetItem('session_token');
       if (token) {
         setSessionToken(token);
         await fetchUser(token);
@@ -91,7 +121,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(userData);
       } else {
         // Token invalid, clear storage
-        await AsyncStorage.removeItem('session_token');
+        await safeRemoveItem('session_token');
         setSessionToken(null);
         setUser(null);
       }
@@ -113,7 +143,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
-        await AsyncStorage.setItem('session_token', data.session_token);
+        await safeSetItem('session_token', data.session_token);
         setSessionToken(data.session_token);
         setUser(data.user);
         return { success: true };
@@ -144,7 +174,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
-        await AsyncStorage.setItem('session_token', data.session_token);
+        await safeSetItem('session_token', data.session_token);
         setSessionToken(data.session_token);
         setUser(data.user);
         return { success: true };
@@ -170,7 +200,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
-        await AsyncStorage.setItem('session_token', data.session_token);
+        await safeSetItem('session_token', data.session_token);
         setSessionToken(data.session_token);
         setUser(data.user);
         return { success: true };
@@ -196,7 +226,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      await AsyncStorage.removeItem('session_token');
+      await safeRemoveItem('session_token');
       setSessionToken(null);
       setUser(null);
     }

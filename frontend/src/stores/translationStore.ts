@@ -8,10 +8,14 @@ import { STORAGE_KEYS, SUPPORTED_LANGUAGE_CODES } from '../constants';
 const PRODUCTION_API = 'https://api.mathematicsmaster.app';
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || PRODUCTION_API;
 
+// Unique storage prefix for this app (MM-Pro)
+// This prevents data collision with MM-Free which uses '@mmfree_'
+const STORAGE_PREFIX = '@mmpro_';
+
 // Helper function for safe storage operations
 const safeGetItem = async (key: string): Promise<string | null> => {
   try {
-    return await AsyncStorage.getItem(key);
+    return await AsyncStorage.getItem(STORAGE_PREFIX + key);
   } catch (error) {
     console.warn('AsyncStorage getItem error:', error);
     return null;
@@ -20,7 +24,7 @@ const safeGetItem = async (key: string): Promise<string | null> => {
 
 const safeSetItem = async (key: string, value: string): Promise<void> => {
   try {
-    await AsyncStorage.setItem(key, value);
+    await AsyncStorage.setItem(STORAGE_PREFIX + key, value);
   } catch (error) {
     console.warn('AsyncStorage setItem error:', error);
   }
