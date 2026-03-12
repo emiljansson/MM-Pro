@@ -315,8 +315,8 @@ export default function HomeScreen() {
               adjustsFontSizeToFit
               minimumFontScale={0.5}
             >
-              <Text style={{ color: theme.text }}>{t('app_title_part1')}</Text>
-              <Text style={{ color: theme.secondary }}>{t('app_title_part2')}</Text>
+              <Text style={{ color: '#9B59B6' }}>{t('app_title_part1')}</Text>
+              <Text style={{ color: '#D8BFD8' }}>{t('app_title_part2')}</Text>
             </Text>
             <Text style={[
               styles.tagline, 
