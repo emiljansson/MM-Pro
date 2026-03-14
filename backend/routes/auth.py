@@ -310,7 +310,7 @@ async def get_apple_public_keys():
         raise HTTPException(status_code=500, detail="Failed to fetch Apple public keys")
 
 
-async def validate_apple_token(identity_token: str, bundle_id: str):
+async def validate_apple_token(identity_token: str, bundle_ids: list):
     """Validate Apple identity token and extract user information"""
     try:
         # Decode without verification first to get the header
@@ -340,24 +340,42 @@ async def validate_apple_token(identity_token: str, bundle_id: str):
         except Exception as e:
             return None, f"Failed to construct public key: {str(e)}"
         
-        # Verify and decode the token
+        # Verify and decode the token - try each bundle ID
+        last_error = None
+        for bundle_id in bundle_ids:
+            try:
+                payload = jwt.decode(
+                    identity_token,
+                    public_key_pem,
+                    algorithms=['RS256'],
+                    audience=bundle_id,
+                    issuer=APPLE_ISSUER
+                )
+                return payload, None
+            except jwt.InvalidAudienceError:
+                last_error = f"Invalid audience (tried: {bundle_id})"
+                continue
+            except jwt.ExpiredSignatureError:
+                return None, "Token has expired"
+            except jwt.InvalidIssuerError:
+                return None, "Invalid issuer in token"
+            except jwt.InvalidTokenError as e:
+                return None, f"Invalid token: {str(e)}"
+        
+        # If we get here, none of the bundle IDs matched
+        # Try to decode without audience verification to see what the actual audience is
         try:
-            payload = jwt.decode(
+            unverified_payload = jwt.decode(
                 identity_token,
                 public_key_pem,
                 algorithms=['RS256'],
-                audience=bundle_id,
+                options={"verify_aud": False},
                 issuer=APPLE_ISSUER
             )
-            return payload, None
-        except jwt.ExpiredSignatureError:
-            return None, "Token has expired"
-        except jwt.InvalidAudienceError:
-            return None, "Invalid audience in token"
-        except jwt.InvalidIssuerError:
-            return None, "Invalid issuer in token"
-        except jwt.InvalidTokenError as e:
-            return None, f"Invalid token: {str(e)}"
+            actual_aud = unverified_payload.get('aud', 'unknown')
+            return None, f"Invalid audience in token. Expected one of {bundle_ids}, got: {actual_aud}"
+        except Exception:
+            return None, last_error or "Invalid audience in token"
             
     except Exception as e:
         return None, f"Token validation error: {str(e)}"
@@ -375,11 +393,14 @@ async def apple_auth(request: Request, response: Response):
     if not identity_token:
         raise HTTPException(status_code=400, detail="Identity token required")
     
-    # Bundle ID - should match your app's bundle identifier
-    bundle_id = "com.emja.mathmasterpro"
+    # Bundle IDs - includes production app and Expo Go for development
+    bundle_ids = [
+        "com.emja.mathmasterpro",  # Production app bundle ID
+        "host.exp.Exponent",        # Expo Go bundle ID (for development)
+    ]
     
     # Validate the Apple token
-    payload, error = await validate_apple_token(identity_token, bundle_id)
+    payload, error = await validate_apple_token(identity_token, bundle_ids)
     
     if error:
         print(f"Apple token validation error: {error}")
