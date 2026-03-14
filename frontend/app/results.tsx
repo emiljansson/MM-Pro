@@ -61,17 +61,11 @@ export default function ResultsScreen() {
         const data = await response.json();
         if (data.new_achievements && data.new_achievements.length > 0) {
           // Translate achievement names
-          const translated = data.new_achievements.map((ach: NewAchievement) => {
-            const translatedName = t(ach.name);
-            const translatedDesc = t(ach.description);
-            console.log(`Achievement translation: ${ach.name} -> ${translatedName}`);
-            console.log(`Achievement desc translation: ${ach.description} -> ${translatedDesc}`);
-            return {
-              ...ach,
-              name: translatedName || ach.name,
-              description: translatedDesc || ach.description,
-            };
-          });
+          const translated = data.new_achievements.map((ach: NewAchievement) => ({
+            ...ach,
+            name: t(ach.name) || ach.name,
+            description: t(ach.description) || ach.description,
+          }));
           setNewAchievements(translated);
         }
       }
