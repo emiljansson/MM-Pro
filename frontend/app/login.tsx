@@ -18,7 +18,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import * as WebBrowser from 'expo-web-browser';
-import Constants from 'expo-constants';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -59,25 +58,57 @@ export default function LoginScreen() {
       window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
     } else {
       try {
-        // For native apps, use WebBrowser with a simple redirect
-        const isExpoGo = Constants.appOwnership === 'expo';
+        // For native apps (Expo Go), we need to use a web-based callback
+        // that will then use a custom URL scheme to return to the app
+        const webCallbackUrl = 'https://github-importer-30.preview.emergentagent.com/auth-callback';
         
-        let callbackUrl: string;
-        if (isExpoGo) {
-          // In Expo Go, redirect to web version which will handle the callback
-          callbackUrl = 'https://github-importer-30.preview.emergentagent.com/auth-callback';
-        } else {
-          // Standalone app uses custom scheme
-          callbackUrl = 'mathmaster://auth-callback';
-        }
+        console.log('Google login - Starting auth flow');
+        console.log('Google login - Callback URL:', webCallbackUrl);
         
-        console.log('Google login - Callback URL:', callbackUrl);
-        const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(callbackUrl)}`;
+        const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(webCallbackUrl)}`;
         console.log('Google login - Auth URL:', authUrl);
         
-        // Open browser
-        const result = await WebBrowser.openBrowserAsync(authUrl);
-        console.log('Google login - Browser result:', result);
+        // Use openAuthSessionAsync which properly handles the OAuth flow
+        // and returns control to the app when complete
+        const result = await WebBrowser.openAuthSessionAsync(authUrl, webCallbackUrl);
+        
+        console.log('Google login - Browser result:', JSON.stringify(result));
+        
+        if (result.type === 'success' && result.url) {
+          // Extract session_id from the returned URL
+          console.log('Google login - Success URL:', result.url);
+          
+          let sessionId = '';
+          
+          // Check for session_id in hash or query params
+          if (result.url.includes('session_id=')) {
+            const match = result.url.match(/session_id=([^&\s#]+)/);
+            sessionId = match ? match[1] : '';
+          }
+          
+          console.log('Google login - Extracted session_id:', sessionId);
+          
+          if (sessionId) {
+            setIsLoading(true);
+            const loginResult = await loginWithGoogle(sessionId);
+            setIsLoading(false);
+            
+            console.log('Google login - Login result:', loginResult);
+            
+            if (loginResult.success) {
+              router.replace('/');
+            } else {
+              setError(loginResult.error || 'Google-inloggning misslyckades');
+            }
+          } else {
+            setError('Ingen session-ID mottagen från Google');
+          }
+        } else if (result.type === 'cancel') {
+          console.log('Google login - User cancelled');
+          // User cancelled, no action needed
+        } else {
+          console.log('Google login - Unexpected result type:', result.type);
+        }
         
       } catch (error) {
         console.error('Google login error:', error);
