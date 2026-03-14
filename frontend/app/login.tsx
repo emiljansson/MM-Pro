@@ -58,19 +58,19 @@ export default function LoginScreen() {
       window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
     } else {
       try {
-        // For native apps (Expo Go), we need to use a web-based callback
-        // that will then use a custom URL scheme to return to the app
-        const webCallbackUrl = 'https://github-importer-30.preview.emergentagent.com/auth-callback';
+        // For native apps (Expo Go), create a proper redirect URL using Linking
+        // This creates an exp:// URL that Expo Go can handle
+        const callbackUrl = Linking.createURL('auth-callback');
         
         console.log('Google login - Starting auth flow');
-        console.log('Google login - Callback URL:', webCallbackUrl);
+        console.log('Google login - Callback URL:', callbackUrl);
         
-        const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(webCallbackUrl)}`;
+        const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(callbackUrl)}`;
         console.log('Google login - Auth URL:', authUrl);
         
         // Use openAuthSessionAsync which properly handles the OAuth flow
         // and returns control to the app when complete
-        const result = await WebBrowser.openAuthSessionAsync(authUrl, webCallbackUrl);
+        const result = await WebBrowser.openAuthSessionAsync(authUrl, callbackUrl);
         
         console.log('Google login - Browser result:', JSON.stringify(result));
         

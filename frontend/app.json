@@ -2,7 +2,7 @@
   "expo": {
     "name": "Matematikmästaren Pro",
     "slug": "mathmaster-pro",
-    "version": "2.0.186",
+    "version": "2.0.187",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "mathmaster",
