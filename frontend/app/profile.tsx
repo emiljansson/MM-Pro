@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Image,
   Alert,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -43,21 +44,32 @@ export default function ProfileScreen() {
   };
 
   const handleLogout = () => {
-    Alert.alert(
-      t('logout'),
-      t('logout_confirm') || 'Are you sure you want to logout?',
-      [
-        { text: t('cancel') || 'Cancel', style: 'cancel' },
-        {
-          text: t('logout'),
-          style: 'destructive',
-          onPress: async () => {
-            await logout();
-            router.replace('/');
+    if (Platform.OS === 'web') {
+      // Web doesn't support Alert.alert, use window.confirm
+      const confirmed = window.confirm(t('logout_confirm') || 'Are you sure you want to logout?');
+      if (confirmed) {
+        logout().then(() => {
+          router.replace('/');
+        });
+      }
+    } else {
+      // Native platforms use Alert.alert
+      Alert.alert(
+        t('logout'),
+        t('logout_confirm') || 'Are you sure you want to logout?',
+        [
+          { text: t('cancel') || 'Cancel', style: 'cancel' },
+          {
+            text: t('logout'),
+            style: 'destructive',
+            onPress: async () => {
+              await logout();
+              router.replace('/');
+            },
           },
-        },
-      ]
-    );
+        ]
+      );
+    }
   };
 
   if (isLoading || !user) {
