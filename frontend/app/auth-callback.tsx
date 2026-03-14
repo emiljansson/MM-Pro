@@ -25,13 +25,26 @@ export default function AuthCallbackScreen() {
       
       if (typeof window !== 'undefined') {
         const hash = window.location.hash;
+        console.log('Auth callback - Full URL:', window.location.href);
+        console.log('Auth callback - Hash:', hash);
+        
         if (hash && hash.includes('session_id=')) {
           sessionId = hash.split('session_id=')[1]?.split('&')[0] || '';
+          console.log('Auth callback - Extracted session_id:', sessionId);
+        }
+        
+        // Also check URL params (some redirects use query params)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!sessionId && urlParams.has('session_id')) {
+          sessionId = urlParams.get('session_id') || '';
+          console.log('Auth callback - Session ID from query params:', sessionId);
         }
       }
 
       if (sessionId) {
+        console.log('Auth callback - Calling loginWithGoogle...');
         const result = await loginWithGoogle(sessionId);
+        console.log('Auth callback - Result:', result);
         
         if (result.success) {
           // Clear the hash and navigate to home
@@ -40,9 +53,11 @@ export default function AuthCallbackScreen() {
           }
           router.replace('/');
         } else {
+          console.error('Auth callback - Login failed:', result.error);
           router.replace('/login');
         }
       } else {
+        console.log('Auth callback - No session_id found, redirecting to login');
         router.replace('/login');
       }
     } catch (error) {
