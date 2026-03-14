@@ -56,9 +56,24 @@ export default function LoginScreen() {
       const redirectUrl = window.location.origin + '/auth-callback';
       window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
     } else {
-      // For native apps, open in browser
-      const callbackUrl = 'mathmaster://auth-callback';
+      // For native apps, use the correct scheme
+      // In Expo Go, use exp:// scheme, in standalone app use mathmaster://
+      const Constants = require('expo-constants').default;
+      const isExpoGo = Constants.appOwnership === 'expo';
+      
+      let callbackUrl: string;
+      if (isExpoGo) {
+        // Expo Go uses exp:// scheme with the tunnel URL
+        const expoUrl = Constants.expoConfig?.hostUri || Constants.manifest?.hostUri;
+        callbackUrl = `exp://${expoUrl}/--/auth-callback`;
+      } else {
+        // Standalone app uses custom scheme
+        callbackUrl = 'mathmaster://auth-callback';
+      }
+      
+      console.log('Google login - Callback URL:', callbackUrl);
       const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(callbackUrl)}`;
+      console.log('Google login - Auth URL:', authUrl);
       await Linking.openURL(authUrl);
     }
   };

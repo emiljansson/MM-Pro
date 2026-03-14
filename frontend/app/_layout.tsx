@@ -23,13 +23,16 @@ function DeepLinkHandler() {
     const handleDeepLink = async (url: string) => {
       console.log('Deep link received:', url);
       
-      // Check if it's an auth callback
+      // Check if it's an auth callback (handle both formats)
+      // exp://host/--/auth-callback or mathmaster://auth-callback
       if (url.includes('auth-callback')) {
         let sessionId = '';
         
-        // Extract session_id from URL
+        // Extract session_id from URL (could be in hash # or query ?)
         if (url.includes('session_id=')) {
-          sessionId = url.split('session_id=')[1]?.split('&')[0] || '';
+          // Handle both #session_id= and ?session_id=
+          const match = url.match(/session_id=([^&\s]+)/);
+          sessionId = match ? match[1] : '';
         }
         
         console.log('Auth callback - Session ID:', sessionId);
@@ -41,9 +44,11 @@ function DeepLinkHandler() {
           if (result.success) {
             router.replace('/');
           } else {
+            console.log('Auth callback - Login failed:', result.error);
             router.replace('/login');
           }
         } else {
+          console.log('Auth callback - No session_id found');
           router.replace('/login');
         }
       }
