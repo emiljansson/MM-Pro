@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -14,11 +14,7 @@ export default function AuthCallbackScreen() {
   const theme = useTheme();
   const { loginWithGoogle } = useAuth();
 
-  useEffect(() => {
-    handleCallback();
-  }, []);
-
-  const handleCallback = async () => {
+  const handleCallback = useCallback(async () => {
     try {
       // Get session_id from URL hash
       let sessionId = '';
@@ -64,7 +60,11 @@ export default function AuthCallbackScreen() {
       console.error('Auth callback error:', error);
       router.replace('/login');
     }
-  };
+  }, [loginWithGoogle, router]);
+
+  useEffect(() => {
+    handleCallback();
+  }, [handleCallback]);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>

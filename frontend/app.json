@@ -2,7 +2,7 @@
   "expo": {
     "name": "Matematikmästaren Pro",
     "slug": "mathmaster-pro",
-    "version": "2.0.193",
+    "version": "2.0.194",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "mathmaster",
@@ -14,6 +14,11 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0D1B2A"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.emja.mathmasterpro",
@@ -21,7 +26,11 @@
       "associatedDomains": [
         "applinks:api.mathematicsmaster.app",
         "applinks:www.api.mathematicsmaster.app"
-      ]
+      ],
+      "infoPlist": {
+        "NSCameraUsageDescription": "Ta bilder för din profil",
+        "NSPhotoLibraryUsageDescription": "Välj profilbild från galleri"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -30,6 +39,10 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.emja.mathmasterpro",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ],
       "intentFilters": [
         {
           "action": "VIEW",

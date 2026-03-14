@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,14 @@ import { useTheme, useTranslation, useEffectiveTheme } from '../src/hooks/useThe
 import { useAuth } from '../src/contexts';
 import { apiService } from '../src/services';
 
+interface UserStats {
+  total_games: number;
+  total_score: number;
+  best_score: number;
+  avg_score: number;
+  by_category: Record<string, { games: number; best_score: number }>;
+}
+
 export default function ProfileScreen() {
   const router = useRouter();
   const theme = useTheme();
@@ -24,8 +32,16 @@ export default function ProfileScreen() {
   const { t } = useTranslation();
   const { user, isAuthenticated, logout, sessionToken } = useAuth();
 
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<UserStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const loadStats = useCallback(async () => {
+    if (sessionToken) {
+      const data = await apiService.getUserStats(sessionToken);
+      setStats(data);
+    }
+    setIsLoading(false);
+  }, [sessionToken]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -33,15 +49,7 @@ export default function ProfileScreen() {
       return;
     }
     loadStats();
-  }, [isAuthenticated]);
-
-  const loadStats = async () => {
-    if (sessionToken) {
-      const data = await apiService.getUserStats(sessionToken);
-      setStats(data);
-    }
-    setIsLoading(false);
-  };
+  }, [isAuthenticated, loadStats, router]);
 
   const handleLogout = () => {
     if (Platform.OS === 'web') {
