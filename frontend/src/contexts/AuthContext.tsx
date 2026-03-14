@@ -66,6 +66,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (email: string, displayName: string, password: string, language: string) => Promise<{ success: boolean; error?: string }>;
   loginWithGoogle: (sessionId: string) => Promise<{ success: boolean; error?: string }>;
+  loginWithApple: (identityToken: string, userData?: { given_name?: string; family_name?: string }) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   updateUser: (data: Partial<User>) => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -213,6 +214,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const loginWithApple = async (identityToken: string, userData?: { given_name?: string; family_name?: string }) => {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/apple`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          identity_token: identityToken,
+          user_data: userData || {}
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        await safeSetItem('session_token', data.session_token);
+        setSessionToken(data.session_token);
+        setUser(data.user);
+        return { success: true };
+      } else {
+        return { success: false, error: data.detail || 'Apple login failed' };
+      }
+    } catch (error) {
+      console.error('Apple login error:', error);
+      return { success: false, error: 'Network error' };
+    }
+  };
+
   const logout = async () => {
     try {
       if (sessionToken) {
@@ -270,6 +300,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         login,
         register,
         loginWithGoogle,
+        loginWithApple,
         logout,
         updateUser,
         refreshUser,

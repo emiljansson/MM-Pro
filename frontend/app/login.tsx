@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -18,18 +18,36 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import * as WebBrowser from 'expo-web-browser';
+import * as AppleAuthentication from 'expo-apple-authentication';
 
 export default function LoginScreen() {
   const router = useRouter();
   const theme = useTheme();
   const { t } = useTranslation();
-  const { login, loginWithGoogle, isLoading: authLoading } = useAuth();
+  const { login, loginWithGoogle, loginWithApple, isLoading: authLoading } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isAppleAvailable, setIsAppleAvailable] = useState(false);
+
+  useEffect(() => {
+    // Check if Apple Sign In is available (only on iOS)
+    const checkAppleAuth = async () => {
+      if (Platform.OS === 'ios') {
+        try {
+          const available = await AppleAuthentication.isAvailableAsync();
+          setIsAppleAvailable(available);
+        } catch (e) {
+          console.log('Apple Auth check failed:', e);
+          setIsAppleAvailable(false);
+        }
+      }
+    };
+    checkAppleAuth();
+  }, []);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -113,6 +131,53 @@ export default function LoginScreen() {
       } catch (error) {
         console.error('Google login error:', error);
         Alert.alert('Fel', 'Kunde inte öppna inloggning');
+      }
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    try {
+      console.log('Apple login - Starting auth flow');
+      
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+
+      console.log('Apple login - Got credential:', JSON.stringify(credential, null, 2));
+
+      if (credential.identityToken) {
+        setIsLoading(true);
+        
+        // Extract user data (only available on first login)
+        const userData = {
+          given_name: credential.fullName?.givenName || '',
+          family_name: credential.fullName?.familyName || '',
+        };
+
+        const result = await loginWithApple(credential.identityToken, userData);
+        setIsLoading(false);
+
+        console.log('Apple login - Login result:', result);
+
+        if (result.success) {
+          router.replace('/');
+        } else {
+          setError(result.error || 'Apple-inloggning misslyckades');
+        }
+      } else {
+        setError('Ingen identitetstoken mottagen från Apple');
+      }
+    } catch (error: any) {
+      console.error('Apple login error:', error);
+      
+      if (error.code === 'ERR_REQUEST_CANCELED') {
+        // User cancelled, no action needed
+        console.log('Apple login - User cancelled');
+      } else {
+        setError('Apple-inloggning misslyckades');
       }
     }
   };
@@ -244,6 +309,17 @@ export default function LoginScreen() {
                 {t('continue_with_google')}
               </Text>
             </TouchableOpacity>
+
+            {/* Apple Login - Only shown on iOS when available */}
+            {isAppleAvailable && (
+              <AppleAuthentication.AppleAuthenticationButton
+                buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                cornerRadius={12}
+                style={styles.appleButton}
+                onPress={handleAppleLogin}
+              />
+            )}
           </View>
 
           {/* Register Link */}
@@ -373,6 +449,11 @@ const styles = StyleSheet.create({
   googleButtonText: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  appleButton: {
+    width: '100%',
+    height: 52,
+    marginTop: 12,
   },
   registerContainer: {
     flexDirection: 'row',

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Matematikmästaren Pro",
     "slug": "mathmaster-pro",
-    "version": "2.0.190",
+    "version": "2.0.191",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "mathmaster",
@@ -17,6 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.emja.mathmasterpro",
+      "usesAppleSignIn": true,
       "associatedDomains": [
         "applinks:api.mathematicsmaster.app",
         "applinks:www.api.mathematicsmaster.app"
@@ -68,7 +69,8 @@
           "backgroundColor": "#0D1B2A"
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "expo-apple-authentication"
     ],
     "experiments": {
       "typedRoutes": true

@@ -2,6 +2,10 @@ from fastapi import APIRouter, HTTPException, Response, Request, Depends
 from typing import Optional
 from datetime import datetime, timezone
 import uuid
+import jwt
+import json
+import requests as http_requests
+from jwcrypto import jwk
 
 from models import (
     User, UserCreate, UserLogin, UserUpdate, UserPublic,
@@ -13,6 +17,13 @@ from utils.auth import (
 )
 
 router = APIRouter(prefix="/api/auth", tags=["Authentication"])
+
+# Apple Auth configuration
+APPLE_KEYS_URL = "https://appleid.apple.com/auth/keys"
+APPLE_ISSUER = "https://appleid.apple.com"
+# Cache for Apple's public keys
+_apple_keys_cache = None
+_apple_keys_cache_time = None
 
 
 async def get_current_user(request: Request) -> Optional[User]:
@@ -273,6 +284,195 @@ async def google_auth(request: Request, response: Response):
         "user": user_doc,
         "session_token": session.session_token
     }
+
+
+async def get_apple_public_keys():
+    """Fetch and cache Apple's public keys for token verification"""
+    global _apple_keys_cache, _apple_keys_cache_time
+    from datetime import timedelta
+    
+    # Check if cache is still valid (24 hours)
+    if _apple_keys_cache and _apple_keys_cache_time:
+        if datetime.now(timezone.utc) - _apple_keys_cache_time < timedelta(hours=24):
+            return _apple_keys_cache
+    
+    try:
+        response = http_requests.get(APPLE_KEYS_URL, timeout=10)
+        response.raise_for_status()
+        _apple_keys_cache = response.json()
+        _apple_keys_cache_time = datetime.now(timezone.utc)
+        return _apple_keys_cache
+    except Exception as e:
+        print(f"Failed to fetch Apple public keys: {e}")
+        # Return cached keys if available
+        if _apple_keys_cache:
+            return _apple_keys_cache
+        raise HTTPException(status_code=500, detail="Failed to fetch Apple public keys")
+
+
+async def validate_apple_token(identity_token: str, bundle_id: str):
+    """Validate Apple identity token and extract user information"""
+    try:
+        # Decode without verification first to get the header
+        unverified_header = jwt.get_unverified_header(identity_token)
+        kid = unverified_header.get('kid')
+        
+        if not kid:
+            return None, "Missing key ID in token header"
+        
+        # Get Apple's public keys
+        apple_keys = await get_apple_public_keys()
+        
+        # Find the matching key
+        public_key_data = None
+        for key in apple_keys.get('keys', []):
+            if key.get('kid') == kid:
+                public_key_data = key
+                break
+        
+        if not public_key_data:
+            return None, f"Public key with kid {kid} not found"
+        
+        # Construct the public key from JWK format
+        try:
+            jwk_key = jwk.JWK.from_json(json.dumps(public_key_data))
+            public_key_pem = jwk_key.export_to_pem()
+        except Exception as e:
+            return None, f"Failed to construct public key: {str(e)}"
+        
+        # Verify and decode the token
+        try:
+            payload = jwt.decode(
+                identity_token,
+                public_key_pem,
+                algorithms=['RS256'],
+                audience=bundle_id,
+                issuer=APPLE_ISSUER
+            )
+            return payload, None
+        except jwt.ExpiredSignatureError:
+            return None, "Token has expired"
+        except jwt.InvalidAudienceError:
+            return None, "Invalid audience in token"
+        except jwt.InvalidIssuerError:
+            return None, "Invalid issuer in token"
+        except jwt.InvalidTokenError as e:
+            return None, f"Invalid token: {str(e)}"
+            
+    except Exception as e:
+        return None, f"Token validation error: {str(e)}"
+
+
+@router.post("/apple")
+async def apple_auth(request: Request, response: Response):
+    """Authenticate with Apple Sign In"""
+    db = request.app.state.db
+    
+    body = await request.json()
+    identity_token = body.get("identity_token")
+    user_data = body.get("user_data", {})  # Contains name and email from first login
+    
+    if not identity_token:
+        raise HTTPException(status_code=400, detail="Identity token required")
+    
+    # Bundle ID - should match your app's bundle identifier
+    bundle_id = "com.emja.mathmasterpro"
+    
+    # Validate the Apple token
+    payload, error = await validate_apple_token(identity_token, bundle_id)
+    
+    if error:
+        print(f"Apple token validation error: {error}")
+        raise HTTPException(status_code=401, detail=f"Invalid Apple token: {error}")
+    
+    # Extract user info from token
+    apple_user_id = payload.get("sub")
+    email = payload.get("email")
+    email_verified = payload.get("email_verified", False)
+    
+    if not apple_user_id:
+        raise HTTPException(status_code=401, detail="No user ID in token")
+    
+    # Check if user exists by Apple user ID or email
+    existing_user = None
+    if email:
+        existing_user = await db.users.find_one(
+            {"$or": [
+                {"apple_user_id": apple_user_id},
+                {"email": email}
+            ]},
+            {"_id": 0}
+        )
+    else:
+        existing_user = await db.users.find_one(
+            {"apple_user_id": apple_user_id},
+            {"_id": 0}
+        )
+    
+    if existing_user:
+        # Update user info - link Apple ID if not already linked
+        update_data = {
+            "apple_user_id": apple_user_id,
+            "updated_at": datetime.now(timezone.utc)
+        }
+        
+        await db.users.update_one(
+            {"user_id": existing_user["user_id"]},
+            {"$set": update_data}
+        )
+        user_id = existing_user["user_id"]
+    else:
+        # Create new user
+        # Get name from user_data (only provided on first login)
+        given_name = user_data.get("given_name", "")
+        family_name = user_data.get("family_name", "")
+        display_name = f"{given_name} {family_name}".strip()
+        
+        if not display_name:
+            # Fallback to email username or Apple User
+            display_name = email.split("@")[0] if email else f"Apple User {apple_user_id[:8]}"
+        
+        user = User(
+            email=email,
+            display_name=display_name,
+            first_name=given_name if given_name else None,
+            last_name=family_name if family_name else None,
+            auth_provider="apple"
+        )
+        user_dict = user.dict()
+        user_dict["apple_user_id"] = apple_user_id
+        user_dict["created_at"] = datetime.now(timezone.utc)
+        user_dict["updated_at"] = datetime.now(timezone.utc)
+        await db.users.insert_one(user_dict)
+        user_id = user.user_id
+    
+    # Create session
+    session = UserSession(
+        user_id=user_id,
+        expires_at=get_session_expiry()
+    )
+    await db.user_sessions.insert_one(session.dict())
+    
+    # Set cookie
+    response.set_cookie(
+        key="session_token",
+        value=session.session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        path="/",
+        max_age=7 * 24 * 60 * 60
+    )
+    
+    # Get updated user
+    user_doc = await db.users.find_one({"user_id": user_id}, {"_id": 0})
+    user_doc.pop("password_hash", None)
+    
+    return {
+        "user": user_doc,
+        "session_token": session.session_token
+    }
+
 
 
 @router.get("/me")
