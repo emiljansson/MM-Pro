@@ -10,8 +10,8 @@ import {
   Platform,
   ScrollView,
   Alert,
-  Linking,
 } from 'react-native';
+import * as Linking from 'expo-linking';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
