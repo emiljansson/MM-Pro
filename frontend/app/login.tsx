@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme, useTranslation } from '../src/hooks/useTheme';
 import { useAuth } from '../src/contexts';
 import * as WebBrowser from 'expo-web-browser';
-import * as AuthSession from 'expo-auth-session';
+import Constants from 'expo-constants';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -59,43 +59,26 @@ export default function LoginScreen() {
       window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
     } else {
       try {
-        // Use AuthSession for proper redirect handling
-        const redirectUri = AuthSession.makeRedirectUri({
-          scheme: 'mathmaster',
-          path: 'auth-callback',
-        });
+        // For native apps, use WebBrowser with a simple redirect
+        const isExpoGo = Constants.appOwnership === 'expo';
         
-        console.log('Google login - Redirect URI:', redirectUri);
+        let callbackUrl: string;
+        if (isExpoGo) {
+          // In Expo Go, redirect to web version which will handle the callback
+          callbackUrl = 'https://github-importer-30.preview.emergentagent.com/auth-callback';
+        } else {
+          // Standalone app uses custom scheme
+          callbackUrl = 'mathmaster://auth-callback';
+        }
         
-        const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUri)}`;
+        console.log('Google login - Callback URL:', callbackUrl);
+        const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(callbackUrl)}`;
         console.log('Google login - Auth URL:', authUrl);
         
-        // Open browser and wait for result
-        const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
+        // Open browser
+        const result = await WebBrowser.openBrowserAsync(authUrl);
         console.log('Google login - Browser result:', result);
         
-        if (result.type === 'success' && result.url) {
-          // Extract session_id from the returned URL
-          const match = result.url.match(/session_id=([^&\s#]+)/);
-          const sessionId = match ? match[1] : '';
-          
-          console.log('Google login - Session ID:', sessionId);
-          
-          if (sessionId) {
-            const loginResult = await loginWithGoogle(sessionId);
-            console.log('Google login - Login result:', loginResult);
-            
-            if (loginResult.success) {
-              router.replace('/');
-            } else {
-              Alert.alert('Fel', loginResult.error || 'Inloggning misslyckades');
-            }
-          } else {
-            Alert.alert('Fel', 'Ingen session hittades');
-          }
-        } else if (result.type === 'cancel') {
-          console.log('Google login - User cancelled');
-        }
       } catch (error) {
         console.error('Google login error:', error);
         Alert.alert('Fel', 'Kunde inte öppna inloggning');
